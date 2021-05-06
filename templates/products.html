@@ -1,0 +1,38 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load django_template_maths %}
+{% block title %}{{ct.title}}{% endblock title %}
+{% block description %}{{ct.meta_desc}}{% endblock description %}
+<style>
+        {% block css %}
+        .container-top{
+          margin-top:150px;
+        }
+        {% endblock %}
+    </style>
+
+{% block body %}
+<div class="container container-top">
+    <div class="row">
+        <div class="col-12 temp">
+            <h1>Ürünler</h1>
+        </div>
+        <div class="col-12 temp" style="margin-top:50px;">
+            {% for product in pros %}
+          <a href="{{product.category.slug}}"><div class="shopfy-items">
+            <img src="{{product.productimg.url}}" alt="..."> 
+            <span class="shop-rate">-{{product.rate|stringformat:'d'}} %</span>
+            <div class="product-card-body">
+              <h5>{{product.name}}</h5>
+              <p class="text-negative">{{product.sale_price}} ₺</p>
+              <p class="text-positive">{{product.discount_price}} ₺</p>
+              
+            </div>
+            
+          </div></a>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

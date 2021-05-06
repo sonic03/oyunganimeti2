@@ -1,0 +1,74 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load django_template_maths %}
+{% block title %}{% endblock title %}
+{% block description %}{% endblock description %}
+<style>
+        {% block css %}
+        .container-top{
+          margin-top:150px;
+        }
+        {% endblock %}
+    </style>
+
+
+{% block body %}
+    <div class="container container-top">
+        <div class="row">
+        <div class="col-12">    
+        
+            <div class="form-out" style="height:478px;">
+                <h1>GİRİŞ YAP!</h1>
+                {% if form.errors %}
+                    <div id="errors">
+                        <div class="inner">
+                            {{ form.non_field_errors }}
+                            <ul>
+                                {% for field in form %}
+                                    {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="form-in">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="col-12"style="float:left;">
+                    {{form.email}}
+                    {% if form.errors %}
+                    {{form.email.errors}}              
+                    {% endif %}
+                    </div>
+                    <div class="col-12" style="float:left;">
+                    {{form.password}}
+                    
+                    {{form.password.errors}}
+                    
+                    </div>
+                    <div class="col-12" style="float:left;">
+                    {{form.repassword}}
+                    {% if form.errors %}
+                    {{form.repassword.errors}}
+                    {% endif %}
+                    </div>
+                    <div class="col-12" style="float:left;">
+                    {{form.is_accept}} Üyelik sözleşmesini okudum ve onaylıyorum.
+                    </div>
+                    
+                    <button class="loginbtn"type="submit" style="margin-top:15px;">Kayıt Ol!</button>
+                </form>
+                </div>
+            </div>
+        
+        </div>
+        </div>
+    </div>
+
+    
+
+
+{% endblock body %}
+
+
+

@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load django_template_maths %}
+{% block title %}{{ct.title}}{% endblock title %}
+{% block description %}{{ct.meta_desc}}{% endblock description %}
+<style>
+        {% block css %}
+        .container-top{
+          margin-top:150px;
+        }
+        {% endblock %}
+    </style>
+
+{% block body %}
+<div class="container container-top">
+    <div class="row">
+        <div class="col-12 temp">
+            <h1>SIKÇA SORULAN SORULAR</h1>
+        </div>
+        <div class="col-12 temp">
+          <p></p>
+        </div>
+
+{% endblock %}

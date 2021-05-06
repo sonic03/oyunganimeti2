@@ -1,0 +1,112 @@
+{% extends 'dashboardmain.html' %}
+{% load static %}
+
+{% block body %}
+{% extends 'dashboardmain.html' %}
+{% load static %}
+
+{% block body %}
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title" style="width:80%;float:left;">Kampanyalı Ürünler</h4>
+                  <a href='{% url "management:addproduct" %}' style="float:right" class="btn">Ürün Ekle</a>
+
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                          ID
+                        </th>
+                        <th>
+                          Ürün Adı
+                        </th>
+                        <th>
+                          Piyasa Fiyatı
+                        </th>
+                        <th>
+                          Satış Fiyatı
+                        </th>
+                        <th>
+                          İndirim Oranı
+                        </th>
+                        <th>
+                          Stok Durumu
+                        </th>
+                        <th>
+                          Durum
+                        </th>
+                        <th>
+                          Kategori
+                        </th>
+                        <th>
+                          Ana Ürün
+                        </th>
+                        <th>
+                          Eylemler
+                        </th>
+
+                      </thead>
+                      <tbody>
+                      {% for product in products %}
+                        <tr>
+                          <td>
+                            {{product.id}}
+                          </td>
+                          <td>
+                            {{product.name}}
+                          </td>
+                          <td>
+                            {{product.sale_price}}
+                          </td>
+                          <td>
+                            {{product.discount_price}}
+                          </td>
+                          <td>
+                            %{{product.rate|stringformat:'d'}}
+                          </td>
+                          <td>
+                            {{product.stock}}
+                          </td>
+                          <td>
+                            {{product.active}}
+                          </td>
+                          <td>
+                            {{product.category.name}}
+                          </td>
+                          <td>
+                            {{product.main}}
+                          </td>
+
+                          <td style="width: -moz-min-content;">
+                            <a href="{% url 'management:updateproduct' product.id %}">
+                              <i class="material-icons">edit</i></a>
+                            <a href="{% url 'management:subprice' product.id %}">
+                              <i class="material-icons">done</i>
+                            </a>
+                          </td>
+
+
+
+
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+ {% endblock %}
+
+
+
+
+{% endblock %}

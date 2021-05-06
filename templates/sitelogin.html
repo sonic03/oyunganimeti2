@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load django_template_maths %}
+{% block title %}{% endblock title %}
+{% block description %}{% endblock description %}
+<style>
+        {% block css %}
+        .container-top{
+          margin-top:150px;
+        }
+        {% endblock %}
+    </style>
+
+
+{% block body %}
+    <div class="container container-top">
+        <div class="row">
+        <div class="col-12">    
+        
+            <div class="form-out">
+                <h1>GİRİŞ YAP!</h1>
+                <div class="form-in">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="col-12"style="float:left;">
+                    {{form.email}}
+                    </div>
+                    <div class="col-12" style="float:left;">
+                    {{form.password}}
+                    </div>
+                    
+                    <button class="loginbtn"type="submit">Giriş Yap!</button>
+                </form>
+                </div>
+            </div>
+        
+        </div>
+        </div>
+    </div>
+
+    
+
+
+{% endblock body %}
+
+
+

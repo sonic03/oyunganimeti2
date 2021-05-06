@@ -1,0 +1,104 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load django_template_maths %}
+{% block title %}{{ct.title}}{% endblock title %}
+{% block description %}{{ct.meta_desc}}{% endblock description %}
+<style>
+        {% block css %}
+        .container-top{
+          margin-top:150px;
+        }
+        {% endblock %}
+    </style>
+
+{% block body %}
+<div class="container container-top">
+  <div class="row">
+    <div class="col-12">
+      <div class="col-8">
+        <div class="left-part">
+          <iframe  class="framex" src="{{ct.video}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+      <div class="col-4" style="float:left;">
+        <div class="left-card">
+          <img src="{{ct.cat_img.url}}" class="card-img-top" alt="...">
+          <div class="left-card-inner">
+            {% if ct.logo_img %}
+            <img src="{{ct.logo_img.url}}" class="card-img-top" alt="...">
+            {% endif %}
+          </div>
+          <div class="left-card-body">
+            <h5 class="left-card-title">{{ct.name}}</h5>
+            <p class="left-card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="head" style="width:100%;height:50px;background:orangered;color:white;">
+        <div class="col-4" style="float:left;">
+          <div style="width:100%;height:50px;"></div>
+        </div>
+        <div class="col-2" style="float:left;">
+          <p style="text-align:center;font-size:17px;line-height:50px">İNDİRİM</p>
+        </div>
+        <div class="col-2" style="float:left;">
+          <p style="text-align:center;font-size:17px;line-height:50px">FİYAT</p>
+        </div>
+        <div class="col-2" style="float:left;">
+          <p style="text-align:center;font-size:17px;line-height:50px">STOK</p>
+        </div>
+        <div class="col-1" style="float:left;">
+          <p style="text-align:center;font-size:17px;line-height:50px">KAZANÇ</p>
+        </div>
+        <div class="col-1" style="float:left;"></div>
+        
+      </div>
+    </div>
+    <div class="col-12">
+          {% for pro in product %}
+          <div class="product-out">
+          <div class="col-4" style='float:left;'>
+            <div class="product-in" style="border-radius:0;">
+            <img src="{{pro.productimg.url}}" class="card-img-top" alt="...">
+
+              <h5 class="product-title">{{pro.name}}</h5>
+          </div>
+          </div>
+          <div class="col-2" style='float:left;'>
+                <p class="product-text">%{{pro.rate|stringformat:'d'}}</p>
+          </div>
+          <div class="col-2" style='float:left;'>
+            <p class="product-sale" >{{pro.sale_price}} ₺</p>
+            <p class="product-discount">{{pro.discount_price}} ₺</p>
+          </div>
+          <div class="col-2" style='float:left;'>
+            <p class="product-text" >{{pro.stock}}</p>
+          </div>
+          <div class="col-1" style='float:left;'>
+          
+            <p class="product-text" style="color:green;" >{{pro.sale_price|sub:pro.discount_price}}₺</p>
+
+          </div>
+          <div class="col-1" style='float:left;'>
+          
+            <a class="buy-item" href="{% url 'carts:cart_update' pro.id %}"><i class=" buy-icon fa fa-cart-plus"></i></a>
+
+          </div>
+          
+         </div> 
+          {% endfor %}
+        
+    
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+{% endblock %}

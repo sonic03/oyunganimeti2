@@ -1,0 +1,68 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load django_template_maths %}
+{% block title %}{{ct.title}}{% endblock title %}
+{% block description %}{{ct.meta_desc}}{% endblock description %}
+<style>
+        {% block css %}
+        .container-top{
+          margin-top:150px;
+        }
+        {% endblock %}
+    </style>
+
+{% block body %}
+<div class="container container-top">
+    <div class="row">
+        <div class="col-12 temp">
+            <h1>KİŞİSEL VERİLERİN KORUNMASI HAKKI</h1>
+        </div>
+        <div class="col-12 temp">
+          <p>
+            Kişisel verilerin işlenmesinde özel hayatın gizliliği olmak koşuluyla  kişilerin temel hak ve özgürlüklerini korumak ve kişisel verileri işleyen gerçek ve tüzel kişilerin yükümlülükleri belirlemek amacı ile 7 Nisan 2016 tarihli ve 29677 Sayılı Resmî Gazete’de yayımlanan 6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) 10.maddesi veri sorumlularına kişisel veri sahiplerini aydınlatma yükümlülüğü yüklemiştir. Kişisel verileriniz oyunganimeti Şirketi tarafın en üst güvenlik yöntemleri ile korunmakta ve kullanıcı sözleşmesinde belirtilen makamlar dışında üçüncü kişiler ile hiçbir şekilde paylaşılmamaktadır.<br>
+
+A-KİŞİSEL VERİLERİN İŞLENME AMACI<br>
+
+<br>Kişisel verileriniz oyunganimeti Şirketi tarafın aşağıda açıklanan kapsamlar dahilinde işlenebilecektir:
+<br>1-Güvenli alışverişin sağlanması, hak sahiplerinin tespit edilmesi, yasal düzenlemelerin gerektirdiği veya zorunlu kıldığı şekilde hukuki yükümlülüklerimizin yerine getirilmesini,
+<br>2-oyunganimeti Şirketi tarafından sunulan hizmet ürün ve projelerin ilgili kişilerin beğeni, kullanım alışkanlıkları ve ihtiyaçlarına göre özelleştirilerek önerilmesi, ürün, hizmet ve projeler hakkında bilgi verilmesi,
+<br>3-Hizmet ve tekliflerin sunulması, pazarlama ve reklam faaliyetlerinin yürütülebilmesi, ziyaretçi profillerinin belirlenebilmesi, istek, talep ve şikayetlerin cevaplanarak çözümlenmesi, sözleşme kapsamında ve hizmet standartları çerçevesinde müşterilere ve ziyaretçilere destek hizmetinin sağlanması, pazar araştırmaları ve istatistiksel çalışmalar yapılabilmesi, faturalandırma da dahil, finans ve muhasebe işlemlerinin takibi.
+
+<br>B-KİŞİSEL VERİLERİN İŞLENME ŞARTLARI<br>
+Kanun'da sayılan istisnalar dışında, kişisel veriler ancak veri sahiplerinin açık rızasını temin etmek suretiyle işlenebilir. Kanun'da sayılan aşağıdaki hallerin varlığı durumunda ise, veri sahibinin açık rızası olmasa dahi kişisel veriler işlenebilmektedir. Kişisel verilerinin rızaya gerek kalmaksızın işlenmesi şartları;
+<br>1- Fiili imkânsızlık nedeniyle rızasını açıklayamayacak durumda bulunan veya rızasına hukuki geçerlilik tanınmayan kişinin kendisinin ya da bir başkasının hayatı veya beden bütünlüğünün korunması için zorunlu olması,
+<br>2-Bir sözleşmenin kurulması veya ifasıyla doğrudan doğruya ilgili olması kaydıyla sözleşmenin taraflarına ait kişisel verilerin işlenmesinin gerekli olması.
+<br>3-Veri sorumlusunun hukuki yükümlülüğünü yerine getirebilmesi için zorunlu olması,
+<br>4- Veri sahibinin kendisi tarafından alenileştirilmiş olması,
+<br>5- Bir hakkın tesisi, kullanılması veya korunması için veri işlemenin zorunlu olması,
+<br>6-Veri sahibinin temel hak ve özgürlüklerine zarar vermemek kaydıyla, veri sorumlusunun meşru menfaatleri için veri işlenmesinin zorunlu olması.
+<br>
+
+C-KİŞİSEL VERİLERİN TOPLANMASI VE HUKUKİ SEBEBİ<br>
+Kişisel verilerin işlenme amaçlarının hukuki sebepleri ise; şirketimizin tabi olduğu mevzuattan doğan yükümlülükler kapsamında her türlü ürün ve hizmetlerde kullanılmak; işlem sahibinin bilgilerini tespit için kimlik, adres ve diğer gerekli bilgileri kaydetmek; işleme dayanak olacak tüm kayıt ve belgeleri düzenlemek; mevzuat, resmi otoritelerce öngörülen bilgi saklama, raporlama, bilgilendirme yükümlülüklerine uymak; talep edilen ürün ve hizmetlerini sunabilmek ve sözleşmenin gereğini yerine getirmektir.
+<br>Ç-KİŞİSEL VERİLERİNİZİN PAYLAŞILMASI
+<br>Oyunganimeti Şirketi, işbu Sözleşme ve Kişisel Verilerin Korunması ve İşlenmesi Politikası, Özel Nitelikli Kişisel Verilere İlişkin Politika, Aydınlatma Metni ve Çerez Politikası çerçevesinde Üye’ye ait her türlü bilgi ve kayıtları resmi makamlarla paylaşabilir, kendisi kayıt altına alabilir, kontrol edebilir, yedekleyebilir, saklayabilir ve sair şekillerde İşleyebilir. Kişisel bilgiler kullanıcı sözleşmesinde belirtilen şahıs ve makamlar dışında üçüncü kişilerle paylaşılamaz.
+<br>
+D-KİŞİSEL VERİLERİNİZİN SAKLANMASI
+<br>Kişisel verileriniz, işlenme amaçlarının gerektirdiği süreler boyunca saklanabilmektedir. Başka bir gerekçe veya hukuki sebep olmaması, uluslararası yasa veya düzenlemenin bulunmaması ve sözleşmelerden kaynaklı zorunlulukların ortadan kalkması halinde işlenme amaçları ortadan kalkan kişisel verileriniz silinmekte, yok edilmekte veya anonim hale getirilmektedir.
+
+<br>E-KİŞİSEL VERİSİ İŞLENEN İLGİLİ KİŞİNİN
+<br>Kişisel verilerinizin işlenmesine ilişkin olarak aşağıdaki hakları, oyunganimeti Şirketi ‘ne yapacağınız bir talep ile kullanabilirsiniz. Bu kapsamda iletilen talepler oyunganimeti Şirketi tarafından en geç otuz gün içinde ücretsiz olarak sonuçlandıracaktır.
+<br>Bu kapsamda kişisel veri sahibi olarak; 
+<br>1- Kişisel veri işlenip işlenmediğini öğrenme,
+<br>2-Kişisel verileri işlenmişse buna ilişkin bilgi talep etme,
+<br>3-Kişisel verilerin işlenme amacını ve bunların amacına uygun kullanılıp kullanılmadığını öğrenme,
+<br>4-Yurt içinde veya yurt dışında kişisel verilerin aktarıldığı üçüncü kişileri bilme,
+<br>5-Kişisel verilerin eksik veya yanlış işlenmiş olması hâlinde bunların düzeltilmesini isteme,
+<br>6-Kişisel verilerin silinmesini veya yok edilmesini isteme,
+<br>7-Kişisel verilerin düzeltilmesi, silinmesi ya da yok edilmesi halinde bu işlemlerin kişisel verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme,
+<br>8- Kişisel verilerin kanuna aykırı olarak işlenmesi sebebiyle zarara uğraması hâlinde zararın giderilmesini talep etme, haklarınız bulunmaktadır.
+6698 Sayılı Kanun kapsamında kişisel verilerinize ilişkin haklarınızı kimliğinizi tevsik edici belgeler ve talebinizi içeren dilekçeniz ile info@oyunganimeti.com adresine güvenli elektronik imza, mobil imza ya da şirketimize daha önce bildirilen ve sistemimizde kayıtlı bulunan elektronik posta adresinizi kullanmak suretiyle iletebilirsiniz.<br>
+<br>
+Bu kapsamda konuyla ilgili yapılacak olan yazılı başvurular tarafımızdan yapılacak olan kimlik doğrulamasını takiben kabul edilecek olup, ilgi kişilere yasal süreler içerisinde yazılı olarak cevap verilecektir.
+          </p>
+        </div>
+        </div>
+        </div>
+
+{% endblock %}

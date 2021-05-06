@@ -1,0 +1,229 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block link%}
+
+
+{% endblock %}
+{% block css %}
+{% endblock %}
+
+{% block body %}
+
+<div id="content" class="content">
+			<div id="slider" data-images='{{cc}}'>
+			</div>
+		</div>
+
+
+</div>
+
+<div class="container-fluid" style="width: 98%;">
+  <div class="row">
+    
+    <div class="col-12">
+      <div class="carosel">
+      <div class="items">
+		
+		{% for product in products %}
+    <div class="item">
+        <div class="shopfy-items">
+            <img src="{{product.productimg.url}}" alt="..."> 
+            <span class="shop-rate">-{{product.rate|stringformat:'d'}} %</span>
+            <div class="product-card-body">
+              <h5>{{product.name}}</h5>
+              <p class="text-negative">{{product.sale_price}} ₺</p>
+              <p class="text-positive">{{product.discount_price}} ₺</p>
+              
+            </div>
+            
+          </div>
+        </div>
+        {% endfor %}
+		
+		<div class="button-container">
+			<div class="button"><i class="fa fa-angle-left"></i></div>
+			<div class="button"><i class="fa fa-angle-right"></i></div>
+		</div>
+	</div>
+  </div>
+    </div>
+    <div class="col-12 campaign" style="float:left;">
+      <div class="most-saller">
+        <h1>KAMPANYALI ÜRÜNLER</h1>
+      </div>
+      <div class="campaign-items">
+        {% for product in pr4 %}
+          <a href="{{product.category.slug}}"><div class="shopfy-items">
+            <img src="{{product.productimg.url}}" alt="..."> 
+            <span class="shop-rate">-{{product.rate|stringformat:'d'}} %</span>
+            <div class="product-card-body">
+              <h5>{{product.name}}</h5>
+              <p class="text-negative">{{product.sale_price}} ₺</p>
+              <p class="text-positive">{{product.discount_price}} ₺</p>
+              
+            </div>
+            
+          </div></a>
+        {% endfor %}  
+      </div>
+      <div class="sc-lower">
+        <a href="{% url 'pros' %}"><h1>Tamamını Gör...</h1></a>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="inner-commerce" style="width:85%;margin:0 auto;height:285px">
+          {% for com in commerce|slice:":2" %}
+          <div class="col-6" style="float:left;">
+            <div class="commerce">
+              <a href="{{com.url}}"><img src="{{com.commerce_img.url}}" alt="" style="width:97%;margin:0 auto;"></a>
+            </div>
+          </div>
+          {% endfor%}
+          </div>
+    </div>
+    <div class="col-12 discount" style="float:left;">
+      <div class="most-saller">
+        <h1>İNDİRİMLİ ÜRÜNLER</h1>
+      </div>
+      <div class="campaign-items">
+        {% for product in discount_product %}
+          <a href="{{product.category.slug}}"><div class="shopfy-items">
+            <img src="{{product.product.productimg.url}}" alt="..."> 
+            <span class="shop-rate">-{{product.product.rate|stringformat:'d'}} %</span>
+            <div class="product-card-body">
+              <h5>{{product.product.name}}</h5>
+              <p class="text-negative">{{product.product.sale_price}} ₺</p>
+              <p class="text-positive">{{product.product.discount_price}} ₺</p>
+              
+            </div>
+            
+          </div></a>
+        {% endfor %}
+      </div> 
+      <div class="sc-lower">
+        <a href="{% url 'pros' %}"><h1>Tamamını Gör...</h1></a>
+      </div> 
+    </div>
+    <div class="col-12">
+      <div class="inner-commerce" style="width:85%;margin:0 auto;height:285px">
+          {% for com in commerce|slice:"2:4" %}
+          <div class="col-6" style="float:left;">
+            <div class="commerce">
+              <a href="{{com.url}}"><img src="{{com.commerce_img.url}}" alt="" style="width:97%;margin:0 auto;"></a>
+            </div>
+          </div>
+          {% endfor%}
+          </div>
+    </div>
+    <div class="col-12 news" style="float:left;">
+      <div class="most-saller">
+        <h1>YENİ ÜRÜNLER</h1>
+      </div>
+      <div class="campaign-items">
+        {% for product in new_product %}
+          <a href="{{product.category.slug}}"><div class="shopfy-items">
+            <img src="{{product.productimg.url}}" alt="..."> 
+            <span class="shop-rate">-{{product.rate|stringformat:'d'}} %</span>
+            <div class="product-card-body">
+              <h5>{{product.name}}</h5>
+              <p class="text-negative">{{product.sale_price}} ₺</p>
+              <p class="text-positive">{{product.discount_price}} ₺</p>
+              
+            </div>
+            
+          </div></a>
+        {% endfor %}
+      </div>
+      <div class="sc-lower">
+        <a href="{% url 'pros' %}"><h1>Tamamını Gör...</h1></a>
+      </div>
+        
+      
+        
+    </div>
+      
+    </div>
+    
+    
+  
+  </div>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/jquery.slicebox.js'%}"></script>
+<script src="{% static 'js/dat-gui.js'%}"></script>
+<script src="{% static 'js/sketch.js'%}"></script>
+<script src="{% static 'js/three.js'%}"></script>
+<script src="{% static 'js/demo5.js'%}"></script>
+<script src="{% static 'js/gsap.js'%}"></script>
+
+<script src="{% static 'js/modernizr.custom.46884.js'%}"></script>
+<script>
+  // I will be creating a different pen with touch support but right // now I have no time for it due to school
+
+const slider = document.querySelector(".items");
+		const slides = document.querySelectorAll(".item");
+		const button = document.querySelectorAll(".button");
+
+		let current = 0;
+		let prev = 4;
+		let next = 1;
+    slides[0].classList.add("active");
+    slides[1].classList.add("next");
+    slides[2].classList.add("next-p");
+    slides[slides.length-1].classList.add("prev");
+    slides[slides.length-2].classList.add("prev-p");
+
+		for (let i = 0; i < button.length; i++) {
+			button[i].addEventListener("click", () => i == 0 ? gotoPrev() : gotoNext());
+		}
+
+		const gotoPrev = () => current > 0 ? gotoNum(current - 1) : gotoNum(slides.length - 1);
+
+		const gotoNext = () => current < 5 ? gotoNum(current + 1) : gotoNum(0);
+
+		const gotoNum = number => {
+			current = number;
+			prev = current - 1;
+			next = current + 1;
+      prevp = current - 2;
+			nextp = current + 2;
+
+			for (let i = 0; i < slides.length; i++) {
+				slides[i].classList.remove("active");
+				slides[i].classList.remove("prev");
+				slides[i].classList.remove("next");
+        slides[i].classList.remove("next-p");
+        slides[i].classList.remove("prev-p");
+			}
+      
+			if (next == slides.length) {
+				next = 0;
+        nextp = 1;
+			}
+
+			if (prev == -1) {
+				prev = slides.length-1;
+        prevp=slides.length-2;
+			}
+      if(prevp==-1){
+        prevp=slides.length-2;
+      }
+      if(nextp == slides.length){
+        nextp = 1;
+      }
+
+      
+			slides[current].classList.add("active");
+			slides[prev].classList.add("prev");
+			slides[next].classList.add("next");
+      slides[prevp].classList.add("prev-p");
+			slides[nextp].classList.add("next-p");
+		}
+</script>
+{% endblock %}

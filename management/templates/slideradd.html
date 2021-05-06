@@ -1,0 +1,25 @@
+{% extends 'dashboardmain.html' %}
+{% load static %}
+
+{% block body%}
+<div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Slider Ekle</h4>
+
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{form}}
+                        <button class="btn btn-primary pull-left"type="submit" style="float:right;">giriş</button>
+                    </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+{% endblock %}

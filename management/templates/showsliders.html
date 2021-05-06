@@ -1,0 +1,113 @@
+{% extends 'dashboardmain.html' %}
+{% load static %}
+
+{% block body %}
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Sliders</h4>
+                  <a href="{% url 'management:addslider' %}" class="btn" style="float:right;">Slide Ekle</a>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                          ID
+                        </th>
+                        <th>
+                          Slide
+                        </th>
+                        <th>
+                          Eylemler
+                        </th>
+
+                      </thead>
+                      <tbody>
+                      {% for slide in sliders%}
+                        <tr>
+                          <td>
+                            {{slide.id}}
+                          </td>
+                          <td>
+                            <img src="{{slide.slider.url}}" alt="" width="150">
+                          </td>
+                          <td style="width: -moz-min-content;">
+                            <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
+                              <i class="material-icons">edit</i><div class="ripple-container"></div></button>
+                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
+                              <i class="material-icons">close</i>
+                            </button>
+                          </td>
+
+
+
+
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Ara Reklamlar</h4>
+                  <a href="#" class="btn" style="float:right;"> Ara Reklam Ekle</a>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                          ID
+                        </th>
+                        <th>
+                          Görsel
+                        </th>
+                        <th>
+                          URL
+                        </th>
+                        <th>
+                          Eylemler
+                        </th>
+
+                      </thead>
+                      <tbody>
+                      {% for com in commerce%}
+                        <tr>
+                          <td>
+                            {{com.id}}
+                          </td>
+                          <td>
+                            <img src="{{com.commerce_img.url}}" alt="" width="150">
+                          </td>
+                          <td>
+                            {{com.url}}
+                          </td>
+                          <td style="width: -moz-min-content;">
+                            <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
+                              <i class="material-icons">edit</i><div class="ripple-container"></div></button>
+                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
+                              <i class="material-icons">close</i>
+                            </button>
+                          </td>
+
+
+
+
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+ {% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block body %}
+<div class="container container-top">
+    <div class="row">
+      {% if not billing_profile %}
+      <h1 style="color:white;margin-bottom:60px;"> Alışverişinizi tamamlamak için ;</h1>
+      <div class="col-6">
+        <button id="login" class="loginbtn" style="background:orangered !important">Giriş Yap!</button>
+      </div>
+      <div class="col-6">
+        <button id="register" class="loginbtn" style="background:orangered !important">Üye Ol!</button>
+      </div>
+      {% else %}
+      <div class="col-6">
+        <div class="card-out">
+          <h1>Satın Alımı Tamamla</h1>
+        <p> Toplam: {{order_obj.cart.total}}₺</p>
+        <p> Son Toplam: {{order_obj.order_total}}₺</p>
+        <form method='post' action=''>
+        {% csrf_token %}
+        
+        </div>
+        <button type = submit class="loginbtn" style="background:orangered !important;margin-top:10px;">Satın Alımı Tamamla</button>
+        </form>
+      </div>
+      <div class="col-6">
+        {% if request.user.is_authenticated %}
+        <h1 style="color:white;">{{request.user}}</h1>
+        <p style="color:white;"> olarak işlem yapıyorsunuz.</p>
+        
+        {% else %}
+        <h1>Satın alımı tamamlamak için giriş yapın </h1>
+        {% endif %}
+      </div>
+      {% endif %}
+      </div>
+</div>
+
+ 
+        
+
+{% endblock body %}
+{% block js %}
+<script>
+  var login = document.getElementById("login");
+  var register = document.getElementById("register");
+
+  login.addEventListener("click",function(){window.location.href="{% url 'loginsite' %}";});
+  register.addEventListener("click",function(){window.location.href="{% url 'registersite' %}";});
+</script>
+  
+
+{% endblock js %}

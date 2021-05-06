@@ -1,0 +1,104 @@
+{% load static %}
+<nav class="nav-bar">
+  <div class="nav-container">
+    <div class="nav-content">
+      <div class="logo">
+        <a href="{% url 'index' %}"><img src="{% static 'img/ganimetlogo.png' %}" alt=""></a>
+      </div>
+      <div class="nav-inner">
+        <ul>
+        <li class="li" id="li">E-Pin<ul id="ul">
+
+          {% for cate in category %}
+          <li><a href="{{request.get_host}}/{{cate.slug}}">{{cate.name}}</a></li>
+
+          {% endfor %}
+          </ul>
+          </li>
+          <li><a href="#">CD-Key</a></li>
+          <li><a href="#">Haberler</a></li>
+          <li><a href="#">İletişim</a></li>
+          <li><a href="#">Yardım</a></li>
+        </ul>
+      </div>
+      <div class="right">
+        <div class="right-items">
+          <img src="{% static 'img/magnifying-glass.png'%}" alt="">
+        </div>
+        <div class="right-items" id="user">
+          <img src="{% static 'img/user.png'%}" alt="">
+          <div class="user-mini"  id="usermini">
+          {% if request.user.is_authenticated %}
+              <h1>{{request.user.email}}</h1>
+              <ul>
+                <li><i class="fa fa-shopping-cart" aria-hidden="true" style="margin-right:10px;"></i><a href='{% url "user_orders" %}'>Alışverişlerim</a></li>
+                <li><i class="fa fa-user" aria-hidden="true"style="margin-right:10px;"></i><a href='#'>Profil</a></li>
+                <li><i class="fa fa-ticket" aria-hidden="true"style="margin-right:10px;"></i><a href='#'>Destek Taleplerim</a></li>
+                <li><i class="fa fa-sign-out" aria-hidden="true"style="margin-right:10px;"></i><a href='{% url "logout" %}'>Çıkış Yap!</a></li>
+              </ul>
+
+          {% else %}
+            <h1>Henüz <a href='{% url "loginsite" %}'>giriş</a> yapılmadı</h1>
+          {% endif %}
+
+          </div>
+        </div>
+        <div class="right-items" style="position:relative;">
+          <img id="basket" src="{% static 'img/shopping-bag.png'%}" alt="">
+           {% if cart_count.products.all.exists%}
+            <span class="basket-count">{{cart_count.products.count}}</span>
+          {% else %}
+            <span class="basket-count">0</span>
+          {% endif %}
+        </div>
+        <div id="basketin" class="basket-in">
+          <div class="cart-header">
+            <h1>Sepetim</h1>
+            <span><i id="cross" class="fa fa-times"></i></span>
+          </div>
+          <div class="cart-body">
+            {% if cart_count.products.all.exists%}
+        <table class="table">
+          <thead class="cart-body-header">
+            <tr>
+              <th scope="col">Ürün Adı</th>
+              <th scope="col">Fiyat</th>
+            </tr>
+          </thead>
+          <tbody class="cart-body-items">
+
+            {% for pro in cart_count.products.all %}
+            <tr>
+              <td>{{pro.name}}</td>
+              <td>{{pro.discount_price}}₺</td>
+
+            </tr>
+            {% endfor %}
+          </tbody>
+          </table>
+          {% else %}
+            <p style="margin:2px 15px;font-size:15px;">Henüz Ürün Eklenmemiş</p>
+          {% endif %}
+                </div>
+        <div class="total">
+          <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Toplam</th>
+              {% if cart_count.toplam != 0 %}
+                <th scope="col">{{cart_count.total}}₺</th>
+
+              {% else %}
+              <th scope="col">0.00 ₺</th>
+              {% endif %}
+            </tr>
+          </thead>
+          </table>
+        </div>
+        <span id="go-crt" class="button-basket">SEPETE GİT <i style="font-size: 18px;margin-left:10px;" class="fa fa-shopping-cart"></i></span>
+      </div>
+      </div>
+    </div>
+  </div>
+</nav>
+

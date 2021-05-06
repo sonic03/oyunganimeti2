@@ -1,0 +1,7 @@
+<form method='post' action="">
+    {% csrf_token %}
+    {{form.as_p}}
+                                {% comment %} <a href="{% url 'updateordersdetail' order_id=order_detail.order_id product_id=p.id%}"> Düzenle</a> {% endcomment %}
+    <button type="submit">düzenle</button>
+                                
+</form>

@@ -1,0 +1,76 @@
+{% extends 'dashboardmain.html' %}
+{% load static %}
+
+{% block body %}
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Ürünler</h4>
+
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                          ID
+                        </th>
+                        <th>
+                          E Posta
+                        </th>
+                        <th>
+                          Durum
+                        </th>
+                        <th>
+                          Site Durumu
+                        </th>
+                        <th>
+                          Son Giriş Tarihi
+                        </th>
+                        <th>
+                          Eylemler
+                        </th>
+
+                      </thead>
+                      <tbody>
+                      {% for user in users %}
+                        <tr>
+                          <td>
+                            {{user.id}}
+                          </td>
+                          <td>
+                            {{user.email}}
+                          </td>
+                          <td>
+                            {% if user.active %}AKtif{% else %}Engelli{% endif %}
+                          </td>
+                          <td>
+                            {{user.last_login}}
+                          </td>
+                          
+
+                          <td style="width: -moz-min-content;">
+                            <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
+                              <i class="material-icons">edit</i><div class="ripple-container"></div></button>
+                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
+                              <i class="material-icons">close</i>
+                            </button>
+                          </td>
+
+
+
+
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+ {% endblock %}

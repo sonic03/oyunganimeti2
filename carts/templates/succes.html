@@ -1,0 +1,44 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block body %}
+<div class="container container-top">
+    <div class="row">
+      
+      <div class="col-12">
+        <div class="cart-success">
+        <h1> Satın alım işleminiz tamamlanmıştır.</h1>
+        <p>Teslimatın tamamlanması için; <br>
+        TR69 0004 6004 0988 8000 2016 45 <br> iban numarasına ödemenizi yapınız. <br>
+        bakiye gönderiminde açıklama kısmına e posta adresini ve sipariş kodunuzu yazızınız.</p>
+        </div>
+        
+      </div>
+      <div class="col-12">
+      <div class="col-6" style="float:left;">
+        <button id="homepage"class="loginbtn" style="background:orangered !important;width:97% !important;">Ana Sayfaya Dön</button>
+      </div>
+      <div class="col-6" style="float:left;">
+        <button id="orders" class="loginbtn" style="background:orangered !important;width:97% !important;">Siparişlerime Git</button>
+      </div>
+      </div>
+      
+      </div>
+</div>
+
+ 
+        
+
+{% endblock body %}
+
+{% block js %}
+<script>
+  var homepage = document.getElementById("homepage");
+  var orders = document.getElementById("orders");
+
+  homepage.addEventListener("click",function(){window.location.href="{% url 'index' %}";});
+  orders.addEventListener("click",function(){window.location.href="{% url 'user_orders' %}";});
+</script>
+  
+
+{% endblock js %}

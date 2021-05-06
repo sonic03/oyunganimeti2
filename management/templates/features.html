@@ -1,0 +1,194 @@
+{% extends 'dashboardmain.html' %}
+{% load static %}
+
+{% block body %}
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Kampanya Sayfası</h4>
+                  <a href="{% url 'management:adddiscountproduct' %}" class="btn">İndirim Ürünü Ekle</a>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                          ID
+                        </th>
+                        <th>
+                          Ürün Adı
+                        </th>
+                        <th>
+                          Piyasa Fiyatı
+                        </th>
+                        <th>
+                          Satış Fiyatı
+                        </th>
+                        <th>
+                          İndirim Oranı
+                        </th>
+                        <th>
+                          Stok Durumu
+                        </th>
+                        <th>
+                          Durum
+                        </th>
+                        <th>
+                          Kategori
+                        </th>
+                        <th>
+                          Ana Ürün
+                        </th>
+                        <th>
+                          Eylemler
+                        </th>
+
+                      </thead>
+                      <tbody>
+                      {% for product in discount_products %}
+                        <tr>
+                          <td>
+                            {{product.id}}
+                          </td>
+                          <td>
+                            {{product.product.name}}
+                          </td>
+                          <td>
+                            {{product.product.sale_price}}
+                          </td>
+                          <td>
+                            {{product.product.discount_price}}
+                          </td>
+                          <td>
+                            %{{product.product.rate|stringformat:'d'}}
+                          </td>
+                          <td>
+                            {{product.product.stock}}
+                          </td>
+                          <td>
+                            {{product.product.active}}
+                          </td>
+                          <td>
+                            {{product.product.category.name}}
+                          </td>
+                          <td>
+                            {{product.product.main}}
+                          </td>
+
+                          <td style="width: -moz-min-content;">
+                            <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
+                              <i class="material-icons">edit</i><div class="ripple-container"></div></button>
+                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
+                              <i class="material-icons">close</i>
+                            </button>
+                          </td>
+
+
+
+
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Yeni Ürün</h4>
+                  <a href="{% url 'management:addnewproduct' %}" class="btn">Yeni Ürünü Ekle</a>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                          ID
+                        </th>
+                        <th>
+                          Ürün Adı
+                        </th>
+                        <th>
+                          Piyasa Fiyatı
+                        </th>
+                        <th>
+                          Satış Fiyatı
+                        </th>
+                        <th>
+                          İndirim Oranı
+                        </th>
+                        <th>
+                          Stok Durumu
+                        </th>
+                        <th>
+                          Durum
+                        </th>
+                        <th>
+                          Kategori
+                        </th>
+                        <th>
+                          Ana Ürün
+                        </th>
+                        <th>
+                          Eylemler
+                        </th>
+
+                      </thead>
+                      <tbody>
+                      {% for product in new_products %}
+                        <tr>
+                          <td>
+                            {{product.id}}
+                          </td>
+                          <td>
+                            {{product.product.name}}
+                          </td>
+                          <td>
+                            {{product.product.sale_price}}
+                          </td>
+                          <td>
+                            {{product.product.discount_price}}
+                          </td>
+                          <td>
+                            %{{product.product.rate|stringformat:'d'}}
+                          </td>
+                          <td>
+                            {{product.product.stock}}
+                          </td>
+                          <td>
+                            {{product.product.active}}
+                          </td>
+                          <td>
+                            {{product.product.category.name}}
+                          </td>
+                          <td>
+                            {{product.product.main}}
+                          </td>
+
+                          <td style="width: -moz-min-content;">
+                            <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
+                              <i class="material-icons">edit</i><div class="ripple-container"></div></button>
+                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
+                              <i class="material-icons">close</i>
+                            </button>
+                          </td>
+
+
+
+
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+ {% endblock %}

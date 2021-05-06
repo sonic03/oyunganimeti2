@@ -1,0 +1,79 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block body %}
+<div class="container container-top">
+    <div class="row">
+
+        <h1 style="color:white;">Sepetim</h1>
+        <div class="col-12">
+            <div class="col-6" style="float:left;">
+                <div class="card-out">
+                     {% if cart_obj.products.exists %}
+                <table class="table">
+              <thead>
+                <tr>
+
+                  <th scope="col">Ürün Adı</th>
+                  <th scope="col">Fiyat</th>
+                  <th scope="col">İşlem</th>
+
+                </tr>
+              </thead>
+              <tbody>
+              {% for product in cart_obj.products.all %}
+                <tr>
+
+                  <td>{{product.name}}</td>
+                  <td>{{product.discount_price}} ₺</td>
+                  <td><a href="{% url 'carts:cart_delete' product.id %}">Sepetten Çıkart</a></td>
+
+                </tr>
+              {% endfor %}
+
+                <tr>
+
+                  <td>Toplam:</td>
+                  <td>{{cart_obj.total}} ₺</td>
+
+                </tr>
+              </tbody>
+
+            </table>
+            {% else%}
+                kart boş
+            {% endif %}
+                </div>
+
+            </div>
+            <div class="col-6" style="float:left;">
+              <div class="cart-right">
+                {% if not request.user %}
+                <h1>Giriş Yapın</h1>
+              
+              {% else %}
+                <button id="checkout" class="loginbtn" style="background:orangered;margin-bottom:35px;margin-top:20px;">İşleme Devam Et!</button>
+                <button id="homepage" class="loginbtn" style="background:orangered;">Ana Sayfaya Dön!</button>
+              {% endif %}
+              </div>
+            </div>
+
+        </div>
+      </div>
+</div>
+ 
+        
+
+{% endblock body %}
+
+{% block js %}
+<script>
+  var checkout = document.getElementById("checkout");
+  var homepage = document.getElementById("homepage");
+
+  checkout.addEventListener("click",function(){window.location.href="{% url 'carts:checkout' %}";});
+  homepage.addEventListener("click",function(){window.location.href="{% url 'index' %}";});
+</script>
+  
+
+{% endblock js %}

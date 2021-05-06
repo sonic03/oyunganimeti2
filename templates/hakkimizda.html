@@ -1,0 +1,26 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load django_template_maths %}
+{% block title %}{{ct.title}}{% endblock title %}
+{% block description %}{{ct.meta_desc}}{% endblock description %}
+<style>
+        {% block css %}
+        .container-top{
+          margin-top:150px;
+        }
+        {% endblock %}
+    </style>
+
+{% block body %}
+<div class="container container-top">
+    <div class="row">
+        <div class="col-12 temp">
+            <h1>Hakkımızda</h1>
+        </div>
+        <div class="col-12 temp">
+          <p>2021 yılında kurulan Oyunganimeti.com geniş ürün yelpazesi ile oyuncuların birçok Epin ve dijital kod ihtiyacını karşılamaktadır. Oyunganimeti.com oyuncuların ihtiyaçlarını baz alan Epin ve dijital kod ihtiyaçlarını tedarik eden aynı zamanda birçok kampanya ve fırsat ürünleri ile oyunculara en iyi şekilde hizmet sunan vizyonu doğrultusunda ilerleyen bir oyun sitesidir. En uygun fiyata Epin, cd-key ve diğer birçok dijital kod ihtiyacınızı hızlı ve güvenilir bir şekilde teslim eden ve güvenilir kadrosu ile kolaylıkla iletişime geçebileceğiniz bir Epin sitesidir.  Oyun sektöründeki birçok yeni ve güncel oyun haberlerine de ulaşabileceğiniz ve takip edebileceğiniz bir platformdur.</p>
+        </div>
+        </div>
+        </div>
+
+{% endblock %}

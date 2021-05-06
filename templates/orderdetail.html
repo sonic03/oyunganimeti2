@@ -1,0 +1,69 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block css %}
+table{
+    color:black !important;
+    border:none;
+    vertical-align:center;
+}
+td{
+    
+    border-bottom:none;
+}
+.order{
+    float:none;
+    width:fit-content !important;
+}
+.status{
+    float:none;
+    width:fit-content !important;
+}
+.marg{
+  margin-bottom:260px;
+}
+{% endblock css %}
+
+{% block body %}
+<div class="container container-top">
+    <div class="row order-out marg">
+        <h1 style="color:black;margin-bottom:15px;">Sipariş Kodu: {{order_detail.order_id}}</h1>
+        <div class="col-12">       
+            {% if order_detail %}
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Ürün</th>
+                  <th scope="col">Fiyat</th>
+                  <th scope="col">Kod</th> 
+                </tr>
+              </thead>
+              <tbody>
+              {% for p,pin in order_list %}
+                <tr>
+                  <td>{{p.name}}</td>
+                  <td>{{p.discount_price}} ₺</td>
+                  {% if not pin.id %}
+                  <td>Ödeme/tedarik aşamasında</td> 
+                  {% else %}
+                  <td>{{pin.pin_code}}</td> 
+                  {% endif %}
+                  
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+              
+              
+                
+                
+            {% else%}
+                kart boş
+            {% endif %}
+          </div>
+        
+
+        
+      </div>
+</div>
+ 
+{% endblock %}
