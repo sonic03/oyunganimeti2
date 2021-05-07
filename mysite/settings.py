@@ -26,14 +26,14 @@ SECRET_KEY = 'n65d5))oojg3d*e2j=w^#aw5hi77jhf_0kc!l8rq=5a7bp#*gm'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','oyunganimeti.pythonanywhere.com']
+ALLOWED_HOSTS = []
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'proxy.uzmanposta.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'noreply@oyunganimeti.com' 
-EMAIL_HOST_PASSWORD = 'Oyn2357!*'
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_HOST = 'proxy.uzmanposta.com'
+#EMAIL_USE_TLS = True
+#EMAIL_PORT = 587
+#EMAIL_HOST_USER = 'noreply@oyunganimeti.com' 
+#EMAIL_HOST_PASSWORD = 'Oyn2357!*'
 # Application definition
 
 INSTALLED_APPS = [
