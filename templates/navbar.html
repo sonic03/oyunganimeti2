@@ -10,7 +10,7 @@
         <li class="li" id="li">E-Pin<ul id="ul">
 
           {% for cate in category %}
-          <li><a href="{{request.get_host}}/{{cate.slug}}">{{cate.name}}</a></li>
+          <li><a href="{% url 'category' cate.slug %}">{{cate.name}}</a></li>
 
           {% endfor %}
           </ul>

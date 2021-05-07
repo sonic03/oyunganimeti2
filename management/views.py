@@ -216,7 +216,7 @@ def add_order_detail(request,order_id,product_id):
         newEpin.pin_code.add(pinobj)
         newEpin.cart_id=cart_id
         newEpin.save()
-        return redirect("showordersdetail" ,order_id=order_id)
+        return redirect("management:showordersdetail" ,order_id=order_id)
     
 
     
@@ -253,7 +253,7 @@ def update_order_detail(request,order_id,product_id,pincode_id):
        
         print(epin)
         
-        return redirect("showordersdetail" ,order_id=order_id)
+        return redirect("management:showordersdetail" ,order_id=order_id)
         
     
 
