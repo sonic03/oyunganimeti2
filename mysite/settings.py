@@ -26,7 +26,7 @@ SECRET_KEY = 'n65d5))oojg3d*e2j=w^#aw5hi77jhf_0kc!l8rq=5a7bp#*gm'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','oyunganimeti.pythonanywhere.com']
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'proxy.uzmanposta.com'

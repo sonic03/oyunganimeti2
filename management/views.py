@@ -176,23 +176,22 @@ def show_order_detail(request,order_id):
     print(order_detail.cart.products.all())
     print(order_detail.cart.pin_code.all())
     order_list=list(zip_longest(order_detail.cart.products.all(),order_detail.cart.pin_code.all(),fillvalue='tedaik aşamasında'))
-    print("///////////////////////////")
     oldorderid=order_detail.id
     if len(order_detail.cart.products.all())==len(order_detail.cart.pin_code.all()):
         
         order_detail.status='Teslim Edildi' 
         order_detail.save()  
-        subject = 'Sipariş'
-        message = """
-            Merhaba Değerli Üyemiz
-           {} numaralı siparişiniz teslim edilmiştir.
-            
-            İyi oyunlar dileriz…
-            Oyun Ganimeti Ailesi
-        """.format(order_id)
-        email_from = settings.EMAIL_HOST_USER
-        recipient_list = [order_detail.billing_profile.user.email]
-        send_mail( subject, message, email_from, recipient_list )   
+        #subject = 'Sipariş'
+        #message = """
+        #    Merhaba Değerli Üyemiz
+        #   {} numaralı siparişiniz teslim edilmiştir.
+        #    
+        #    İyi oyunlar dileriz…
+        #    Oyun Ganimeti Ailesi
+        #""".format(order_id)
+        #email_from = settings.EMAIL_HOST_USER
+        #recipient_list = [order_detail.billing_profile.user.email]
+        #send_mail( subject, message, email_from, recipient_list )   
     
 
     return render(request,'showorderdetails.html',{'order_detail':order_detail,'order_list':order_list})
@@ -207,40 +206,17 @@ def add_order_detail(request,order_id,product_id):
     form=PinDeliveryForm(request.POST or None) 
     if form.is_valid():
         epin=form.cleaned_data.get('pin_code')
-        print("1.adım çalıştı")
-        newEpin=Cart.objects.filter(id=cart_id,products__id=product_id).prefetch_related('pin_code').first()
-        print("2.adım çalıştı")
-        pinobj=PinCode(pin_code=epin,product_id=product_id)
-        print(pinobj)
-        pinobj.save()
-        print(pinobj)
-        newEpin.pin_code.add(pinobj)
         
-        print("3.adım çalıştı")
-        #newEpin.pin_code.save()
-        print("4.adım çalıştı")
+        newEpin=Cart.objects.filter(id=cart_id,products__id=product_id).prefetch_related('pin_code').first()
+        
+        pinobj=PinCode(pin_code=epin,product_id=product_id)
+        
+        pinobj.save()
+        
+        newEpin.pin_code.add(pinobj)
         newEpin.cart_id=cart_id
         newEpin.save()
-        
-        
-        print("5.adım çalıştı")
-        print("---------------------------")
-        
-        
-        print("/////////////")
-       
-       
-        
         return redirect("showordersdetail" ,order_id=order_id)
-        
-    else:
-        print(form.errors)
-        print('asdfsdfsf')
-
-       
-
-
-    print("*****************")
     
 
     
@@ -274,26 +250,11 @@ def update_order_detail(request,order_id,product_id,pincode_id):
         print("4.adım çalıştı")
         newEpin.cart_id=cart_id
         newEpin.save()
-        
-        
-        print("5.adım çalıştı")
-        print("---------------------------")
-        
-        
-        print("/////////////")
        
         print(epin)
         
         return redirect("showordersdetail" ,order_id=order_id)
         
-    else:
-        print(form.errors)
-        print('asdfsdfsf')
-
-       
-
-
-    print("*****************")
     
 
     

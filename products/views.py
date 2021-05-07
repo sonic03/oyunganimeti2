@@ -66,17 +66,17 @@ def loginsite(request):
       
         if user is not None:
                 login(request, user)
-                subject = 'Siteye Giriş'
-                message = """
-                    Merhaba Değerli Üyemiz
-
-                    {} tarihinde, {} ip adresinden sitemize giriş yapılmıştır. Bu kişi siz değilseniz en kısa sürede irtibata geçiniz.
-
-                    Oyun Ganimeti Ailesi
-                """.format(datetime.now().strftime("%D %H:%M:%S"),request.META['REMOTE_ADDR'])
-                email_from = settings.EMAIL_HOST_USER
-                recipient_list = [user.email]
-                send_mail( subject, message, email_from, recipient_list )
+                #subject = 'Siteye Giriş'
+                #message = """
+                #    Merhaba Değerli Üyemiz
+#
+                #    {} tarihinde, {} ip adresinden sitemize giriş yapılmıştır. Bu kişi siz değilseniz en kısa sürede irtibata geçiniz.
+#
+                #    Oyun Ganimeti Ailesi
+                #""".format(datetime.now().strftime("%D %H:%M:%S"),request.META['REMOTE_ADDR'])
+                #email_from = settings.EMAIL_HOST_USER
+                #recipient_list = [user.email]
+                #send_mail( subject, message, email_from, recipient_list )
                 return redirect('index')
             
 
@@ -91,17 +91,18 @@ def registersite(request):
         
         user = MyUser(email=email)
         user.set_password(password)
-        user.save()       
-        subject = 'Kayıt Formu'
-        message = """
-            Merhaba Değerli Üyemi
-            Sitemize Üye olduğunuz için teşekkür ederiz.
-            {} tarihinde, {} ip adresinden sitemize tarafınızdan kayıt yapılmıştır.
-            Oyun Ganimeti Ailesi
-        """.format(datetime.now().strftime("%D %H:%M:%S"),request.META['REMOTE_ADDR'])
-        email_from = settings.EMAIL_HOST_USER
-        recipient_list = [user.email]
-        send_mail( subject, message, email_from, recipient_list )
+        user.save()
+        login(request, user)       
+        #subject = 'Kayıt Formu'
+        #message = """
+        #    Merhaba Değerli Üyemi
+        #    Sitemize Üye olduğunuz için teşekkür ederiz.
+        #    {} tarihinde, {} ip adresinden sitemize tarafınızdan kayıt yapılmıştır.
+        #    Oyun Ganimeti Ailesi
+        #""".format(datetime.now().strftime("%D %H:%M:%S"),request.META['REMOTE_ADDR'])
+        #email_from = settings.EMAIL_HOST_USER
+        #recipient_list = [user.email]
+        #send_mail( subject, message, email_from, recipient_list )
         return redirect('index')
     else:
         print(form.errors)
