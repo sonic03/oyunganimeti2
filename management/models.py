@@ -14,7 +14,7 @@ class UserManager(BaseUserManager):
         user_obj.set_password(password)
         user_obj.staff=is_staff
         user_obj.admin=is_admin
-        user_obj.active=is_active
+        user_obj.active=is_active 
         user_obj.author=is_author
         user_obj.site_user=is_site_user
         user_obj.save(using=self._db)
