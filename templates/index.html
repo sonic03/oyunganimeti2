@@ -49,10 +49,10 @@
     </div>
     <div class="col-12 campaign" style="float:left;">
       <div class="most-saller">
-        <h1>KAMPANYALI ÜRÜNLER</h1>
+        <h1>ÇOK SATANLAR</h1>
       </div>
       <div class="campaign-items">
-        {% for product in pr4 %}
+        {% for product in most_seller %}
           <a href="{{product.category.slug}}"><div class="shopfy-items">
             <img src="{{product.productimg.url}}" alt="..."> 
             <span class="shop-rate">-{{product.rate|stringformat:'d'}} %</span>
@@ -70,6 +70,7 @@
         <a href="{% url 'pros' %}"><h1>Tamamını Gör...</h1></a>
       </div>
     </div>
+    
     <div class="col-12">
       <div class="inner-commerce" style="width:85%;margin:0 auto;height:285px">
           {% for com in commerce|slice:":2" %}
@@ -88,12 +89,12 @@
       <div class="campaign-items">
         {% for product in discount_product %}
           <a href="{{product.category.slug}}"><div class="shopfy-items">
-            <img src="{{product.product.productimg.url}}" alt="..."> 
-            <span class="shop-rate">-{{product.product.rate|stringformat:'d'}} %</span>
+            <img src="{{product.productimg.url}}" alt="..."> 
+            <span class="shop-rate">-{{product.rate|stringformat:'d'}} %</span>
             <div class="product-card-body">
-              <h5>{{product.product.name}}</h5>
-              <p class="text-negative">{{product.product.sale_price}} ₺</p>
-              <p class="text-positive">{{product.product.discount_price}} ₺</p>
+              <h5>{{product.name}}</h5>
+              <p class="text-negative">{{product.sale_price}} ₺</p>
+              <p class="text-positive">{{product.discount_price}} ₺</p>
               
             </div>
             

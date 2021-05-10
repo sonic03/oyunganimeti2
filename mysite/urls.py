@@ -35,6 +35,7 @@ urlpatterns = [
                   path('hakkimizda', views.hakkimizda, name="hakkimizda"),
                   path('kvkk', views.kvkk, name="kvkk"),
                   path('products',views.pros,name="pros"),
+                  path('bakim',views.bakim,name="bakim"),
 
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL,
                                                                                            document_root=settings.MEDIA_ROOT)

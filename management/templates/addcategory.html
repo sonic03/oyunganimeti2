@@ -13,7 +13,8 @@
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {{form}}
+                        {{form.as_p}}
+                        {{form.media}}
                         <button class="btn btn-primary pull-left"type="submit" style="float:right;">giriş</button>
                     </form>
                 </div>

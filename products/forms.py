@@ -7,18 +7,18 @@ from django.forms import TextInput, fields
 from django.forms.widgets import Widget
 from management.models import MyUser
 
-from .models import Category, Commerce,Product,Slider,DiscountProduct
+from .models import Category, Commerce,Product,Slider
 
 
 
 class CategoryAddForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = ('name', 'desc', 'cat_img', 'slug', 'main', 'active', 'logo_img','video','title','meta_desc')
+        fields = ('name', 'desc', 'cat_img', 'slug', 'main', 'active', 'logo_img','video','title','meta_desc','summary')
         widgets ={
             'name':TextInput(attrs={'class':'form-control'}),
             'desc':forms.Textarea(attrs={'class':'form-control'}),
-
+            'summary':TextInput(attrs={'class':'form-control'}),
             'slug':TextInput(attrs={'class':'form-control'}),
             'main' : forms.Select(attrs={'class': 'form-control'}),
             'active':forms.CheckboxInput(),
@@ -32,7 +32,7 @@ class CategoryAddForm(forms.ModelForm):
 class ProductAddForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ('name', 'sale_price', 'discount_price', 'active', 'stock', 'productimg', 'category', 'main')
+        fields = ('name', 'sale_price', 'discount_price', 'active', 'stock', 'productimg', 'category', 'main','most_seller','discounted','news')
         widgets ={
             'name':TextInput(attrs={'class':'form-control'}),
             'sale_price':TextInput(attrs={'class':'form-control'}),
@@ -41,6 +41,9 @@ class ProductAddForm(forms.ModelForm):
             'category':forms.Select(attrs={'class': 'form-control'}),
             'main' : forms.Select(attrs={'class': 'form-control'}),
             'active':forms.CheckboxInput(),
+            'most_seller':forms.CheckboxInput(),
+            'discounted':forms.CheckboxInput(),
+            'news':forms.CheckboxInput(),
             
 
         }
@@ -54,16 +57,6 @@ class CommerceForm(forms.ModelForm):
     class Meta:
         model = Commerce
         fields = ('commerce_img','url')
-
-class DiscountProductForm(forms.ModelForm):
-    class Meta:
-        model = DiscountProduct
-        fields = ('product',)
-
-class NewProductForm(forms.ModelForm):
-    class Meta:
-        model = DiscountProduct
-        fields = ('product',)
 
 
 class LoginSiteForm(forms.Form):

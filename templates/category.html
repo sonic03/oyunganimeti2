@@ -30,7 +30,7 @@
           </div>
           <div class="left-card-body">
             <h5 class="left-card-title">{{ct.name}}</h5>
-            <p class="left-card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="left-card-text">{{ct.summary}}</p>
 
           </div>
         </div>
@@ -92,6 +92,11 @@
           {% endfor %}
         
     
+    </div>
+    <div class="col-12">
+     <div class="description">
+      {{ct.desc|safe}}
+     </div>
     </div>
   </div>
 

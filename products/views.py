@@ -1,39 +1,49 @@
 from itertools import zip_longest
 from django import forms
+from django.contrib.sites import requests
 from management.models import MyUser
 from django.shortcuts import render, get_object_or_404,redirect
-from .models import  Category,Product,Slider,Commerce,DiscountProduct,NewProduct
+from .models import  Category,Product,Slider,Commerce
 from carts.models import Cart
 from .forms import LoginSiteForm,RegisterSiteForm
 from django.contrib.auth import authenticate, login, get_user_model,logout
 import json
+from django.contrib import messages
 from django.conf import settings
 from django.core.mail import send_mail
 from datetime import datetime
 from django.conf import settings
 from billing.models import BillingProfile
 from orders.models import Order
+from management.decorators import bakim
 # Create your views here.
 
 User = settings.AUTH_USER_MODEL
 
+@bakim
 def index(request):
-    sliders=[]
-    products=Product.objects.all()
-    slider=Slider.objects.all()
-    for s in slider:sliders.append(s.slider.url)
-    
-    cc=json.dumps(sliders)
-    
-    
-    
-    pr4=Product.objects.all()[0:4]
-    commerce = Commerce.objects.all()
-    discount_product = DiscountProduct.objects.order_by('-id')[0:4]
-    new_product = NewProduct.objects.order_by('-id')[0:4]
-    return render(request,'index.html',{'products':products,'slider':slider,'pr4':pr4,'commerce':commerce,'discount_product':discount_product,'cc':cc,'new_product':new_product})
+    if settings.REPAIR_MODE:
+        return render(request,'bakim.html')
+    else:
+        sliders=[]
+        products=Product.objects.all()
+        slider=Slider.objects.all()
+        for s in slider:sliders.append(s.slider.url)
+        
+        cc=json.dumps(sliders)
+        
+        
+        
+        
+        commerce = Commerce.objects.all()
+        discount_product = Product.objects.filter(discounted=True).order_by('-id')[0:4]
+        new_product = Product.objects.filter(news=True).order_by('-id')[0:4]
+        most_seller = Product.objects.filter(most_seller=True).order_by('-id')[0:4]
+        return render(request,'index.html',{'products':products,'slider':slider,'commerce':commerce,'discount_product':discount_product,'cc':cc,'new_product':new_product,'most_seller':most_seller})
+
 
 def navbar(request):
+    
     category=Category.objects.filter(active=True)
     cart_id = request.session.get('card_id')
     if cart_id is not None:
@@ -42,79 +52,113 @@ def navbar(request):
         cart_count = None
     return {'category':category,'cart_count':cart_count}
 
+@bakim
 def hakkimizda(request):
+    
     return render(request,"hakkimizda.html")
 
+@bakim
 def kvkk(request):
+   
     return render(request,"kvkk.html")
 
+@bakim
 def ks(request):
+    
     return render(request,"kullanici-sozlesmesi.html")
 
+@bakim
 def category(request,slug):
+    
     ct=get_object_or_404(Category,slug=slug)
     product=Product.objects.filter(category=ct)
     return render(request,'category.html',{'product':product,'ct':ct})
 
+@bakim
 def loginsite(request):
     form = LoginSiteForm(request.POST or None)
+    context = {"form": form, 'recaptcha_site_key': settings.GOOGLE_RECAPTCHA_SITE_KEY}
     if form.is_valid():
-        email = form.cleaned_data.get('email')
-        password = form.cleaned_data.get('password')
-        
-        user = authenticate(request, username=email, password=password)
-      
-        if user is not None:
-                login(request, user)
-                #subject = 'Siteye Giriş'
-                #message = """
-                #    Merhaba Değerli Üyemiz
-#
-                #    {} tarihinde, {} ip adresinden sitemize giriş yapılmıştır. Bu kişi siz değilseniz en kısa sürede irtibata geçiniz.
-#
-                #    Oyun Ganimeti Ailesi
-                #""".format(datetime.now().strftime("%D %H:%M:%S"),request.META['REMOTE_ADDR'])
-                #email_from = settings.EMAIL_HOST_USER
-                #recipient_list = [user.email]
-                #send_mail( subject, message, email_from, recipient_list )
-                return redirect('index')
-            
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        data = {
+            'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+            'response': recaptcha_response
+        }
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+        result = r.json()
+        if result['success']:
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
 
-    return render(request, "sitelogin.html", {'form': form})
+            user = authenticate(request, username=email, password=password)
 
+            if user is not None:
+                if not user.admin:
+
+                    login(request, user)
+                    #subject = 'Siteye Giriş'
+                    #message = """
+                    #    Merhaba Değerli Üyemiz
+    #
+                    #    {} tarihinde, {} ip adresinden sitemize giriş yapılmıştır. Bu kişi siz değilseniz en kısa sürede irtibata geçiniz.
+    #
+                    #    Oyun Ganimeti Ailesi
+                    #""".format(datetime.now().strftime("%D %H:%M:%S"),request.META['REMOTE_ADDR'])
+                    #email_from = settings.EMAIL_HOST_USER
+                    #recipient_list = [user.email]
+                    #send_mail( subject, message, email_from, recipient_list )
+                    return redirect('index')
+    else:
+        messages.error(request, 'reCAPTCHA hatalı. Lütfen tekrar deneyin')
+
+
+    return render(request, "sitelogin.html", context)
+
+@bakim
 def registersite(request):
     form = RegisterSiteForm(request.POST or None)
     if form.is_valid():
-        email = form.cleaned_data.get('email')
-        password = form.cleaned_data.get('password')
-        
-        
-        user = MyUser(email=email)
-        user.set_password(password)
-        user.save()
-        login(request, user)       
-        #subject = 'Kayıt Formu'
-        #message = """
-        #    Merhaba Değerli Üyemi
-        #    Sitemize Üye olduğunuz için teşekkür ederiz.
-        #    {} tarihinde, {} ip adresinden sitemize tarafınızdan kayıt yapılmıştır.
-        #    Oyun Ganimeti Ailesi
-        #""".format(datetime.now().strftime("%D %H:%M:%S"),request.META['REMOTE_ADDR'])
-        #email_from = settings.EMAIL_HOST_USER
-        #recipient_list = [user.email]
-        #send_mail( subject, message, email_from, recipient_list )
-        return redirect('index')
-    else:
-        print(form.errors)
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        data = {
+            'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+            'response': recaptcha_response
+        }
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+        result = r.json()
+        if result['success']:
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
+
+
+            user = MyUser(email=email)
+            user.set_password(password)
+            user.save()
+            login(request, user)
+            #subject = 'Kayıt Formu'
+            #message = """
+            #    Merhaba Değerli Üyemi
+            #    Sitemize Üye olduğunuz için teşekkür ederiz.
+            #    {} tarihinde, {} ip adresinden sitemize tarafınızdan kayıt yapılmıştır.
+            #    Oyun Ganimeti Ailesi
+            #""".format(datetime.now().strftime("%D %H:%M:%S"),request.META['REMOTE_ADDR'])
+            #email_from = settings.EMAIL_HOST_USER
+            #recipient_list = [user.email]
+            #send_mail( subject, message, email_from, recipient_list )
+            return redirect('index')
+
+        else:
+            messages.error(request, 'reCAPTCHA hatalı. Lütfen tekrar deneyin')
         
             
 
     return render(request, "siteregister.html", {'form': form})
 
+@bakim
 def sitelogout(request):
     logout(request)
     return redirect('index')
 
+@bakim
 def user_order_page(request):
     user_id=request.user.id
     billing_profile_id=BillingProfile.objects.filter(user_id=user_id)[0].id
@@ -122,6 +166,7 @@ def user_order_page(request):
 
     return render(request,'orders.html',{'orders':orders})
 
+@bakim
 def user_order_page_detail(request,order_id):
     
     order_detail=Order.objects.filter(order_id=order_id).prefetch_related('cart').first()
@@ -132,7 +177,13 @@ def user_order_page_detail(request,order_id):
     else:
         return redirect('index')
 
-
+@bakim
 def pros(request):
-    pros=Product.objects.all()
-    return render(request,"products.html",{"pros":pros})
+    pros= Product.objects.all()
+    return render(request, "products.html", {"pros": pros})
+
+
+
+
+def bakim(request):
+    return render(request,"bakim.html")

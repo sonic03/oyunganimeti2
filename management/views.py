@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from core.models import Repeary
 from management.decorators import is_login_and_admin,not_authenticate
 from carts.models import Cart
 from django.conf import settings
@@ -13,8 +13,8 @@ from .forms import LoginForm,PinDeliveryForm
 
 
 # Create your views here.
-from products.forms import CategoryAddForm,ProductAddForm,SliderForm,CommerceForm,DiscountProductForm,NewProductForm
-from products.models import Category,Product,Slider,Commerce,DiscountProduct,PinCode,NewProduct
+from products.forms import CategoryAddForm,ProductAddForm,SliderForm,CommerceForm
+from products.models import Category,Product,Slider,Commerce,PinCode
 from orders.models import Order
 
 @is_login_and_admin
@@ -64,6 +64,17 @@ def categoryadd(request):
     return render(request, 'addcategory.html', {'form': form})
 
 @is_login_and_admin
+def categoryupdate(request,id):
+    category=get_object_or_404(Category,id=id)
+    form = CategoryAddForm(request.POST or None,request.FILES or None,instance=category)
+    if request.method =='POST':
+        if form.is_valid():
+            form.save()
+            return redirect('management:showcategory')
+    return render(request, 'addcategory.html', {'form': form})
+
+
+@is_login_and_admin
 def change_status(request,id):
     cat=Category.objects.filter(id=id).first()
     if cat.active:
@@ -106,7 +117,7 @@ def subprice(request,id):
         for p in products:
             p.discount_price=product.discount_price
             p.save()
-        return redirect('showproducts')
+        return redirect('management:showproducts')
 
 @is_login_and_admin
 def showsliders(request):
@@ -120,7 +131,7 @@ def addslider(request):
     if request.method=='POST':
         if form.is_valid():
             form.save()
-            return redirect('showsliders')
+            return redirect('management:showsliders')
     return render(request,'slideradd.html',{'form':form})
 
 @is_login_and_admin   
@@ -129,33 +140,10 @@ def addcommerce(request):
     if request.method=='POST':
         if form.is_valid():
             form.save()
-            return redirect('showsliders')
+            return redirect('management:showsliders')
     return render(request,'commerceadd.html',{'form':form})
 
-@is_login_and_admin
-def showfeatures(request):
-    discount_products= DiscountProduct.objects.all()
-    new_products = NewProduct.objects.all()
 
-    return render(request,'features.html',{'discount_products':discount_products,'new_products':new_products})
-
-@is_login_and_admin
-def adddiscountproduct(request):
-    form=DiscountProductForm(request.POST or None,request.FILES or None)
-    if request.method=='POST':
-        if form.is_valid():
-            form.save()
-            return redirect('management:features')
-    return render(request,'adddiscountproduct.html',{'form':form})
-
-@is_login_and_admin
-def adddnewproduct(request):
-    form=NewProductForm(request.POST or None,request.FILES or None)
-    if request.method=='POST':
-        if form.is_valid():
-            form.save()
-            return redirect('management:features')
-    return render(request,'addnewproduct.html',{'form':form})
 
 @is_login_and_admin
 def site_users(request):
@@ -173,8 +161,7 @@ def show_orders(request):
 def show_order_detail(request,order_id):
     
     order_detail=Order.objects.filter(order_id=order_id).prefetch_related('cart').first()
-    print(order_detail.cart.products.all())
-    print(order_detail.cart.pin_code.all())
+
     order_list=list(zip_longest(order_detail.cart.products.all(),order_detail.cart.pin_code.all(),fillvalue='tedaik aşamasında'))
     oldorderid=order_detail.id
     if len(order_detail.cart.products.all())==len(order_detail.cart.pin_code.all()):
@@ -260,3 +247,16 @@ def update_order_detail(request,order_id,product_id,pincode_id):
     
     return render(request,'epinupdate.html',{'form':form})
 
+
+def change_rep_status(request):
+    rep=settings.REPAIR_MODE
+    
+    return {'rep':rep}
+
+def rep_status(request):
+    
+    if settings.REPAIR_MODE:
+        settings.REPAIR_MODE=False
+    else:
+        settings.REPAIR_MODE=True
+    return redirect("management:dashboard")

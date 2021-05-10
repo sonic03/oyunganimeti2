@@ -705,6 +705,7 @@ body {
     overflow: hidden;
     box-sizing: border-box;
     z-index: 99999999;
+    top: 0
 }
 
 .basket-in h1 {
@@ -1115,4 +1116,10 @@ input:focus {
     position: absolute;
     width: 100%;
     color: white;
+}
+
+.description {
+    color: white;
+    padding: 15px 23px;
+    border-radius: 5px;
 }
