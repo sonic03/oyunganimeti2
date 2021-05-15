@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from core.models import Repeary
 from management.decorators import is_login_and_admin,not_authenticate
 from carts.models import Cart
 from django.conf import settings
@@ -13,8 +13,8 @@ from .forms import LoginForm,PinDeliveryForm
 
 
 # Create your views here.
-from products.forms import CategoryAddForm,ProductAddForm,SliderForm,CommerceForm,DiscountProductForm,NewProductForm
-from products.models import Category,Product,Slider,Commerce,DiscountProduct,PinCode,NewProduct
+from products.forms import CategoryAddForm,ProductAddForm,SliderForm,CommerceForm
+from products.models import Category,Product,Slider,Commerce,PinCode
 from orders.models import Order
 
 @is_login_and_admin
@@ -64,6 +64,17 @@ def categoryadd(request):
     return render(request, 'addcategory.html', {'form': form})
 
 @is_login_and_admin
+def categoryupdate(request,id):
+    category=get_object_or_404(Category,id=id)
+    form = CategoryAddForm(request.POST or None,request.FILES or None,instance=category)
+    if request.method =='POST':
+        if form.is_valid():
+            form.save()
+            return redirect('management:showcategory')
+    return render(request, 'addcategory.html', {'form': form})
+
+
+@is_login_and_admin
 def change_status(request,id):
     cat=Category.objects.filter(id=id).first()
     if cat.active:
@@ -106,7 +117,7 @@ def subprice(request,id):
         for p in products:
             p.discount_price=product.discount_price
             p.save()
-        return redirect('showproducts')
+        return redirect('management:showproducts')
 
 @is_login_and_admin
 def showsliders(request):
@@ -120,8 +131,15 @@ def addslider(request):
     if request.method=='POST':
         if form.is_valid():
             form.save()
-            return redirect('showsliders')
+            return redirect('management:showsliders')
     return render(request,'slideradd.html',{'form':form})
+
+@is_login_and_admin
+def delslider(request,sliderid):
+    slider=get_object_or_404(Slider,id=sliderid)
+    slider.delete()
+    return redirect('management:showsliders')
+    
 
 @is_login_and_admin   
 def addcommerce(request):
@@ -129,33 +147,10 @@ def addcommerce(request):
     if request.method=='POST':
         if form.is_valid():
             form.save()
-            return redirect('showsliders')
+            return redirect('management:showsliders')
     return render(request,'commerceadd.html',{'form':form})
 
-@is_login_and_admin
-def showfeatures(request):
-    discount_products= DiscountProduct.objects.all()
-    new_products = NewProduct.objects.all()
 
-    return render(request,'features.html',{'discount_products':discount_products,'new_products':new_products})
-
-@is_login_and_admin
-def adddiscountproduct(request):
-    form=DiscountProductForm(request.POST or None,request.FILES or None)
-    if request.method=='POST':
-        if form.is_valid():
-            form.save()
-            return redirect('management:features')
-    return render(request,'adddiscountproduct.html',{'form':form})
-
-@is_login_and_admin
-def adddnewproduct(request):
-    form=NewProductForm(request.POST or None,request.FILES or None)
-    if request.method=='POST':
-        if form.is_valid():
-            form.save()
-            return redirect('management:features')
-    return render(request,'addnewproduct.html',{'form':form})
 
 @is_login_and_admin
 def site_users(request):
@@ -173,26 +168,24 @@ def show_orders(request):
 def show_order_detail(request,order_id):
     
     order_detail=Order.objects.filter(order_id=order_id).prefetch_related('cart').first()
-    print(order_detail.cart.products.all())
-    print(order_detail.cart.pin_code.all())
+
     order_list=list(zip_longest(order_detail.cart.products.all(),order_detail.cart.pin_code.all(),fillvalue='tedaik aşamasında'))
-    print("///////////////////////////")
     oldorderid=order_detail.id
     if len(order_detail.cart.products.all())==len(order_detail.cart.pin_code.all()):
         
         order_detail.status='Teslim Edildi' 
         order_detail.save()  
-        subject = 'Sipariş'
-        message = """
-            Merhaba Değerli Üyemiz
-           {} numaralı siparişiniz teslim edilmiştir.
-            
-            İyi oyunlar dileriz…
-            Oyun Ganimeti Ailesi
-        """.format(order_id)
-        email_from = settings.EMAIL_HOST_USER
-        recipient_list = [order_detail.billing_profile.user.email]
-        send_mail( subject, message, email_from, recipient_list )   
+        #subject = 'Sipariş'
+        #message = """
+        #    Merhaba Değerli Üyemiz
+        #   {} numaralı siparişiniz teslim edilmiştir.
+        #    
+        #    İyi oyunlar dileriz…
+        #    Oyun Ganimeti Ailesi
+        #""".format(order_id)
+        #email_from = settings.EMAIL_HOST_USER
+        #recipient_list = [order_detail.billing_profile.user.email]
+        #send_mail( subject, message, email_from, recipient_list )   
     
 
     return render(request,'showorderdetails.html',{'order_detail':order_detail,'order_list':order_list})
@@ -207,40 +200,17 @@ def add_order_detail(request,order_id,product_id):
     form=PinDeliveryForm(request.POST or None) 
     if form.is_valid():
         epin=form.cleaned_data.get('pin_code')
-        print("1.adım çalıştı")
-        newEpin=Cart.objects.filter(id=cart_id,products__id=product_id).prefetch_related('pin_code').first()
-        print("2.adım çalıştı")
-        pinobj=PinCode(pin_code=epin,product_id=product_id)
-        print(pinobj)
-        pinobj.save()
-        print(pinobj)
-        newEpin.pin_code.add(pinobj)
         
-        print("3.adım çalıştı")
-        #newEpin.pin_code.save()
-        print("4.adım çalıştı")
+        newEpin=Cart.objects.filter(id=cart_id,products__id=product_id).prefetch_related('pin_code').first()
+        
+        pinobj=PinCode(pin_code=epin,product_id=product_id)
+        
+        pinobj.save()
+        
+        newEpin.pin_code.add(pinobj)
         newEpin.cart_id=cart_id
         newEpin.save()
-        
-        
-        print("5.adım çalıştı")
-        print("---------------------------")
-        
-        
-        print("/////////////")
-       
-       
-        
-        return redirect("showordersdetail" ,order_id=order_id)
-        
-    else:
-        print(form.errors)
-        print('asdfsdfsf')
-
-       
-
-
-    print("*****************")
+        return redirect("management:showordersdetail" ,order_id=order_id)
     
 
     
@@ -274,28 +244,26 @@ def update_order_detail(request,order_id,product_id,pincode_id):
         print("4.adım çalıştı")
         newEpin.cart_id=cart_id
         newEpin.save()
-        
-        
-        print("5.adım çalıştı")
-        print("---------------------------")
-        
-        
-        print("/////////////")
        
         print(epin)
         
-        return redirect("showordersdetail" ,order_id=order_id)
+        return redirect("management:showordersdetail" ,order_id=order_id)
         
-    else:
-        print(form.errors)
-        print('asdfsdfsf')
-
-       
-
-
-    print("*****************")
     
 
     
     return render(request,'epinupdate.html',{'form':form})
 
+
+def change_rep_status(request):
+    rep=settings.REPAIR_MODE
+    
+    return {'rep':rep}
+
+def rep_status(request):
+    
+    if settings.REPAIR_MODE:
+        settings.REPAIR_MODE=False
+    else:
+        settings.REPAIR_MODE=True
+    return redirect("management:dashboard")

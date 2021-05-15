@@ -26,7 +26,12 @@ SECRET_KEY = 'n65d5))oojg3d*e2j=w^#aw5hi77jhf_0kc!l8rq=5a7bp#*gm'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+GOOGLE_RECAPTCHA_SITE_KEY= "6LcR1c4aAAAAAFRON5fbEHiNAZXrlst-1rs8iPL5"
+GOOGLE_RECAPTCHA_SECRET_KEY = "6LcR1c4aAAAAALfPaj3oe9oTY2C1gtnOgdecdrJo"
+
+REPAIR_MODE = False
+
+ALLOWED_HOSTS = ['oyunganimeti.com','127.0.0.1']
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'proxy.uzmanposta.com'
@@ -34,7 +39,15 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'noreply@oyunganimeti.com' 
 EMAIL_HOST_PASSWORD = 'Oyn2357!*'
-# Application definition
+
+RECIPIENT_LIST = ['mrkayacik@yahoo.com','rrserdar.cakir@gmail.com']
+#Application definition
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -51,6 +64,7 @@ INSTALLED_APPS = [
     'django_template_maths',
     'orders',
     'billing',
+    'ckeditor',
     
 ]
 
@@ -80,6 +94,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'products.views.navbar',
+                'management.views.change_rep_status',
             ],
         },
     },
@@ -93,7 +108,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'), 
         #'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
         #'NAME': 'denemedb',

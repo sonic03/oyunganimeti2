@@ -35,6 +35,12 @@ urlpatterns = [
                   path('hakkimizda', views.hakkimizda, name="hakkimizda"),
                   path('kvkk', views.kvkk, name="kvkk"),
                   path('products',views.pros,name="pros"),
+                  path('bakim',views.bakim,name="bakim"),
+                  path('sss', views.sss, name="sss"),
+                  path('contact', views.contact, name="contact"),
+                  path('mesafeli-satis-sozlesmesi',views.mesafelisatissozlesmesi,name="mesafelisatissozlesmesi"),
+                  path('gizlilik-politikasi',views.gizlilik,name="gizlilik"),
+                  path('iade',views.iade,name="iade"),
 
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL,
                                                                                            document_root=settings.MEDIA_ROOT)

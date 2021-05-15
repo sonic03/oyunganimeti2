@@ -49,11 +49,9 @@
                             {{cat.get_active}} <a href="{% url 'management:change_status' cat.id %}"><i class="material-icons">edit</i></a>
                           </td>
                           <td style="width: -moz-min-content;">
-                            <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
-                              <i class="material-icons">edit</i><div class="ripple-container"></div></button>
-                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
-                              <i class="material-icons">close</i>
-                            </button>
+                            <a href="{% url 'management:updatecategory' cat.id %}">Düzenle
+                              </a>
+
                           </td>
 
 

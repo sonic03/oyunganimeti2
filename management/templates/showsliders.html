@@ -35,11 +35,7 @@
                             <img src="{{slide.slider.url}}" alt="" width="150">
                           </td>
                           <td style="width: -moz-min-content;">
-                            <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
-                              <i class="material-icons">edit</i><div class="ripple-container"></div></button>
-                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
-                              <i class="material-icons">close</i>
-                            </button>
+                            <a href="{% url 'management:delslider' slide.id %}">SİL</a>
                           </td>
 
 
@@ -57,7 +53,7 @@
               <div class="card">
                 <div class="card-header card-header-primary">
                   <h4 class="card-title ">Ara Reklamlar</h4>
-                  <a href="#" class="btn" style="float:right;"> Ara Reklam Ekle</a>
+                  <a href="{% url 'management:addcommerce' %}" class="btn" style="float:right;"> Ara Reklam Ekle</a>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">

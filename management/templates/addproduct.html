@@ -13,7 +13,50 @@
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {{form}}
+                        <div class="col-12">
+                          {{form.name.label}}
+                          {{form.name}}
+                        </div>
+                        <div class="col-12">
+                          {{form.sale_price.label}}
+                          {{form.sale_price}}
+                        </div>
+                        <div class="col-12">
+                          {{form.discount_price.label}}
+                          {{form.discount_price}}
+                        </div>
+                        <div class="col-12">
+                          {{form.active.label}}
+                          {{form.active}}
+                        </div>
+                        <div class="col-12">
+                          {{form.stock.label}}
+                          {{form.stock}}
+                        </div>
+                        <div class="col-12">
+                          {{form.productimg.label}}
+                          {{form.productimg}}
+                        </div>
+                        <div class="col-12">
+                          {{form.category.label}}
+                          {{form.category}}
+                        </div>
+                        <div class="col-12">
+                          {{form.main.label}}
+                          {{form.main}}
+                        </div>
+                        <div class="col-12">
+                          {{form.most_seller.label}}
+                          {{form.most_seller}}
+                        </div>
+                        <div class="col-12">
+                          {{form.discounted.label}}
+                          {{form.discounted}}
+                        </div>
+                        <div class="col-12">
+                          {{form.news.label}}
+                          {{form.news}}
+                        </div>
                         <button class="btn btn-primary pull-left"type="submit" style="float:right;">giriş</button>
                     </form>
                 </div>

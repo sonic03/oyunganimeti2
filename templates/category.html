@@ -30,7 +30,7 @@
           </div>
           <div class="left-card-body">
             <h5 class="left-card-title">{{ct.name}}</h5>
-            <p class="left-card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="left-card-text">{{ct.summary}}</p>
 
           </div>
         </div>
@@ -79,12 +79,12 @@
           </div>
           <div class="col-1" style='float:left;'>
           
-            <p class="product-text" style="color:green;" >{{pro.sale_price|sub:pro.discount_price}}₺</p>
+            <p class="product-text" style="color:green;" >{{pro.sale_price|sub:pro.discount_price|floatformat:2}}₺</p>
 
           </div>
           <div class="col-1" style='float:left;'>
           
-            <a class="buy-item" href="{% url 'carts:cart_update' pro.id %}"><i class=" buy-icon fa fa-cart-plus"></i></a>
+            <button class="buy-item" value={{pro.id}}><i class=" buy-icon fa fa-cart-plus"></i></button>
 
           </div>
           
@@ -92,6 +92,11 @@
           {% endfor %}
         
     
+    </div>
+    <div class="col-12">
+     <div class="description">
+      {{ct.desc|safe}}
+     </div>
     </div>
   </div>
 
@@ -102,3 +107,33 @@
 
 
 {% endblock %}
+
+{% block js %}
+<script>
+  const buyitem=document.getElementsByClassName("buy-item");
+
+    for( b of buyitem){
+      b.addEventListener('click',function(){
+        
+        let proNum=$(this)[0].attributes[1].nodeValue;
+        //window.location.href="/card/update/"+proNum;
+        $.ajax({
+          url:"/card/update/"+proNum,
+          method:"GET",
+          dataType:'json',
+          success:function(data){
+            
+            Swal.fire({icon: 'success',title: 'Sepete Eklendi',showConfirmButton: false,timer: 1500});
+            setTimeout(function(){window.location.reload();},2000);
+            
+
+          }
+        });
+      });
+      
+    }
+</script>
+
+{% endblock js %}
+
+

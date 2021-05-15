@@ -1,11 +1,13 @@
 from django.db import models
 from django.db.models.base import Model
+from ckeditor.fields import RichTextField
 
 
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(verbose_name='Kategori Adı', max_length=200)
-    desc = models.TextField(verbose_name='Aaçıklama', max_length=200)
+    summary=models.CharField(verbose_name='Kısa Açıklama', max_length=150)
+    desc = RichTextField(verbose_name='Aaçıklama')
     cat_img = models.ImageField(verbose_name='Kategori Resmi')
     logo_img = models.ImageField(verbose_name='Küçük resim',null=True,blank=True)
     slug = models.SlugField(verbose_name='link',max_length=500,unique=True)
@@ -14,6 +16,7 @@ class Category(models.Model):
     video = models.CharField(verbose_name='Video linki', max_length=5000)
     title = models.CharField(verbose_name='Başlık', max_length=200)
     meta_desc = models.CharField(verbose_name='Meta Açıklaması', max_length=200)
+
 
 
     def __str__(self):
@@ -39,6 +42,9 @@ class Product(models.Model):
     productimg = models.ImageField(verbose_name='Ürün resmi')
     main = models.ForeignKey('self', blank=True, null=True, related_name='child', on_delete=models.CASCADE)
     active = models.BooleanField(verbose_name='Yayın', default=True)
+    most_seller =models.BooleanField(verbose_name='En Çok Satanlar', default=False)
+    discounted =models.BooleanField(verbose_name='İndirimliler', default=False)
+    news =models.BooleanField(verbose_name='Yeni Ürünler', default=False)
     
     def __str__(self):
         return self.name
@@ -55,13 +61,6 @@ class Product(models.Model):
         else:
             return 'Stokta'
 
-
-class DiscountProduct(models.Model):
-    product = models.ForeignKey('Product',on_delete=models.CASCADE)    
-
-class NewProduct(models.Model):
-    product = models.ForeignKey('Product',on_delete=models.CASCADE)  
-   
 
 class Slider(models.Model):
     slider = models.ImageField(verbose_name='Slide')

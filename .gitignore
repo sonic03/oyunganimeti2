@@ -1,0 +1,12 @@
+.idea/
+.vagrant/
+.vscode/
+env/
+**/*.pyc
+**/elm-stuff/
+ubuntu-xenial-16.04-cloudimg-console.log
+config/settings/.env
+media/
+venv/
+staticfiles/
+.DS_Store

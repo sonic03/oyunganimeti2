@@ -18,7 +18,7 @@
         <div class="col-12">    
         
             <div class="form-out" style="height:478px;">
-                <h1>GİRİŞ YAP!</h1>
+                <h1>ÜYE OL !</h1>
                 {% if form.errors %}
                     <div id="errors">
                         <div class="inner">
@@ -55,7 +55,7 @@
                     <div class="col-12" style="float:left;">
                     {{form.is_accept}} Üyelik sözleşmesini okudum ve onaylıyorum.
                     </div>
-                    
+                    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
                     <button class="loginbtn"type="submit" style="margin-top:15px;">Kayıt Ol!</button>
                 </form>
                 </div>
@@ -70,5 +70,15 @@
 
 {% endblock body %}
 
+{% block js%}
+<script src='https://www.google.com/recaptcha/api.js?render={{recaptcha_site_key}}'></script>
+    <script>
+    //global grecaptcha
+    grecaptcha.ready(function() {
+      grecaptcha.execute('{{recaptcha_site_key}}',{ action: "main_page"}).then(function(token) {
+        document.getElementById('g-recaptcha-response').value = token;
 
-
+      });
+    });
+</script>
+{% endblock%}
