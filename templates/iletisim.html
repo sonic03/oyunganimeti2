@@ -1,0 +1,104 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load django_template_maths %}
+{% block title %}{% endblock title %}
+{% block description %}{% endblock description %}
+<style>
+        {% block css %}
+        .container-top{
+          margin-top:150px;
+        }
+        .form-out{
+            width:100% !important;
+            background:none !important;
+        }
+        ::placeholder {
+        color: orangered;
+        opacity: 1; /* Firefox */
+        }
+        {% endblock %}
+        
+    </style>
+
+
+{% block body %}
+    <div class="container container-top">
+        <div class="row">
+
+
+                <div class="col-8">
+        
+            <div class="form-out">
+                <h1>Bir Sorununuz mu var?</h1>
+                <div class="form-in">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="col-4" style="float:left;">
+                        <div class="col-12"style="float:left;">
+                        {{form.name}}
+                        </div>
+                        <div class="col-12" style="float:left;">
+                        {{form.email}}
+                        </div>
+                        <div class="col-12" style="float:left;">
+                        {{form.phone}}
+                        </div>
+                    </div>
+                    <div class="col-8" style="float:left;">
+                        <div class="col-12" style="padding-left:10px;">
+                            {{form.msg}}
+                        </div>
+                    </div>
+                    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+                    <button class="send-btn"type="submit">Gönder</button>
+                </form>
+                </div>
+            </div>
+        
+        </div>
+        <div class="col-4" style="float:left">
+            <div class="right-part">
+                <div class="col-12" style="margin-bottom:40px;">
+                    <h1>İletişime Geç</h1>
+                    <p>Tel: 05324499678</p>
+                    <p>Email: info@oyunganimeti.com</p>
+
+                </div>
+                <div class="col-12" style="margin-bottom:40px;">
+                    <h1>Çalışma Saatleri</h1>
+                    <p>Pzt - Cuma: 08:00 - 00:00  </p>
+                    <p>Cumartesi: 08:00 - 00:00   </p>
+                    <p>Pazar: 08:00 - 00:00   </p>
+
+                </div>
+                <div class="col-12">
+                    <h1>Adress</h1>
+                    <p>Türkiye / İzmir</p>
+                    
+
+                </div>
+            </div>
+        
+        </div>
+        </div>
+    </div>
+
+    
+
+
+{% endblock body %}
+{% block js%}
+<script src='https://www.google.com/recaptcha/api.js?render={{recaptcha_site_key}}'></script>
+    <script>
+    //global grecaptcha
+    grecaptcha.ready(function() {
+      grecaptcha.execute('{{recaptcha_site_key}}',{ action: "main_page"}).then(function(token) {
+        document.getElementById('g-recaptcha-response').value = token;
+
+      });
+    });
+</script>
+{% endblock%}
+
+
+

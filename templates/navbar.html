@@ -7,7 +7,7 @@
       </div>
       <div class="nav-inner">
         <ul>
-        <li class="li" id="li">E-Pin<ul id="ul">
+        <li class="li" id="li">Oyunlar<ul id="ul">
 
           {% for cate in category %}
           <li><a href="{% url 'category' cate.slug %}">{{cate.name}}</a></li>
@@ -15,10 +15,9 @@
           {% endfor %}
           </ul>
           </li>
-          <li><a href="#">CD-Key</a></li>
           <li><a href="#">Haberler</a></li>
-          <li><a href="#">İletişim</a></li>
-          <li><a href="#">Yardım</a></li>
+          <li><a href="{% url 'contact' %}">İletişim</a></li>
+          <li><a href="{% url 'sss' %}">Yardım</a></li>
         </ul>
       </div>
       <div class="right">
@@ -38,7 +37,8 @@
               </ul>
 
           {% else %}
-            <h1>Henüz <a href='{% url "loginsite" %}'>giriş</a> yapılmadı</h1>
+            <h1><a href='{% url "loginsite" %}'>Giriş Yap</a></h1>
+            <h1><a href='{% url "registersite" %}'>Üye Ol</a></h1>
           {% endif %}
 
           </div>
@@ -58,44 +58,42 @@
           </div>
           <div class="cart-body">
             {% if cart_count.products.all.exists%}
-        <table class="table">
-          <thead class="cart-body-header">
-            <tr>
-              <th scope="col">Ürün Adı</th>
-              <th scope="col">Fiyat</th>
-            </tr>
-          </thead>
-          <tbody class="cart-body-items">
+        
+          
 
             {% for pro in cart_count.products.all %}
-            <tr>
-              <td>{{pro.name}}</td>
-              <td>{{pro.discount_price}}₺</td>
+            <div class="cart-body-items">
+              <img src="{{pro.productimg.url}}" alt="">
+              <h2>{{pro.name}}</h2>
+              <h3 class="cross">{{pro.sale_price}}₺</h3><h3>{{pro.discount_price}}₺</h3>
+              <div class="trash">
+                <button style="background:none;border:none;" class="delItem" value={{pro.id}}><i class="fa fa-trash" aria-hidden="true"></i></button>
+              </div>
 
-            </tr>
+            </div>
             {% endfor %}
-          </tbody>
-          </table>
+          
+          
           {% else %}
             <p style="margin:2px 15px;font-size:15px;">Henüz Ürün Eklenmemiş</p>
           {% endif %}
                 </div>
-        <div class="total">
-          <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Toplam</th>
+          <div class="half-total">
+            <h2>Ara Toplam :</h2>
+            <p>
               {% if cart_count.toplam != 0 %}
-                <th scope="col">{{cart_count.total}}₺</th>
+                {{cart_count.total}}₺
 
               {% else %}
-              <th scope="col">0.00 ₺</th>
-              {% endif %}
-            </tr>
-          </thead>
-          </table>
+              0.00 ₺
+              {% endif %}</p>
+          </div>
+        <div class="total">
+          
+              
+            <span id="go-crt" class="button-basket">SEPETE GİT <i style="font-size: 18px;margin-left:10px;" class="fa fa-shopping-cart"></i></span>
         </div>
-        <span id="go-crt" class="button-basket">SEPETE GİT <i style="font-size: 18px;margin-left:10px;" class="fa fa-shopping-cart"></i></span>
+        
       </div>
       </div>
     </div>

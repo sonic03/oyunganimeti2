@@ -37,6 +37,7 @@ urlpatterns = [
     path('subprice/<int:id>', views.subprice,name='subprice'),
     path('showsliders/',views.showsliders,name='showsliders'),
     path('addslider/',views.addslider,name='addslider'),
+    path('delslider/<int:sliderid>',views.delslider,name='delslider'),
     path('addcommerce/',views.addcommerce,name='addcommerce'),
     path('showorders/',views.show_orders,name='showorders'),
     path('showorders/<str:order_id>',views.show_order_detail,name='showordersdetail'),

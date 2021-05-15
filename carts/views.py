@@ -1,4 +1,6 @@
+import json
 from django.core.mail import send_mail
+from django.http.response import JsonResponse
 from orders.models import Order
 from django.db.models import query
 from django.shortcuts import redirect, render
@@ -26,15 +28,20 @@ def card_update(request,id):
     product_obj = Product.objects.get(id=product_id)
     cart_obj,new_obj = Cart.objects.new_or_get(request)
     cart_obj.products.add(product_obj)
-    print(request.session['card_id'])
-    return redirect('carts:cart_home')
+    #print(request.session['card_id'])
+    #return redirect('carts:cart_home')
+    
+    context={'cart_obj.products':list(cart_obj.products.all().values())}
+    return JsonResponse(data=context)
 
 def card_delete(request,id):
     product_id =id
     product_obj = Product.objects.get(id=product_id)
     cart_obj= Cart.objects.get(id=request.session['card_id'])
     cart_obj.products.remove(product_obj)
-    return redirect('carts:cart_home')
+    #return redirect('carts:cart_home')
+    context={'cart_obj.products':list(cart_obj.products.all().values())}
+    return JsonResponse(data=context)
 
 def checkout(request):
     cart_obj,cart_created = Cart.objects.new_or_get(request)

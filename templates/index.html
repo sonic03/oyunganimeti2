@@ -20,7 +20,7 @@
 <div class="container-fluid" style="width: 98%;">
   <div class="row">
     
-    <div class="col-12">
+    {% comment %} <div class="col-12">
       <div class="carosel">
       <div class="items">
 		
@@ -46,29 +46,32 @@
 		</div>
 	</div>
   </div>
-    </div>
+    </div> {% endcomment %}
     <div class="col-12 campaign" style="float:left;">
       <div class="most-saller">
         <h1>ÇOK SATANLAR</h1>
       </div>
       <div class="campaign-items">
         {% for product in most_seller %}
-          <a href="{{product.category.slug}}"><div class="shopfy-items">
-            <img src="{{product.productimg.url}}" alt="..."> 
+          <div class="shopfy-items">
+            <a href="{{product.category.slug}}"><img src="{{product.productimg.url}}" alt="..."> 
             <span class="shop-rate">-{{product.rate|stringformat:'d'}} %</span>
             <div class="product-card-body">
               <h5>{{product.name}}</h5>
               <p class="text-negative">{{product.sale_price}} ₺</p>
               <p class="text-positive">{{product.discount_price}} ₺</p>
               
+            </div></a>
+            <div class="add-basket">
+              <button class="add-basket-btn" target-id="{{product.id}}">Sepete Ekle</button>
             </div>
             
-          </div></a>
+            
+          </div>
+          
         {% endfor %}  
       </div>
-      <div class="sc-lower">
-        <a href="{% url 'pros' %}"><h1>Tamamını Gör...</h1></a>
-      </div>
+      
     </div>
     
     <div class="col-12">
@@ -88,22 +91,23 @@
       </div>
       <div class="campaign-items">
         {% for product in discount_product %}
-          <a href="{{product.category.slug}}"><div class="shopfy-items">
-            <img src="{{product.productimg.url}}" alt="..."> 
+          <div class="shopfy-items">
+            <a href="{{product.category.slug}}"><img src="{{product.productimg.url}}" alt="..."> 
             <span class="shop-rate">-{{product.rate|stringformat:'d'}} %</span>
             <div class="product-card-body">
               <h5>{{product.name}}</h5>
               <p class="text-negative">{{product.sale_price}} ₺</p>
               <p class="text-positive">{{product.discount_price}} ₺</p>
               
+            </div></a>
+            <div class="add-basket">
+              <button class="add-basket-btn" target-id="{{product.id}}">Sepete Ekle</button>
             </div>
             
-          </div></a>
+          </div>
         {% endfor %}
       </div> 
-      <div class="sc-lower">
-        <a href="{% url 'pros' %}"><h1>Tamamını Gör...</h1></a>
-      </div> 
+      
     </div>
     <div class="col-12">
       <div class="inner-commerce" style="width:85%;margin:0 auto;height:285px">
@@ -122,22 +126,25 @@
       </div>
       <div class="campaign-items">
         {% for product in new_product %}
-          <a href="{{product.category.slug}}"><div class="shopfy-items">
-            <img src="{{product.productimg.url}}" alt="..."> 
+          <div class="shopfy-items">
+            <a href="{{product.category.slug}}"><img src="{{product.productimg.url}}" alt="..."> 
             <span class="shop-rate">-{{product.rate|stringformat:'d'}} %</span>
             <div class="product-card-body">
               <h5>{{product.name}}</h5>
               <p class="text-negative">{{product.sale_price}} ₺</p>
               <p class="text-positive">{{product.discount_price}} ₺</p>
               
+            </div></a>
+            <div class="add-basket">
+              <button class="add-basket-btn" target-id="{{product.id}}">Sepete Ekle</button>
             </div>
             
-          </div></a>
+          </div>
         {% endfor %}
       </div>
-      <div class="sc-lower">
+      {% comment %} <div class="sc-lower">
         <a href="{% url 'pros' %}"><h1>Tamamını Gör...</h1></a>
-      </div>
+      </div> {% endcomment %}
         
       
         
@@ -162,12 +169,12 @@
 <script src="{% static 'js/three.js'%}"></script>
 <script src="{% static 'js/demo5.js'%}"></script>
 <script src="{% static 'js/gsap.js'%}"></script>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{% static 'js/modernizr.custom.46884.js'%}"></script>
 <script>
   // I will be creating a different pen with touch support but right // now I have no time for it due to school
 
-const slider = document.querySelector(".items");
+{% comment %} const slider = document.querySelector(".items");
 		const slides = document.querySelectorAll(".item");
 		const button = document.querySelectorAll(".button");
 
@@ -225,6 +232,34 @@ const slider = document.querySelector(".items");
 			slides[next].classList.add("next");
       slides[prevp].classList.add("prev-p");
 			slides[nextp].classList.add("next-p");
-		}
+		} {% endcomment %}
+
+    const addBasketBtn=document.getElementsByClassName("add-basket-btn");
+
+    for( a of addBasketBtn){
+      a.addEventListener('click',function(){
+        
+        let proNum=$(this)[0].attributes[1].nodeValue;
+        //window.location.href="/card/update/"+proNum;
+        $.ajax({
+          url:"/card/update/"+proNum,
+          method:"GET",
+          dataType:'json',
+          success:function(data){
+            
+            Swal.fire({icon: 'success',title: 'Sepete Eklendi',showConfirmButton: false,timer: 1500});
+            setTimeout(function(){window.location.reload();},2000);
+            
+
+          }
+        });
+      });
+      
+    }
+
+
+
+
+
 </script>
 {% endblock %}

@@ -146,7 +146,6 @@ body {
     width: 100%;
     height: 280px;
     border-top: 2px solid orangered;
-    border-bottom: 2px solid orangered;
     overflow: hidden;
     margin: 50px auto 0 auto;
 }
@@ -470,7 +469,7 @@ body {
     background-repeat: no-repeat;
     background-size: 467px;
     background-position: right;
-    height: 485px;
+    height: 550px;
     display: flex;
     padding-top: 170px;
     position: relative;
@@ -488,7 +487,7 @@ body {
     background-repeat: no-repeat;
     background-size: 467px;
     background-position: left;
-    height: 485px;
+    height: 550px;
     display: flex;
     padding-top: 170px;
     position: relative;
@@ -501,16 +500,17 @@ body {
 }
 
 .campaign-items {
-    width: 1300px;
+    width: 1200px;
     float: left;
     margin: 0 auto;
+    margin-top: -15px;
 }
 
 .most-saller {
     width: 99%;
     height: 50px;
     position: absolute;
-    top: 87px;
+    top: 66px;
 }
 
 .most-saller h1 {
@@ -527,8 +527,8 @@ body {
 }
 
 .shopfy-items {
-    width: 307px;
-    height: 250px;
+    width: 230px;
+    height: 369px;
     overflow: hidden;
     float: left;
     margin: 0 5px;
@@ -536,8 +536,8 @@ body {
 }
 
 .shopfy-items img {
-    width: 345px;
-    height: 170px;
+    width: 100%;
+    height: 264px;
 }
 
 .shopfy-items .shop-rate {
@@ -555,7 +555,7 @@ body {
     background-repeat: no-repeat;
     background-size: 467px;
     background-position: right;
-    height: 485px;
+    height: 550px;
     display: flex;
     padding-top: 170px;
     position: relative;
@@ -698,8 +698,8 @@ body {
     height: 950px;
     right: -450px;
     display: block;
-    background: orangered;
-    border: 2px solid orangered;
+    background: black;
+    border-left: 1px solid orangered;
     position: fixed;
     transition: all 0.5s;
     overflow: hidden;
@@ -730,6 +730,7 @@ body {
 .cart-header {
     height: 113px;
     padding: 5px;
+    background: orangered;
 }
 
 .cart-body {
@@ -738,6 +739,9 @@ body {
     margin: 0 auto;
     padding: 5px 20px;
     width: 92%;
+    height: 496px;
+    overflow: auto;
+    margin-top: 12px;
 }
 
 .cart-body-header {
@@ -746,8 +750,20 @@ body {
 }
 
 .cart-body-items {
-    text-align: -webkit-center;
+    text-align: center;
     color: white;
+    width: 100%;
+    height: 120px;
+    padding: 15px;
+    border-bottom: 1px solid orangered;
+    position: relative;
+}
+
+.cart-body-items img {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    float: left;
 }
 
 .cart-body-items tr {
@@ -756,11 +772,67 @@ body {
     margin: 5px auto;
 }
 
-.total {
+.cart-body-items h2 {
     width: 100%;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.cart-body-items h3 {
+    width: 100%;
+    font-size: 16px;
+}
+
+.cross {
+    color: orangered;
+    text-decoration-line: line-through;
+}
+
+.total {
+    width: 400px;
+    height: 95px;
     text-align: center;
     border-top: 2px solid;
     margin: 15px 0 0 0;
+    position: fixed;
+    bottom: 0;
+    background: orangered;
+}
+
+.half-total {
+    position: fixed;
+    bottom: 71px;
+    color: white;
+    width: 400px;
+    padding-left: 15px;
+}
+
+.half-total p {
+    width: 45%;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: left;
+    float: left;
+    line-height: 39px;
+}
+
+.half-total h2 {
+    width: 41%;
+    margin-bottom: 44px;
+    float: left;
+    font-size: 26px;
+}
+
+.trash {
+    position: absolute;
+    top: 41%;
+    right: 4%;
+    font-size: 20px;
+    color: orangered;
+}
+
+.trash .fa {
+    color: orangered;
 }
 
 .total tr {
@@ -794,6 +866,8 @@ body {
     color: orangered;
     width: 100%;
     text-align: center;
+    background: none;
+    border: none;
 }
 
 .buy-icon {
@@ -1049,6 +1123,52 @@ input:focus {
     outline: none;
 }
 
+textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    transform: skew( 160deg);
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 20px;
+    resize: none;
+}
+
+.contact-items {
+    width: 100%;
+    height: 44px;
+    border: 1px solid orangered !important;
+    background: none !important;
+    text-align: center;
+    transform: skew( 0deg) !important;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: orangered !important
+}
+
+.send-btn {
+    float: right;
+    background: orangered;
+    width: 254px;
+    height: 49px;
+    color: white;
+    font-weight: 700;
+    border: none;
+}
+
+.contact-item-msg {
+    width: 100%;
+    height: 172px;
+    border: 1px solid orangered !important;
+    background: none !important;
+    text-align: left;
+    transform: skew( 0deg) !important;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: orangered !important;
+    padding-left: 10px;
+}
+
 .loginbtn {
     width: 100%;
     height: 44px;
@@ -1061,17 +1181,32 @@ input:focus {
 }
 
 .card-out {
-    background: white;
+    background: none;
     padding: 15px;
-    height: -moz-fit-content;
+    height: auto;
     overflow: hidden;
+    color: white;
+}
+
+.cartoth {
+    font-size: 32px;
+    padding-bottom: 16px;
+    color: white;
+    border-bottom: 1px solid white;
 }
 
 .order-out {
-    color: black;
-    background: white;
+    color: white;
     padding: 5px 34px;
     align-items: baseline;
+}
+
+.order-out table td a {
+    color: white;
+}
+
+.order-out table {
+    color: white;
 }
 
 .commerce img {
@@ -1122,4 +1257,103 @@ input:focus {
     color: white;
     padding: 15px 23px;
     border-radius: 5px;
+}
+
+.right-part {
+    width: 100%;
+    padding-left: 15px;
+    height: auto;
+    color: white;
+    margin-top: 48px;
+}
+
+.right-part h1 {
+    font-size: 23px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.right-part p {
+    text-align: center;
+    line-height: 5px;
+}
+
+.cart-in {
+    width: 100%;
+    height: 132px;
+    overflow: hidden;
+    padding: 10px 10px 15px 10px;
+    border-bottom: 1px solid white;
+}
+
+.cart-in img {
+    width: 100px;
+    height: 100px;
+    float: left;
+}
+
+.cart-in h2 {
+    font-size: 22px;
+    color: white;
+    width: 80%;
+    text-align: left;
+    float: left;
+    padding-left: 5%;
+    margin-bottom: 3%;
+}
+
+.cart-in h3 {
+    font-size: 16px;
+    width: 12%;
+    text-align: left;
+    float: left;
+    padding-left: 5%;
+    color: white;
+}
+
+.cart-cross {
+    color: orangered !important;
+    text-decoration-line: line-through;
+}
+
+.cart-in a {
+    float: right;
+    line-height: 0px !important;
+    margin-top: -15px;
+}
+
+.cart-tresh {
+    color: orangered;
+    font-size: 30px;
+    background: none;
+    border: none;
+    float: right;
+    margin-top: -20px;
+}
+
+.cart-right h2 {
+    color: white;
+    font-size: 23px;
+    border-bottom: 1px solid white;
+    padding-bottom: 41px;
+    padding-top: 31px;
+    padding-left: 12px;
+}
+
+.cart-right h1 {
+    font-size: 32px;
+    padding-bottom: 16px;
+}
+
+.add-basket {
+    width: 100%;
+    height: auto;
+}
+
+.add-basket-btn {
+    background: none;
+    color: orangered;
+    border: 1px solid orangered;
+    margin: 0 24%;
+    width: 120px;
 }

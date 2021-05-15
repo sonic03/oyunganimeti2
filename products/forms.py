@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.base import Model
 from django.forms import TextInput, fields
-from django.forms.widgets import Widget
+from django.forms.widgets import NumberInput, Textarea, Widget
 from management.models import MyUser
 
 from .models import Category, Commerce,Product,Slider
@@ -83,4 +83,13 @@ class RegisterSiteForm(forms.Form):
         if not is_accept:
             raise forms.ValidationError("Üyelik sözleşmesini kabul etmeden üye olamazsınız")
         return self.cleaned_data
+
+
+class ContantForm(forms.Form):
+    name = forms.CharField(required=True,max_length=250,widget=forms.TextInput(attrs={'placeholder':'İsim Soyisim','class':'contact-items'}))
+    email = forms.EmailField(required=True,max_length=255,widget=forms.EmailInput(attrs={'placeholder':'Email','class':'contact-items'}))
+    phone = forms.CharField(required=False,max_length=250,widget=NumberInput(attrs={'class':'contact-items','placeholder':'Telefon Numarası'}))
+    msg = forms.CharField(required=True,max_length=1000,widget=Textarea(attrs={'placeholder':'Mesaj','class':'contact-item-msg','row':'40','col':'10'}))
+
+    
         

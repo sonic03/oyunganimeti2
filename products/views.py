@@ -5,7 +5,7 @@ from management.models import MyUser
 from django.shortcuts import render, get_object_or_404,redirect
 from .models import  Category,Product,Slider,Commerce
 from carts.models import Cart
-from .forms import LoginSiteForm,RegisterSiteForm
+from .forms import LoginSiteForm,RegisterSiteForm,ContantForm
 from django.contrib.auth import authenticate, login, get_user_model,logout
 import json
 from django.contrib import messages
@@ -36,9 +36,9 @@ def index(request):
         
         
         commerce = Commerce.objects.all()
-        discount_product = Product.objects.filter(discounted=True).order_by('-id')[0:4]
-        new_product = Product.objects.filter(news=True).order_by('-id')[0:4]
-        most_seller = Product.objects.filter(most_seller=True).order_by('-id')[0:4]
+        discount_product = Product.objects.filter(discounted=True).order_by('-id')[0:5]
+        new_product = Product.objects.filter(news=True).order_by('-id')[0:5]
+        most_seller = Product.objects.filter(most_seller=True).order_by('-id')[0:5]
         return render(request,'index.html',{'products':products,'slider':slider,'commerce':commerce,'discount_product':discount_product,'cc':cc,'new_product':new_product,'most_seller':most_seller})
 
 
@@ -79,35 +79,32 @@ def loginsite(request):
     form = LoginSiteForm(request.POST or None)
     context = {"form": form, 'recaptcha_site_key': settings.GOOGLE_RECAPTCHA_SITE_KEY}
     if form.is_valid():
-        recaptcha_response = request.POST.get('g-recaptcha-response')
-        data = {
-            'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-            'response': recaptcha_response
-        }
-        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
-        result = r.json()
-        if result['success']:
-            email = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password')
-
-            user = authenticate(request, username=email, password=password)
-
-            if user is not None:
-                if not user.admin:
-
-                    login(request, user)
-                    #subject = 'Siteye Giriş'
-                    #message = """
-                    #    Merhaba Değerli Üyemiz
-    #
-                    #    {} tarihinde, {} ip adresinden sitemize giriş yapılmıştır. Bu kişi siz değilseniz en kısa sürede irtibata geçiniz.
-    #
-                    #    Oyun Ganimeti Ailesi
-                    #""".format(datetime.now().strftime("%D %H:%M:%S"),request.META['REMOTE_ADDR'])
-                    #email_from = settings.EMAIL_HOST_USER
-                    #recipient_list = [user.email]
-                    #send_mail( subject, message, email_from, recipient_list )
-                    return redirect('index')
+        #recaptcha_response = request.POST.get('g-recaptcha-response')
+        #data = {
+        #    'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+        #    'response': recaptcha_response
+        #}
+        #r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+        #result = r.json()
+        #if result['success']:
+        email = form.cleaned_data.get('email')
+        password = form.cleaned_data.get('password')
+        user = authenticate(request, username=email, password=password)
+        if user is not None:
+            if not user.admin:
+                login(request, user)
+                #subject = 'Siteye Giriş'
+                #message = """
+                #    Merhaba Değerli Üyemiz
+    
+                #    {} tarihinde, {} ip adresinden sitemize giriş yapılmıştır. Bu kişi siz değilseniz en kısa sürede irtibata geçiniz.
+    
+                #    Oyun Ganimeti Ailesi
+                #""".format(datetime.now().strftime("%D %H:%M:%S"),request.META['REMOTE_ADDR'])
+                #email_from = settings.EMAIL_HOST_USER
+                #recipient_list = [user.email]
+                #send_mail( subject, message, email_from, recipient_list )
+                return redirect('index')
     else:
         messages.error(request, 'reCAPTCHA hatalı. Lütfen tekrar deneyin')
 
@@ -118,36 +115,34 @@ def loginsite(request):
 def registersite(request):
     form = RegisterSiteForm(request.POST or None)
     if form.is_valid():
-        recaptcha_response = request.POST.get('g-recaptcha-response')
-        data = {
-            'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-            'response': recaptcha_response
-        }
-        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
-        result = r.json()
-        if result['success']:
-            email = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password')
+        #recaptcha_response = request.POST.get('g-recaptcha-response')
+        #data = {
+        #    'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+        #    'response': recaptcha_response
+        #}
+        #r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+        #result = r.json()
+        #if result['success']:
+        email = form.cleaned_data.get('email')
+        password = form.cleaned_data.get('password')
+        user = MyUser(email=email)
+        user.set_password(password)
+        user.save()
+        login(request, user)
+        #subject = 'Kayıt Formu'
+        #message = """
+        #    Merhaba Değerli Üyemi
+        #    Sitemize Üye olduğunuz için teşekkür ederiz.
+        #    {} tarihinde, {} ip adresinden sitemize tarafınızdan kayıt yapılmıştır.
+        #    Oyun Ganimeti Ailesi
+        #""".format(datetime.now().strftime("%D %H:%M:%S"),request.META['REMOTE_ADDR'])
+        #email_from = settings.EMAIL_HOST_USER
+        #recipient_list = [user.email]
+        #send_mail( subject, message, email_from, recipient_list )
+        return redirect('index')
 
-
-            user = MyUser(email=email)
-            user.set_password(password)
-            user.save()
-            login(request, user)
-            #subject = 'Kayıt Formu'
-            #message = """
-            #    Merhaba Değerli Üyemi
-            #    Sitemize Üye olduğunuz için teşekkür ederiz.
-            #    {} tarihinde, {} ip adresinden sitemize tarafınızdan kayıt yapılmıştır.
-            #    Oyun Ganimeti Ailesi
-            #""".format(datetime.now().strftime("%D %H:%M:%S"),request.META['REMOTE_ADDR'])
-            #email_from = settings.EMAIL_HOST_USER
-            #recipient_list = [user.email]
-            #send_mail( subject, message, email_from, recipient_list )
-            return redirect('index')
-
-        else:
-            messages.error(request, 'reCAPTCHA hatalı. Lütfen tekrar deneyin')
+    else:
+        messages.error(request, 'reCAPTCHA hatalı. Lütfen tekrar deneyin')
         
             
 
@@ -182,8 +177,62 @@ def pros(request):
     pros= Product.objects.all()
     return render(request, "products.html", {"pros": pros})
 
+@bakim
+def sss(request):
+   
+    return render(request, "sss.html")
+
 
 
 
 def bakim(request):
     return render(request,"bakim.html")
+
+
+def contact(request):
+    form = ContantForm(request.POST or None)
+    context = {"form": form}
+    if form.is_valid():
+        name = form.cleaned_data.get('name')
+        email = form.cleaned_data.get('email')
+        phone = form.cleaned_data.get('phone')
+        msg = form.cleaned_data.get('msg')
+        subject = 'iletişim Formu'
+        message = """
+            İletişim mesajı Aldınız !
+
+            İsim Soyisim: {}
+            
+            Email: {}
+            
+            Telefon: {}
+            
+            Mesaj {}    
+            
+            Oyun Ganimeti Ailesi
+        """.format(name,email,phone,msg)
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = settings.RECIPIENT_LIST
+        send_mail( subject, message, email_from, recipient_list )
+        return redirect('index')
+    else:
+        messages.error(request, 'reCAPTCHA hatalı. Lütfen tekrar deneyin')
+
+
+    return render(request, "iletisim.html", context)
+
+
+
+def mesafelisatissozlesmesi(request):
+   
+    return render(request, "satis-sozlesmesi.html")
+
+
+def gizlilik(request):
+   
+    return render(request, "gizlilik.html")
+
+
+def iade(request):
+   
+    return render(request, "iade.html")

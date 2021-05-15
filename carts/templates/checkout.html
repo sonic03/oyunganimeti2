@@ -13,11 +13,26 @@
         <button id="register" class="loginbtn" style="background:orangered !important">Üye Ol!</button>
       </div>
       {% else %}
-      <div class="col-6">
+      <div class="col-8" style="margin:0 auto;">
         <div class="card-out">
-          <h1>Satın Alımı Tamamla</h1>
-        <p> Toplam: {{order_obj.cart.total}}₺</p>
-        <p> Son Toplam: {{order_obj.order_total}}₺</p>
+          <h1 class="cartoth">Satın Alımı Tamamla</h1>
+        {% for product in order_obj.cart.products.all %}
+                <div class="cart-in">
+                  <img src="{{product.productimg.url}}" alt="">
+                  <h2>{{product.name}}</h2>
+                  <h3 class="cart-cross">{{product.sale_price}} ₺</h3>
+                  <h3 style="padding-left:0;">{{product.discount_price}} ₺</h3>
+                  <a class="cart-tresh" href="{% url 'carts:cart_delete' product.id %}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                  <h3 style="padding-left:0;float:right;margin-top:-12px;font-size:22px;">{{product.discount_price}} ₺</h3>
+
+                
+
+                </div>
+
+                  
+              {% endfor %}
+        <p style="float:right;"> Toplam: {{order_obj.cart.total}}₺</p>
+        
         <form method='post' action=''>
         {% csrf_token %}
         
@@ -25,14 +40,13 @@
         <button type = submit class="loginbtn" style="background:orangered !important;margin-top:10px;">Satın Alımı Tamamla</button>
         </form>
       </div>
-      <div class="col-6">
+      <div class="col-12">
         {% if request.user.is_authenticated %}
-        <h1 style="color:white;">{{request.user}}</h1>
-        <p style="color:white;"> olarak işlem yapıyorsunuz.</p>
         
         {% else %}
-        <h1>Satın alımı tamamlamak için giriş yapın </h1>
+        <h1 style="color:white;">Satın alımı tamamlamak için giriş yapın </h1>
         {% endif %}
+
       </div>
       {% endif %}
       </div>

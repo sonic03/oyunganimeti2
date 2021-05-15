@@ -5,59 +5,56 @@
 <div class="container container-top">
     <div class="row">
 
-        <h1 style="color:white;">Sepetim</h1>
+        
         <div class="col-12">
-            <div class="col-6" style="float:left;">
-                <div class="card-out">
+        <div class="card-out">
+            <div class="col-8" style="float:left;">
+            <h1 class="cartoth" >Sepetim</h1>
+                
                      {% if cart_obj.products.exists %}
-                <table class="table">
-              <thead>
-                <tr>
-
-                  <th scope="col">Ürün Adı</th>
-                  <th scope="col">Fiyat</th>
-                  <th scope="col">İşlem</th>
-
-                </tr>
-              </thead>
-              <tbody>
+                
+              
               {% for product in cart_obj.products.all %}
-                <tr>
+                <div class="cart-in">
+                  <img src="{{product.productimg.url}}" alt="">
+                  <h2>{{product.name}}</h2>
+                  <h3 class="cart-cross">{{product.sale_price}} ₺</h3>
+                  <h3 style="padding-left:0;">{{product.discount_price}} ₺</h3>
+                  <button class="cart-tresh" value={{product.id}}><i class="fa fa-trash" aria-hidden="true"></i></button>
+                  <h3 style="padding-left:0;float:right;margin-top:-12px;font-size:22px;">{{product.discount_price}} ₺</h3>
 
-                  <td>{{product.name}}</td>
-                  <td>{{product.discount_price}} ₺</td>
-                  <td><a href="{% url 'carts:cart_delete' product.id %}">Sepetten Çıkart</a></td>
+                
 
-                </tr>
-              {% endfor %}
-
-                <tr>
-
-                  <td>Toplam:</td>
-                  <td>{{cart_obj.total}} ₺</td>
-
-                </tr>
-              </tbody>
-
-            </table>
-            {% else%}
-                kart boş
-            {% endif %}
                 </div>
 
+                  
+              {% endfor %}
+
+               
+
+                  
+            {% else%}
+                <h2 style="text-align:center;margin-top:41px;">Sepet Boş</h1>
+            {% endif %}
+                
+
             </div>
-            <div class="col-6" style="float:left;">
+            <div class="col-4" style="float:left;">
               <div class="cart-right">
+                <h1 style="color:white;border-bottom:1px solid white;">Sipariş Özeti</h1>
+                <h2>Ara Toplam : {{cart_obj.total}} ₺</h2>
+
                 {% if not request.user %}
                 <h1>Giriş Yapın</h1>
               
               {% else %}
-                <button id="checkout" class="loginbtn" style="background:orangered;margin-bottom:35px;margin-top:20px;">İşleme Devam Et!</button>
-                <button id="homepage" class="loginbtn" style="background:orangered;">Ana Sayfaya Dön!</button>
+                <button id="checkout" class="add-basket-btn" style="width:54%;margin-bottom:35px;margin-top:20px;">İşleme Devam Et!</button>
+                <button id="homepage" class="add-basket-btn" style="width:54%;">Ana Sayfaya Dön!</button>
+                
               {% endif %}
               </div>
             </div>
-
+        </div>
         </div>
       </div>
 </div>
@@ -73,6 +70,35 @@
 
   checkout.addEventListener("click",function(){window.location.href="{% url 'carts:checkout' %}";});
   homepage.addEventListener("click",function(){window.location.href="{% url 'index' %}";});
+
+  const thresh=document.getElementsByClassName("cart-tresh");
+
+    for( t of thresh){
+      t.addEventListener('click',function(){
+        
+        let proNum=$(this)[0].attributes[1].nodeValue;
+        
+        
+        //window.location.href="/card/update/"+proNum;
+        $.ajax({
+          url:"/card/delete/"+proNum,
+          method:"GET",
+          dataType:'json',
+          success:function(data){
+            
+            Swal.fire({icon: 'success',title: 'Sepetten Çıkarıldı',showConfirmButton: false,timer: 1500});
+            setTimeout(function(){window.location.reload();},2000);
+            
+
+          }
+        });
+      });
+      
+    }
+
+
+
+
 </script>
   
 

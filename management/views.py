@@ -134,6 +134,13 @@ def addslider(request):
             return redirect('management:showsliders')
     return render(request,'slideradd.html',{'form':form})
 
+@is_login_and_admin
+def delslider(request,sliderid):
+    slider=get_object_or_404(Slider,id=sliderid)
+    slider.delete()
+    return redirect('management:showsliders')
+    
+
 @is_login_and_admin   
 def addcommerce(request):
     form=CommerceForm(request.POST or None,request.FILES or None)

@@ -33,13 +33,21 @@ REPAIR_MODE = False
 
 ALLOWED_HOSTS = ['oyunganimeti.com','127.0.0.1']
 
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#EMAIL_HOST = 'proxy.uzmanposta.com'
-#EMAIL_USE_TLS = True
-#EMAIL_PORT = 587
-#EMAIL_HOST_USER = 'noreply@oyunganimeti.com' 
-#EMAIL_HOST_PASSWORD = 'Oyn2357!*'
-# Application definition
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'proxy.uzmanposta.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'noreply@oyunganimeti.com' 
+EMAIL_HOST_PASSWORD = 'Oyn2357!*'
+
+RECIPIENT_LIST = ['mrkayacik@yahoo.com','rrserdar.cakir@gmail.com']
+#Application definition
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
