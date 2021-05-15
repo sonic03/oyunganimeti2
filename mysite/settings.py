@@ -40,7 +40,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'noreply@oyunganimeti.com' 
 EMAIL_HOST_PASSWORD = 'Oyn2357!*'
 
-RECIPIENT_LIST = ['mrkayacik@yahoo.com','rrserdar.cakir@gmail.com']
+RECIPIENT_LIST = ['mrkayacik@yahoo.com','rrserdar.cakir@gmail.com','filizakin3545@gmail.com','vahide7878@gmail.com']
 #Application definition
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
