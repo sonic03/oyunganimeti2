@@ -31,7 +31,7 @@ GOOGLE_RECAPTCHA_SECRET_KEY = "6LcR1c4aAAAAALfPaj3oe9oTY2C1gtnOgdecdrJo"
 
 REPAIR_MODE = False
 
-ALLOWED_HOSTS = ['oyunganimeti.com','127.0.0.1']
+ALLOWED_HOSTS = ['oyunganimeti.com','143.198.126.186','www.oyunganimeti.com'] #local için 'localhost' ekle
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'proxy.uzmanposta.com'
