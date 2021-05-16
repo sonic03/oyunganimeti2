@@ -111,11 +111,11 @@ DATABASES = {
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'), 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'oyunganimetidb',
+        'NAME': 'dboyunganimeti',
 
-        'USER': 'sonic03',
+        'USER': 'sonic003',
 
-        'PASSWORD': 'Oyun48778',
+        'PASSWORD': 'OyuN151218oyn',
 
         'HOST': 'localhost',
 
