@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'n65d5))oojg3d*e2j=w^#aw5hi77jhf_0kc!l8rq=5a7bp#*gm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 GOOGLE_RECAPTCHA_SITE_KEY= "6LcR1c4aAAAAAFRON5fbEHiNAZXrlst-1rs8iPL5"
 GOOGLE_RECAPTCHA_SECRET_KEY = "6LcR1c4aAAAAALfPaj3oe9oTY2C1gtnOgdecdrJo"
@@ -107,19 +107,19 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'), 
-        #'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'), 
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        #'NAME': 'denemedb',
+        'NAME': 'oyunganimetidb',
 
-        #'USER': 'postgres',
+        'USER': 'sonic03',
 
-        #'PASSWORD': 'postgres',
+        'PASSWORD': 'Oyun48778',
 
-        #'HOST': 'localhost',
+        'HOST': 'localhost',
 
-        #'PORT': '5432',
+        'PORT': '',
     }
 }
 
@@ -158,8 +158,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
