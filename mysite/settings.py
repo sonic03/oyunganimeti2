@@ -31,7 +31,7 @@ GOOGLE_RECAPTCHA_SECRET_KEY = "6LcR1c4aAAAAALfPaj3oe9oTY2C1gtnOgdecdrJo"
 
 REPAIR_MODE = False
 
-ALLOWED_HOSTS = ['oyunganimeti.com','143.198.126.186','www.oyunganimeti.com'] #local için 'localhost' ekle
+ALLOWED_HOSTS = ['oyunganimeti.com','www.oyunganimeti.com'] #local için 'localhost' ekle
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'proxy.uzmanposta.com'
@@ -107,19 +107,19 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'), 
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'), 
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'dboyunganimeti',
+#        'NAME': 'ogdb',
 
-        'USER': 'sonic003',
+#        'USER': 'sonic03',
 
-        'PASSWORD': 'OyuN151218oyn',
+#        'PASSWORD': 'Oyun151218oyn',
 
-        'HOST': 'localhost',
+#        'HOST': 'localhost',
 
-        'PORT': '',
+#        'PORT': '',
     }
 }
 
@@ -158,9 +158,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
