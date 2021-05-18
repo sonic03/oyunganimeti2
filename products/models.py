@@ -6,7 +6,7 @@ from ckeditor.fields import RichTextField
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(verbose_name='Kategori Adı', max_length=200)
-    summary=models.CharField(verbose_name='Kısa Açıklama', max_length=150)
+    summary=models.CharField(verbose_name='Kısa Açıklama', max_length=150,null=True,blank=True)
     desc = RichTextField(verbose_name='Aaçıklama')
     cat_img = models.ImageField(verbose_name='Kategori Resmi')
     logo_img = models.ImageField(verbose_name='Küçük resim',null=True,blank=True)
