@@ -36,9 +36,9 @@ def index(request):
         
         
         commerce = Commerce.objects.all()
-        discount_product = Product.objects.filter(discounted=True).order_by('-id')[0:5]
-        new_product = Product.objects.filter(news=True).order_by('-id')[0:5]
-        most_seller = Product.objects.filter(most_seller=True).order_by('-id')[0:5]
+        discount_product = Product.objects.filter(discounted=True,active=True).order_by('-id')[0:5]
+        new_product = Product.objects.filter(news=True,active=True).order_by('-id')[0:5]
+        most_seller = Product.objects.filter(most_seller=True,active=True).order_by('-id')[0:5]
         return render(request,'index.html',{'products':products,'slider':slider,'commerce':commerce,'discount_product':discount_product,'cc':cc,'new_product':new_product,'most_seller':most_seller})
 
 
@@ -71,7 +71,7 @@ def ks(request):
 def category(request,slug):
     
     ct=get_object_or_404(Category,slug=slug)
-    product=Product.objects.filter(category=ct)
+    product=Product.objects.filter(category=ct,active=True)
     return render(request,'category.html',{'product':product,'ct':ct})
 
 @bakim
@@ -212,7 +212,7 @@ def contact(request):
             Oyun Ganimeti Ailesi
         """.format(name,email,phone,msg)
         email_from = settings.EMAIL_HOST_USER
-        recipient_list = settings.RECIPIENT_LIST
+        recipient_list = ['mrkayacik@yahoo.com','rrserdar.cakir@gmail.com','filizakin3545@gmail.com','vahide7878@gmail.com']
         send_mail( subject, message, email_from, recipient_list )
         return redirect('index')
     else:
