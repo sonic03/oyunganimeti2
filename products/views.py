@@ -16,6 +16,7 @@ from django.conf import settings
 from billing.models import BillingProfile
 from orders.models import Order
 from management.decorators import bakim
+from django.db.models import Q
 # Create your views here.
 
 User = settings.AUTH_USER_MODEL
@@ -71,7 +72,7 @@ def ks(request):
 def category(request,slug):
     
     ct=get_object_or_404(Category,slug=slug)
-    product=Product.objects.filter(category=ct,active=True)
+    product=Product.objects.filter(Q(category=ct) & Q(active=True))
     return render(request,'category.html',{'product':product,'ct':ct})
 
 @bakim
