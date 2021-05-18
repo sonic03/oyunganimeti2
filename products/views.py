@@ -37,9 +37,9 @@ def index(request):
         
         
         commerce = Commerce.objects.all()
-        discount_product = Product.objects.filter(discounted=True,active=True).order_by('-id')[0:5]
-        new_product = Product.objects.filter(news=True,active=True).order_by('-id')[0:5]
-        most_seller = Product.objects.filter(most_seller=True,active=True).order_by('-id')[0:5]
+        discount_product = Product.objects.filter(Q(discounted=True) & Q(active=True)).order_by('-id')[0:5]
+        new_product = Product.objects.filter(Q(news=True) & Q(active=True)).order_by('-id')[0:5]
+        most_seller = Product.objects.filter(Q(most_seller=True) & Q(active=True)).order_by('-id')[0:5]
         return render(request,'index.html',{'products':products,'slider':slider,'commerce':commerce,'discount_product':discount_product,'cc':cc,'new_product':new_product,'most_seller':most_seller})
 
 
