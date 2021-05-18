@@ -31,11 +31,9 @@ GOOGLE_RECAPTCHA_SECRET_KEY = "6LcR1c4aAAAAALfPaj3oe9oTY2C1gtnOgdecdrJo"
 
 REPAIR_MODE = False
 
-<<<<<<< Updated upstream
+
 ALLOWED_HOSTS = ['oyunganimeti.com','www.oyunganimeti.com'] #local için 'localhost' ekle
-=======
-ALLOWED_HOSTS = ['oyunganimeti.com','143.198.126.186','www.oyunganimeti.com','localhost'] #local için 'localhost' ekle
->>>>>>> Stashed changes
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'proxy.uzmanposta.com'
@@ -113,7 +111,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'), 
-<<<<<<< Updated upstream
+
 #        'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
 #        'NAME': 'ogdb',
@@ -125,19 +123,7 @@ DATABASES = {
 #        'HOST': 'localhost',
 
 #        'PORT': '',
-=======
-        #'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#
-        #'NAME': 'dboyunganimeti',
-#
-        #'USER': 'sonic003',
-#
-        #'PASSWORD': 'OyuN151218oyn',
-#
-        #'HOST': 'localhost',
-#
-        #'PORT': '',
->>>>>>> Stashed changes
+
     }
 }
 
