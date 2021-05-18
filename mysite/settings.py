@@ -24,14 +24,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'n65d5))oojg3d*e2j=w^#aw5hi77jhf_0kc!l8rq=5a7bp#*gm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 GOOGLE_RECAPTCHA_SITE_KEY= "6LcR1c4aAAAAAFRON5fbEHiNAZXrlst-1rs8iPL5"
 GOOGLE_RECAPTCHA_SECRET_KEY = "6LcR1c4aAAAAALfPaj3oe9oTY2C1gtnOgdecdrJo"
 
 REPAIR_MODE = False
 
+<<<<<<< Updated upstream
 ALLOWED_HOSTS = ['oyunganimeti.com','www.oyunganimeti.com'] #local için 'localhost' ekle
+=======
+ALLOWED_HOSTS = ['oyunganimeti.com','143.198.126.186','www.oyunganimeti.com','localhost'] #local için 'localhost' ekle
+>>>>>>> Stashed changes
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'proxy.uzmanposta.com'
@@ -44,9 +48,9 @@ RECIPIENT_LIST = ['mrkayacik@yahoo.com','rrserdar.cakir@gmail.com','filizakin354
 #Application definition
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 
 
 INSTALLED_APPS = [
@@ -109,6 +113,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'), 
+<<<<<<< Updated upstream
 #        'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
 #        'NAME': 'ogdb',
@@ -120,6 +125,19 @@ DATABASES = {
 #        'HOST': 'localhost',
 
 #        'PORT': '',
+=======
+        #'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#
+        #'NAME': 'dboyunganimeti',
+#
+        #'USER': 'sonic003',
+#
+        #'PASSWORD': 'OyuN151218oyn',
+#
+        #'HOST': 'localhost',
+#
+        #'PORT': '',
+>>>>>>> Stashed changes
     }
 }
 
