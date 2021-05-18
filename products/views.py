@@ -16,6 +16,7 @@ from django.conf import settings
 from billing.models import BillingProfile
 from orders.models import Order
 from management.decorators import bakim
+from django.db.models import Q
 # Create your views here.
 
 User = settings.AUTH_USER_MODEL
@@ -36,9 +37,9 @@ def index(request):
         
         
         commerce = Commerce.objects.all()
-        discount_product = Product.objects.filter(discounted=True,active=True).order_by('-id')[0:5]
-        new_product = Product.objects.filter(news=True,active=True).order_by('-id')[0:5]
-        most_seller = Product.objects.filter(most_seller=True,active=True).order_by('-id')[0:5]
+        discount_product = Product.objects.filter(Q(discounted=True) & Q(active=True)).order_by('-id')[0:5]
+        new_product = Product.objects.filter(Q(news=True) & Q(active=True)).order_by('-id')[0:5]
+        most_seller = Product.objects.filter(Q(most_seller=True) & Q(active=True)).order_by('-id')[0:5]
         return render(request,'index.html',{'products':products,'slider':slider,'commerce':commerce,'discount_product':discount_product,'cc':cc,'new_product':new_product,'most_seller':most_seller})
 
 
@@ -71,7 +72,7 @@ def ks(request):
 def category(request,slug):
     
     ct=get_object_or_404(Category,slug=slug)
-    product=Product.objects.filter(category=ct,active=True)
+    product=Product.objects.filter(Q(category=ct) & Q(active=True))
     return render(request,'category.html',{'product':product,'ct':ct})
 
 @bakim
