@@ -24,14 +24,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'n65d5))oojg3d*e2j=w^#aw5hi77jhf_0kc!l8rq=5a7bp#*gm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 GOOGLE_RECAPTCHA_SITE_KEY= "6LcR1c4aAAAAAFRON5fbEHiNAZXrlst-1rs8iPL5"
 GOOGLE_RECAPTCHA_SECRET_KEY = "6LcR1c4aAAAAALfPaj3oe9oTY2C1gtnOgdecdrJo"
 
 REPAIR_MODE = False
 
+
 ALLOWED_HOSTS = ['oyunganimeti.com','www.oyunganimeti.com'] #local için 'localhost' ekle
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'proxy.uzmanposta.com'
@@ -44,9 +46,9 @@ RECIPIENT_LIST = ['mrkayacik@yahoo.com','rrserdar.cakir@gmail.com','filizakin354
 #Application definition
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 
 
 INSTALLED_APPS = [
@@ -107,19 +109,21 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'), 
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'), 
 
-        'NAME': 'dboyunganimeti',
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'USER': 'sonic003',
+#        'NAME': 'ogdb',
 
-        'PASSWORD': 'OyuN151218oyn',
+#        'USER': 'sonic03',
 
-        'HOST': 'localhost',
+#        'PASSWORD': 'Oyun151218oyn',
 
-        'PORT': '',
+#        'HOST': 'localhost',
+
+#        'PORT': '',
+
     }
 }
 
@@ -158,9 +162,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
