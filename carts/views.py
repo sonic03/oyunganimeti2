@@ -60,37 +60,37 @@ def checkout(request):
         if is_done:
             order_obj.mark_paid()
             del request.session['card_id']
-            #subject = 'Sipariş'
-            #message = """
-            #    Merhaba Değerli Üyemi
-            #    Oyunganimeti.com sitemizden {} tarihinde satın almış olduğunuz {} numaralı siparişinizi, siparişlerim sayfasından görüntüleyebilirsiniz.
-            #    Banka hesabımıza ödemenizi yaptığınızda kodunuz teslim edilecektir.
-            #    İyi oyunlar dileriz…
-#
-            #    Oyun Ganimeti Ailesi
-            #""".format(datetime.now().strftime("%D %H:%M:%S"),order_obj.order_id)
-            #email_from = settings.EMAIL_HOST_USER
-            #recipient_list = [request.user.email]
-            #send_mail( subject, message, email_from, recipient_list )
-            ##adminlere mail gönderimi:
-            #productlist=[]
-            #for p in order_obj.cart.products.all():
-            #    productlist.append(p.name)
-            #subject = 'Siparişiniz Var!'
-            #message = """
-            #    Yeni Sipariş Aldınız !
-#
-            #    Tarih: {}
-#
-            #    Sipariş Kodu: {}
-#
-            #    Ürünler: {}
-#
-            #    Oyun Ganimeti Ailesi
-            #""".format(datetime.now().strftime("%D %H:%M:%S"),order_obj.order_id,productlist)
-            #email_from = settings.EMAIL_HOST_USER
-            #recipient_list = ['mrkayacik@yahoo.com','filizakin3545@gmail.com']
-            #send_mail( subject, message, email_from, recipient_list )
+            subject = 'Sipariş'
+            message = """
+                Merhaba Değerli Üyemi
+                Oyunganimeti.com sitemizden {} tarihinde satın almış olduğunuz {} numaralı siparişinizi, siparişlerim sayfasından görüntüleyebilirsiniz.
+                Banka hesabımıza ödemenizi yaptığınızda kodunuz teslim edilecektir.
+                İyi oyunlar dileriz…
+
+                Oyun Ganimeti Ailesi
+            """.format(datetime.now().strftime("%D %H:%M:%S"),order_obj.order_id)
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [request.user.email]
+            send_mail( subject, message, email_from, recipient_list )
+            #adminlere mail gönderimi:
+            productlist=[]
+            for p in order_obj.cart.products.all():
+                productlist.append(p.name)
+            subject = 'Siparişiniz Var!'
+            message = """
+                Yeni Sipariş Aldınız !
+
+                Tarih: {}
+
+                Sipariş Kodu: {}
+
+                Ürünler: {}
+
+                Oyun Ganimeti Ailesi
+            """.format(datetime.now().strftime("%D %H:%M:%S"),order_obj.order_id,productlist)
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = settings.RECIPIENT_LIST
+            send_mail( subject, message, email_from, recipient_list )
             return redirect('carts:success')
 
 
