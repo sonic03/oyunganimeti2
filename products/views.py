@@ -94,17 +94,22 @@ def loginsite(request):
         if user is not None:
             if not user.admin:
                 login(request, user)
-                #subject = 'Siteye Giriş'
-                #message = """
-                #    Merhaba Değerli Üyemiz
+                x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+                if x_forwarded_for:
+                    ip = x_forwarded_for.split(',')[0]
+                else:
+                    ip = request.META.get('REMOTE_ADDR')
+                subject = 'Siteye Giriş'
+                message = """
+                    Merhaba Değerli Üyemiz
     
-                #    {} tarihinde, {} ip adresinden sitemize giriş yapılmıştır. Bu kişi siz değilseniz en kısa sürede irtibata geçiniz.
+                    {} tarihinde, {} ip adresinden sitemize giriş yapılmıştır. Bu kişi siz değilseniz en kısa sürede irtibata geçiniz.
     
-                #    Oyun Ganimeti Ailesi
-                #""".format(datetime.now().strftime("%D %H:%M:%S"),request.META['REMOTE_ADDR'])
-                #email_from = settings.EMAIL_HOST_USER
-                #recipient_list = [user.email]
-                #send_mail( subject, message, email_from, recipient_list )
+                    Oyun Ganimeti Ailesi
+                """.format(datetime.now().strftime("%D %H:%M:%S"),ip)
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [user.email]
+                send_mail( subject, message, email_from, recipient_list )
                 return redirect('index')
     else:
         messages.error(request, 'reCAPTCHA hatalı. Lütfen tekrar deneyin')
@@ -126,20 +131,25 @@ def registersite(request):
         #if result['success']:
         email = form.cleaned_data.get('email')
         password = form.cleaned_data.get('password')
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
         user = MyUser(email=email)
         user.set_password(password)
         user.save()
         login(request, user)
-        #subject = 'Kayıt Formu'
-        #message = """
-        #    Merhaba Değerli Üyemi
-        #    Sitemize Üye olduğunuz için teşekkür ederiz.
-        #    {} tarihinde, {} ip adresinden sitemize tarafınızdan kayıt yapılmıştır.
-        #    Oyun Ganimeti Ailesi
-        #""".format(datetime.now().strftime("%D %H:%M:%S"),request.META['REMOTE_ADDR'])
-        #email_from = settings.EMAIL_HOST_USER
-        #recipient_list = [user.email]
-        #send_mail( subject, message, email_from, recipient_list )
+        subject = 'Kayıt Formu'
+        message = """
+            Merhaba Değerli Üyemi
+            Sitemize Üye olduğunuz için teşekkür ederiz.
+            {} tarihinde, {} ip adresinden sitemize tarafınızdan kayıt yapılmıştır.
+            Oyun Ganimeti Ailesi
+        """.format(datetime.now().strftime("%D %H:%M:%S"),ip)
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [user.email]
+        send_mail( subject, message, email_from, recipient_list )
         return redirect('index')
 
     else:
@@ -213,7 +223,7 @@ def contact(request):
             Oyun Ganimeti Ailesi
         """.format(name,email,phone,msg)
         email_from = settings.EMAIL_HOST_USER
-        recipient_list = ['mrkayacik@yahoo.com','rrserdar.cakir@gmail.com','filizakin3545@gmail.com','vahide7878@gmail.com']
+        recipient_list = settings.RECIPIENT_LIST
         send_mail( subject, message, email_from, recipient_list )
         return redirect('index')
     else:
