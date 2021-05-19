@@ -175,17 +175,17 @@ def show_order_detail(request,order_id):
         
         order_detail.status='Teslim Edildi' 
         order_detail.save()  
-        #subject = 'Sipariş'
-        #message = """
-        #    Merhaba Değerli Üyemiz
-        #   {} numaralı siparişiniz teslim edilmiştir.
-        #    
-        #    İyi oyunlar dileriz…
-        #    Oyun Ganimeti Ailesi
-        #""".format(order_id)
-        #email_from = settings.EMAIL_HOST_USER
-        #recipient_list = [order_detail.billing_profile.user.email]
-        #send_mail( subject, message, email_from, recipient_list )   
+        subject = 'Sipariş'
+        message = """
+            Merhaba Değerli Üyemiz
+           {} numaralı siparişiniz teslim edilmiştir.
+            
+            İyi oyunlar dileriz…
+            Oyun Ganimeti Ailesi
+        """.format(order_id)
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [order_detail.billing_profile.user.email]
+        send_mail( subject, message, email_from, recipient_list )   
     
 
     return render(request,'showorderdetails.html',{'order_detail':order_detail,'order_list':order_list})
