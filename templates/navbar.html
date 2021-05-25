@@ -16,7 +16,7 @@
         <li class="li" id="li"><span class="sp">Oyunlar<span><ul id="ul">
 
           {% for cate in category %}
-          <li><a href="{% url 'category' cate.slug %}"><i class="fa fa-plus plus"> </i> {{cate.name}}</a></li>
+          <li><a href="{% url 'category' cate.slug %}">{{cate.name}}</a></li>
 
           {% endfor %}
           </ul>

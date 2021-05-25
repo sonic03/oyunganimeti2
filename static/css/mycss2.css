@@ -1366,7 +1366,7 @@ textarea {
 .scroll {
     display: block;
     float: left;
-    width: 68%;
+    width: 1200px;
     margin: 0 auto;
 }
 
@@ -1482,11 +1482,6 @@ textarea {
     }
     .sp {
         padding-left: 50px;
-    }
-    .plus {
-        display: block;
-        margin-left: 3px;
-        font-size: 15px !important;
     }
     .rtsmobile {
         float: left;
@@ -1799,7 +1794,7 @@ textarea {
         text-align: center;
         background: none;
         border: none;
-        margin: -15px 0 0 45px;
+        margin: -15px 0 0 37px;
     }
     .framex {
         height: 277px;
