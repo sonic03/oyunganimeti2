@@ -54,7 +54,9 @@
       <div class="most-saller">
         <h1>ÇOK SATANLAR</h1>
       </div>
+      <div class="scroll">
       <div class="campaign-items">
+        
         {% for product in most_seller %}
           <div class="shopfy-items">
             <a href="{{product.category.slug}}"><img src="{{product.productimg.url}}" alt="..."> 
@@ -73,6 +75,7 @@
           </div>
           
         {% endfor %}  
+        </div>
       </div>
       
     </div>
@@ -92,6 +95,7 @@
       <div class="most-saller">
         <h1>İNDİRİMLİ ÜRÜNLER</h1>
       </div>
+      <div class="scroll">
       <div class="campaign-items">
         {% for product in discount_product %}
           <div class="shopfy-items">
@@ -110,6 +114,7 @@
           </div>
         {% endfor %}
       </div> 
+      </div>
       
     </div>
     <div class="col-12">
@@ -127,6 +132,7 @@
       <div class="most-saller">
         <h1>YENİ ÜRÜNLER</h1>
       </div>
+      <div class="scroll">
       <div class="campaign-items">
         {% for product in new_product %}
           <div class="shopfy-items">
@@ -144,6 +150,7 @@
             
           </div>
         {% endfor %}
+      </div>
       </div>
       {% comment %} <div class="sc-lower">
         <a href="{% url 'pros' %}"><h1>Tamamını Gör...</h1></a>

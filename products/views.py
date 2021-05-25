@@ -72,7 +72,7 @@ def ks(request):
 def category(request,slug):
     
     ct=get_object_or_404(Category,slug=slug)
-    product=Product.objects.filter(Q(category=ct) & Q(active=True))
+    product=Product.objects.filter(Q(category=ct) & Q(active=True)).order_by('discount_price') #ucuzdan pahalıya
     return render(request,'category.html',{'product':product,'ct':ct})
 
 @bakim

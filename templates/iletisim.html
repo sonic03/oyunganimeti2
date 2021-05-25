@@ -26,60 +26,59 @@
         <div class="row">
 
 
-                <div class="col-8">
-        
-            <div class="form-out">
-                <h1>Bir Sorununuz mu var?</h1>
-                <div class="form-in">
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="col-4" style="float:left;">
-                        <div class="col-12"style="float:left;">
-                        {{form.name}}
+            <div class="col-lg-8">
+            
+                <div class="form-out">
+                    <h1>Bir Sorununuz mu var?</h1>
+                    <div class="form-in">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="col-lg-4" style="float:left;">
+                            <div class="col-lg-12"style="float:left;">
+                            {{form.name}}
+                            </div>
+                            <div class="col-lg-12" style="float:left;">
+                            {{form.email}}
+                            </div>
+                            <div class="col-lg-12" style="float:left;">
+                            {{form.phone}}
+                            </div>
                         </div>
-                        <div class="col-12" style="float:left;">
-                        {{form.email}}
+                        <div class="col-lg-8" style="float:left;">
+                            <div class="col-lg-12 pr">
+                                {{form.msg}}
+                            </div>
                         </div>
-                        <div class="col-12" style="float:left;">
-                        {{form.phone}}
-                        </div>
+                        <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+                        <button class="send-btn"type="submit">Gönder</button>
+                    </form>
                     </div>
-                    <div class="col-8" style="float:left;">
-                        <div class="col-12" style="padding-left:10px;">
-                            {{form.msg}}
-                        </div>
+                </div>
+            
+            </div>
+            <div class="col-lg-4" style="float:left">
+                <div class="right-part">
+                    <div class="col-12" style="margin-bottom:40px;">
+                        <h1>İletişime Geç</h1>
+                        <p>Tel: 05324499678</p>
+                        <p>Email: info@oyunganimeti.com</p>
+
                     </div>
-                    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
-                    <button class="send-btn"type="submit">Gönder</button>
-                </form>
+                    <div class="col-12" style="margin-bottom:40px;">
+                        <h1>Çalışma Saatleri</h1>
+                        <p>Pzt - Cuma: 08:00 - 00:00  </p>
+                        <p>Cumartesi: 08:00 - 00:00   </p>
+                        <p>Pazar: 08:00 - 00:00   </p>
+
+                    </div>
+                    <div class="col-12">
+                        <h1>Adress</h1>
+                        <p>Türkiye / İzmir</p>
+                        
+                    </div>
                 </div>
+            
             </div>
-        
-        </div>
-        <div class="col-4" style="float:left">
-            <div class="right-part">
-                <div class="col-12" style="margin-bottom:40px;">
-                    <h1>İletişime Geç</h1>
-                    <p>Tel: 05324499678</p>
-                    <p>Email: info@oyunganimeti.com</p>
-
-                </div>
-                <div class="col-12" style="margin-bottom:40px;">
-                    <h1>Çalışma Saatleri</h1>
-                    <p>Pzt - Cuma: 08:00 - 00:00  </p>
-                    <p>Cumartesi: 08:00 - 00:00   </p>
-                    <p>Pazar: 08:00 - 00:00   </p>
-
-                </div>
-                <div class="col-12">
-                    <h1>Adress</h1>
-                    <p>Türkiye / İzmir</p>
-                    
-
-                </div>
-            </div>
-        
-        </div>
         </div>
     </div>
 

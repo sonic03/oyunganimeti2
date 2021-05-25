@@ -8,7 +8,7 @@
         
         <div class="col-12">
         <div class="card-out">
-            <div class="col-8" style="float:left;">
+            <div class="col-lg-8" style="float:left;">
             <h1 class="cartoth" >Sepetim</h1>
                 
                      {% if cart_obj.products.exists %}
@@ -21,7 +21,7 @@
                   <h3 class="cart-cross">{{product.sale_price}} ₺</h3>
                   <h3 style="padding-left:0;">{{product.discount_price}} ₺</h3>
                   <button class="cart-tresh" value={{product.id}}><i class="fa fa-trash" aria-hidden="true"></i></button>
-                  <h3 style="padding-left:0;float:right;margin-top:-12px;font-size:22px;">{{product.discount_price}} ₺</h3>
+                  <h3 class='ttl' style="padding-left:0;float:right;margin-top:-12px;font-size:22px;">{{product.discount_price}} ₺</h3>
 
                 
 
@@ -39,7 +39,7 @@
                 
 
             </div>
-            <div class="col-4" style="float:left;">
+            <div class="col-lg-4" style="float:left;">
               <div class="cart-right">
                 <h1 style="color:white;border-bottom:1px solid white;">Sipariş Özeti</h1>
                 <h2>Ara Toplam : {{cart_obj.total}} ₺</h2>
@@ -48,8 +48,8 @@
                 <h1>Giriş Yapın</h1>
               
               {% else %}
-                <button id="checkout" class="add-basket-btn" style="width:54%;margin-bottom:35px;margin-top:20px;">İşleme Devam Et!</button>
-                <button id="homepage" class="add-basket-btn" style="width:54%;">Ana Sayfaya Dön!</button>
+                <button id="checkout" class="add-basket-btn ttlbtn" style="width:54%;margin-bottom:35px;margin-top:20px;">İşleme Devam Et!</button>
+                <button id="homepage" class="add-basket-btn ttlbtn" style="width:54%;">Ana Sayfaya Dön!</button>
                 
               {% endif %}
               </div>

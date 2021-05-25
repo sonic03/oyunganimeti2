@@ -6,14 +6,14 @@
     <div class="row">
       {% if not billing_profile %}
       <h1 style="color:white;margin-bottom:60px;"> Alışverişinizi tamamlamak için ;</h1>
-      <div class="col-6">
+      <div class="col-lg-6">
         <button id="login" class="loginbtn" style="background:orangered !important">Giriş Yap!</button>
       </div>
-      <div class="col-6">
+      <div class="col-lg-6">
         <button id="register" class="loginbtn" style="background:orangered !important">Üye Ol!</button>
       </div>
       {% else %}
-      <div class="col-8" style="margin:0 auto;">
+      <div class="col-lg-8" style="margin:0 auto;">
         <div class="card-out">
           <h1 class="cartoth">Satın Alımı Tamamla</h1>
         {% for product in order_obj.cart.products.all %}
