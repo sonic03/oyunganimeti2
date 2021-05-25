@@ -2,15 +2,21 @@
 <nav class="nav-bar">
   <div class="nav-container">
     <div class="nav-content">
+      <div class="hmbgr" id="hmbgr">
+        <i class="fa fa-bars" style="font-size:38px;color:white;"></i>
+      </div>
       <div class="logo">
         <a href="{% url 'index' %}"><img src="{% static 'img/ganimetlogo.png' %}" alt=""></a>
       </div>
-      <div class="nav-inner">
+      <div class="nav-inner" id="nav-inner">
+      <div class="close" id="close">
+        <i class="fa fa-times" style="font-size:38px;color:white;"></i>
+      </div>
         <ul>
-        <li class="li" id="li">Oyunlar<ul id="ul">
+        <li class="li" id="li"><span class="sp">Oyunlar<span><ul id="ul">
 
           {% for cate in category %}
-          <li><a href="{% url 'category' cate.slug %}">{{cate.name}}</a></li>
+          <li><a href="{% url 'category' cate.slug %}"><i class="fa fa-plus plus"> </i> {{cate.name}}</a></li>
 
           {% endfor %}
           </ul>
@@ -19,12 +25,32 @@
           <li><a href="{% url 'contact' %}">İletişim</a></li>
           <li><a href="{% url 'sss' %}">Yardım</a></li>
         </ul>
+        <div class="right-items accounted" id="usermobile">
+          <img src="{% static 'img/user.png'%}" alt="">
+          <span class="lgspan">{% if request.user.is_authenticated %}{{request.user.email}}{% else %}Giriş / Kayıt{% endif%}</span>
+          <div class="user-mini left-mini"  id="userminimobile">
+          {% if request.user.is_authenticated %}
+              <h1>{{request.user.email}}</h1>
+              <ul>
+                <li><i class="fa fa-shopping-cart item" aria-hidden="true" style="margin-right:10px;"></i><a href='{% url "user_orders" %}'>Alışverişlerim</a></li>
+                <li><i class="fa fa-user item" aria-hidden="true"style="margin-right:10px;"></i><a href='#'>Profil</a></li>
+                <li><i class="fa fa-ticket item" aria-hidden="true"style="margin-right:10px;"></i><a href='#'>Destek Taleplerim</a></li>
+                <li><i class="fa fa-sign-out item" aria-hidden="true"style="margin-right:10px;"></i><a href='{% url "logout" %}'>Çıkış Yap!</a></li>
+              </ul>
+
+          {% else %}
+            <h1><a href='{% url "loginsite" %}'>Giriş Yap</a></h1>
+            <h1><a href='{% url "registersite" %}'>Üye Ol</a></h1>
+          {% endif %}
+
+          </div>
+        </div>
       </div>
       <div class="right">
-        <div class="right-items">
+        <div class="right-items search">
           <img src="{% static 'img/magnifying-glass.png'%}" alt="">
         </div>
-        <div class="right-items" id="user">
+        <div class="right-items account" id="user">
           <img src="{% static 'img/user.png'%}" alt="">
           <div class="user-mini"  id="usermini">
           {% if request.user.is_authenticated %}
@@ -43,7 +69,7 @@
 
           </div>
         </div>
-        <div class="right-items" style="position:relative;">
+        <div class="right-items rtsmobile" style="position:relative;">
           <img id="basket" src="{% static 'img/shopping-bag.png'%}" alt="">
            {% if cart_count.products.all.exists%}
             <span class="basket-count">{{cart_count.products.count}}</span>
