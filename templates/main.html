@@ -100,13 +100,13 @@
 <script>
 var basket=document.getElementById("basket");
 var user = document.getElementById("user");
-var usermobile = document.getElementById("usermobile");
+
 var cross=document.getElementById("cross");
 var goc =document.getElementById("go-crt");
 var ul =document.getElementById("ul");
 var li = document.getElementById("li");
   document.getElementById("usermini").style.display="none";
-  document.getElementById("userminimobile").style.display="none";
+  
   basket.addEventListener("click",function(){
   
     document.getElementById("basketin").style.right="0";
@@ -126,13 +126,7 @@ var li = document.getElementById("li");
     if(document.getElementById("usermini").style.display=="none"){document.getElementById("usermini").style.display="block";}
     else{document.getElementById("usermini").style.display="none";}
   });
-  usermobile.addEventListener("click",function(){
-    if(window.screen.width <= 600){
-      if(document.getElementById("userminimobile").style.display=="none"){document.getElementById("userminimobile").style.display="block";}
-    else{document.getElementById("userminimobile").style.display="none";}
-    };
-    
-  });
+
   li.addEventListener("click",function(){
     
     if(ul.style.display=="none"){ul.style.display="block";}

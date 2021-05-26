@@ -26,8 +26,8 @@
           <li><a href="{% url 'sss' %}">Yardım</a></li>
         </ul>
         <div class="right-items accounted" id="usermobile">
-          <img src="{% static 'img/user.png'%}" alt="">
-          <span class="lgspan">{% if request.user.is_authenticated %}{{request.user.email}}{% else %}Giriş / Kayıt{% endif%}</span>
+          {% comment %} <img src="{% static 'img/user.png'%}" alt="">
+          <span class="lgspan">{% if request.user.is_authenticated %}{{request.user.email}}{% else %}Giriş / Kayıt{% endif%}</span> {% endcomment %}
           <div class="user-mini left-mini"  id="userminimobile">
           {% if request.user.is_authenticated %}
               <h1>{{request.user.email}}</h1>
