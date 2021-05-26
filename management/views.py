@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from django.contrib.auth import authenticate, login, get_user_model,logout
 from django.shortcuts import render, redirect, get_object_or_404
 from itertools import zip_longest
+from django.db.models import Q
 
 
 from .forms import LoginForm,PinDeliveryForm
@@ -106,8 +107,14 @@ def productupdate(request,id):
 
 @is_login_and_admin
 def showproducts(request):
-    products = Product.objects.all()
-    return render(request, "showproducts.html", {'products': products})
+    category=request.GET.get("cts")
+    if category and int(category)>0:
+        products = Product.objects.filter(Q(category=category))
+    else:
+        products = Product.objects.all()
+    cats = Category.objects.all()
+    return render(request, "showproducts.html", {'products': products,'cats':cats})
+
 
 @is_login_and_admin
 def subprice(request,id):
