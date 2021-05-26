@@ -104,7 +104,10 @@ var user = document.getElementById("user");
 var cross=document.getElementById("cross");
 var goc =document.getElementById("go-crt");
 var ul =document.getElementById("ul");
-var li = document.getElementById("li");
+var li = document.getElementById("sp");
+
+
+  ul.style.display="none";
   document.getElementById("usermini").style.display="none";
   
   basket.addEventListener("click",function(){
@@ -127,7 +130,7 @@ var li = document.getElementById("li");
     else{document.getElementById("usermini").style.display="none";}
   });
 
-  li.addEventListener("click",function(){
+  li.addEventListener("click",function fclick(){
     
     if(ul.style.display=="none"){ul.style.display="block";}
     else{ul.style.display="none";}

@@ -13,7 +13,7 @@
         <i class="fa fa-times" style="font-size:38px;color:white;"></i>
       </div>
         <ul>
-        <li class="li" id="li"><span class="sp">Oyunlar<span><ul id="ul">
+        <li class="li" id="li" onclick="fclick()" ><span class="sp" id="sp">Oyunlar<span><ul id="ul" style="display:none;">
 
           {% for cate in category %}
           <li><a href="{% url 'category' cate.slug %}">{{cate.name}}</a></li>
