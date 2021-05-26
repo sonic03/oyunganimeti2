@@ -1723,7 +1723,7 @@ textarea {
         box-sizing: border-box;
         width: 48%;
         overflow: hidden;
-        margin: 0 7px 8px 0;
+        margin: 0 1% 8px 1%;
         padding: 3px;
         position: relative;
         float: left;
@@ -1783,7 +1783,7 @@ textarea {
         text-align: center;
         font-size: 16px;
         line-height: 0px;
-        width: 49%;
+        width: 53%;
         color: white;
         float: left;
         margin-top: 24px;
