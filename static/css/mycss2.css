@@ -1781,7 +1781,7 @@ textarea {
     }
     .product-discount {
         text-align: center;
-        font-size: 16px;
+        font-size: 14px;
         line-height: 0px;
         width: 53%;
         color: white;
@@ -1794,7 +1794,10 @@ textarea {
         text-align: center;
         background: none;
         border: none;
-        margin: -15px 0 0 20px;
+        margin: -15px auto 0 auto;
+    }
+    .buy-icon {
+        margin-left: -8%;
     }
     .framex {
         height: 277px;
