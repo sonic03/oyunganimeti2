@@ -12,6 +12,21 @@
 
                 </div>
                 <div class="card-body">
+                <div class="col-12">
+                <form action="{% url 'management:showproducts' %}">
+                  <select id="cts" name="cts" class="searchitem">
+
+                      
+                      <option value="0" selected>Bir etiket seçiniz...</option>
+                          {% for c in cats %}
+                          <option value="{{c.id}}">{{c.name}}</option>
+                      {% endfor %}
+                    
+                  </select>
+                  <button type="submit">Getir</button>
+                </form>
+                
+                </div>
                   <div class="table-responsive">
                     <table class="table">
                       <thead class=" text-primary">

@@ -1771,7 +1771,7 @@ textarea {
     .product-sale {
         text-decoration: line-through;
         text-align: center;
-        font-size: 17px;
+        font-size: 14px;
         line-height: 0;
         width: 45%;
         color: white;
@@ -1781,7 +1781,7 @@ textarea {
     }
     .product-discount {
         text-align: center;
-        font-size: 20px;
+        font-size: 16px;
         line-height: 0px;
         width: 49%;
         color: white;
@@ -1794,7 +1794,7 @@ textarea {
         text-align: center;
         background: none;
         border: none;
-        margin: -15px 0 0 37px;
+        margin: -15px 0 0 20px;
     }
     .framex {
         height: 277px;
