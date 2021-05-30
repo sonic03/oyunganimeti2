@@ -99,3 +99,6 @@ def checkout(request):
 def check_out_done(request):
     
     return render(request,'succes.html')
+
+def ccpayment(request):
+    return render(request,"cc-payment.html")

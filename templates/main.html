@@ -53,9 +53,20 @@
 <div class="footer" style="float:left;">
     <div class="footer-content">
         <div class="col-12">
-            
-            <div class="col-4" style="float:left;">
+            <div class="col-3" style="float:left;">
                 <div class="footer-inner" style="border-left:none;">
+                    <h1>Neden Oyunganimeti ?</h1>
+                    <ul>
+                        <li class="hli"><img src="{% static 'img/ssl.png' %}" > SSL Security </li>
+                        <li class="hli"><img src="{% static 'img/secure-shield.png' %}" > 3D Security </li>
+                        <li class="hli"><img src="{% static 'img/fast-delivery.png' %}" > Hızlı Teslimat </li>
+                        
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-3" style="float:left;">
+                <div class="footer-inner">
                     <h1>Oyun Ganimeti</h1>
                     <ul>
                         <li><a href="{% url 'hakkimizda' %}">Hakkımızda</a></li>
@@ -65,7 +76,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-4" style="float:left;">
+            <div class="col-3" style="float:left;">
                 <div class="footer-inner">
                     <h1>Yardım Merkezi</h1>
                     <ul>
@@ -76,7 +87,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-4" style="float:left;">
+            <div class="col-3" style="float:left;">
                 <div class="footer-inner">
                     <h1>Destek ve İletişim</h1>
                     <ul>
@@ -96,95 +107,11 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
 <script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/settings.js' %}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-var basket=document.getElementById("basket");
-var user = document.getElementById("user");
 
-var cross=document.getElementById("cross");
-var goc =document.getElementById("go-crt");
-var ul =document.getElementById("ul");
-var li = document.getElementById("sp");
-
-
-  ul.style.display="none";
-  document.getElementById("usermini").style.display="none";
-  
-  basket.addEventListener("click",function(){
-  
-    document.getElementById("basketin").style.right="0";
-  });
-
-  cross.addEventListener("click",function(){
-
-    document.getElementById("basketin").style.right="-450px";
-  });
-  goc.addEventListener("click",function(){
-
-    window.location.href="{% url 'carts:cart_home' %}";
-  });
-
-  user.addEventListener("click",function(){
     
-    if(document.getElementById("usermini").style.display=="none"){document.getElementById("usermini").style.display="block";}
-    else{document.getElementById("usermini").style.display="none";}
-  });
-
-  li.addEventListener("click",function fclick(){
-    
-    if(ul.style.display=="none"){ul.style.display="block";}
-    else{ul.style.display="none";}
-  });
-
-  /* width */
-    const delItem=document.getElementsByClassName("delItem");
-
-    for( d of delItem){
-      d.addEventListener('click',function(){
-        
-        let proNum=$(this)[0].attributes[2].nodeValue;
-        
-        //window.location.href="/card/update/"+proNum;
-        $.ajax({
-          url:"/card/delete/"+proNum,
-          method:"GET",
-          dataType:'json',
-          success:function(data){
-            
-            Swal.fire({icon: 'success',title: 'Sepetten Çıkarıldı',showConfirmButton: false,timer: 1500});
-            setTimeout(function(){window.location.reload();},2000);
-            
-
-          }
-        });
-      });
-      
-    }
-    
-
-
-
-
-var hmbgr=document.getElementById("hmbgr");
-
-hmbgr.addEventListener("click",function(){
-  
-  if(window.screen.width < 600){
-    document.getElementById('nav-inner').style.left='0';
-      
-  }
-});
-
-var close=document.getElementById("close");
-
-close.addEventListener("click",function(){
-  
-  if(window.screen.width < 600){
-    document.getElementById('nav-inner').style.left='-450px';
-      
-  }
-});
-
 
 
 

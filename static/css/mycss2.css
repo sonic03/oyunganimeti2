@@ -744,9 +744,10 @@ body {
     margin: 0 auto;
     padding: 5px 20px;
     width: 92%;
-    height: 496px;
+    height: 47%;
     overflow: auto;
     margin-top: 12px;
+    position: fixed;
 }
 
 .cart-body-header {
@@ -757,7 +758,7 @@ body {
 .cart-body-items {
     text-align: center;
     color: white;
-    width: 100%;
+    width: 24%;
     height: 120px;
     padding: 15px;
     border-bottom: 1px solid orangered;
@@ -801,7 +802,11 @@ body {
     margin: 15px 0 0 0;
     position: fixed;
     bottom: 0;
-    background: orangered;
+    background: black;
+}
+
+.w {
+    width: 76% !important;
 }
 
 .half-total {
@@ -1239,6 +1244,11 @@ textarea {
     color: white;
 }
 
+.tempsss {
+    color: white;
+    padding: 22px 35px;
+}
+
 .temp h1 {
     color: white;
     border-bottom: 1px solid white;
@@ -1246,7 +1256,8 @@ textarea {
     margin-bottom: 2px;
 }
 
-.temp p {
+.temp p,
+.tempsss p {
     color: white;
 }
 
@@ -1262,6 +1273,7 @@ textarea {
     color: white;
     padding: 15px 23px;
     border-radius: 5px;
+    overflow: hidden;
 }
 
 .right-part {
@@ -1376,6 +1388,49 @@ textarea {
 
 .accounted {
     display: none !important;
+}
+
+.tempalt {
+    color: orangered;
+    font-size: 20px;
+    border-bottom: 1px solid orangered;
+    height: 188px;
+    overflow: hidden;
+    margin: 26px auto;
+}
+
+.showh {
+    display: block;
+}
+
+.pay {
+    width: 100%!important;
+    margin: 10px auto!important;
+    padding: 10px;
+}
+
+.tempalt h2 {
+    float: left;
+    width: auto;
+    font-size: 20px;
+}
+
+.tempalt .fs {
+    margin-right: 50px;
+    float: right;
+    font-size: 39px !important;
+}
+
+.tempalt p {
+    width: 100%;
+    height: auto;
+    font-size: 15px;
+    float: left;
+    margin-top: 37px;
+}
+
+.hli {
+    height: 47px !important;
 }
 
 
@@ -1807,5 +1862,17 @@ textarea {
     }
     .left-card-inner {
         display: none;
+    }
+    .cart-body {
+        height: 40%!important;
+    }
+    .cart-body-items {
+        width: 95% !important;
+    }
+    .cart-body-items h2 {
+        font-size: 14px;
+    }
+    .w {
+        width: 62% !important;
     }
 }

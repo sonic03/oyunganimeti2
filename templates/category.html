@@ -110,28 +110,7 @@
 
 {% block js %}
 <script>
-  const buyitem=document.getElementsByClassName("buy-item");
-
-    for( b of buyitem){
-      b.addEventListener('click',function(){
-        
-        let proNum=$(this)[0].attributes[1].nodeValue;
-        //window.location.href="/card/update/"+proNum;
-        $.ajax({
-          url:"/card/update/"+proNum,
-          method:"GET",
-          dataType:'json',
-          success:function(data){
-            
-            Swal.fire({icon: 'success',title: 'Sepete Eklendi',showConfirmButton: false,timer: 1500});
-            setTimeout(function(){window.location.reload();},2000);
-            
-
-          }
-        });
-      });
-      
-    }
+  
 </script>
 
 {% endblock js %}

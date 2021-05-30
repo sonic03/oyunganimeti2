@@ -65,36 +65,7 @@
 
 {% block js %}
 <script>
-  var checkout = document.getElementById("checkout");
-  var homepage = document.getElementById("homepage");
-
-  checkout.addEventListener("click",function(){window.location.href="{% url 'carts:checkout' %}";});
-  homepage.addEventListener("click",function(){window.location.href="{% url 'index' %}";});
-
-  const thresh=document.getElementsByClassName("cart-tresh");
-
-    for( t of thresh){
-      t.addEventListener('click',function(){
-        
-        let proNum=$(this)[0].attributes[1].nodeValue;
-        
-        
-        //window.location.href="/card/update/"+proNum;
-        $.ajax({
-          url:"/card/delete/"+proNum,
-          method:"GET",
-          dataType:'json',
-          success:function(data){
-            
-            Swal.fire({icon: 'success',title: 'Sepetten Çıkarıldı',showConfirmButton: false,timer: 1500});
-            setTimeout(function(){window.location.reload();},2000);
-            
-
-          }
-        });
-      });
-      
-    }
+  
 
 
 
