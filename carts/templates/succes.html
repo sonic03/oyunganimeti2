@@ -42,7 +42,7 @@
 {% block js %}
 <script>
   
-  
+  document.getElementById("kredi").addEventListener("click", function() { window.location.href = "{% url 'carts:cc-payment' %}" });
 </script>
   
 

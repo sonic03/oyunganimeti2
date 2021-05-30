@@ -65,7 +65,12 @@
 
 {% block js %}
 <script>
-  
+  var checkout = document.getElementById("checkout");
+    var homepage = document.getElementById("homepage");
+    
+        checkout.addEventListener("click", function() { window.location.href = "{% url 'carts:checkout' %}"; });
+    homepage.addEventListener("click", function() { window.location.href = "{% url 'index' %}"; });
+    
 
 
 
