@@ -1875,4 +1875,12 @@ textarea {
     .w {
         width: 62% !important;
     }
+    .tempalt .fs {
+        margin-right: 12px;
+        float: right;
+        font-size: 37px !important;
+    }
+    .tempalt h2 {
+        font-size: 10px;
+    }
 }
