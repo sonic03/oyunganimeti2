@@ -110,14 +110,12 @@
 <script src="{% static 'js/settings.js' %}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+var goc = document.getElementById("go-crt");
+goc.addEventListener("click", function() {
 
-    
-
-
-
-
+    window.location.href = "{% url 'carts:cart_home' %}";
+});
 </script>
-
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-778VC7P8YY"></script>
 <script>
@@ -127,11 +125,6 @@
 
   gtag('config', 'G-778VC7P8YY');
 </script>
-
-
-
-
-
 
     {% block js %}
     {% endblock %}

@@ -2,7 +2,7 @@ var basket = document.getElementById("basket");
 var user = document.getElementById("user");
 
 var cross = document.getElementById("cross");
-var goc = document.getElementById("go-crt");
+
 var ul = document.getElementById("ul");
 var li = document.getElementById("sp");
 
@@ -19,10 +19,7 @@ cross.addEventListener("click", function() {
 
     document.getElementById("basketin").style.right = "-450px";
 });
-goc.addEventListener("click", function() {
 
-    window.location.href = "{% url 'carts:cart_home' %}";
-});
 
 user.addEventListener("click", function() {
 
@@ -108,11 +105,8 @@ try {
 }
 
 try {
-    var checkout = document.getElementById("checkout");
-    var homepage = document.getElementById("homepage");
 
-    checkout.addEventListener("click", function() { window.location.href = "{% url 'carts:checkout' %}"; });
-    homepage.addEventListener("click", function() { window.location.href = "{% url 'index' %}"; });
+
 
     const thresh = document.getElementsByClassName("cart-tresh");
 
@@ -149,7 +143,7 @@ try {
 
     }
 
-    document.getElementById("kredi").addEventListener("click", function() { window.location.href = "{% url 'carts:cc-payment' %}" });
+
 } catch (error) {
 
 }
