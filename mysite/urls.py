@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from products import views
-from carts.views import paytr
+from carts.views import callback
 
 urlpatterns = [
                   path('login/', views.loginsite, name="loginsite"),
@@ -42,6 +42,6 @@ urlpatterns = [
                   path('mesafeli-satis-sozlesmesi',views.mesafelisatissozlesmesi,name="mesafelisatissozlesmesi"),
                   path('gizlilik-politikasi',views.gizlilik,name="gizlilik"),
                   path('iade',views.iade,name="iade"),
-                  path('paytr/result',paytr,name="paytr"),
+                  path('paytr/result',callback,name="callback"),
 
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
