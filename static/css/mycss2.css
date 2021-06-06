@@ -1,5 +1,5 @@
 body {
-    background: black;
+    background: #1a1a1a;
 }
 
 .container-top {
@@ -149,10 +149,10 @@ body {
 
 .footer {
     width: 100%;
-    height: 280px;
-    border-top: 2px solid orangered;
+    height: auto;
     overflow: hidden;
     margin: 50px auto 0 auto;
+    background: #b23500;
 }
 
 .footer-content {
@@ -163,7 +163,6 @@ body {
 }
 
 .footer-down {
-    border-bottom: 2px solid orangered;
     height: 270px;
 }
 
@@ -171,7 +170,7 @@ body {
     width: 100%;
     height: 241px;
     overflow: hidden;
-    padding: 50px
+    padding: 45px
 }
 
 .footer-img img {
@@ -179,12 +178,39 @@ body {
     margin: 5% auto;
 }
 
+.out-text {
+    background: #111111;
+    padding: 20px 50px;
+}
+
+.out-text h3 {
+    color: orangered;
+}
+
+.temp img {
+    margin: 5px 27%;
+    width: 43%;
+}
+
+.footer-text {
+    color: #dfdfdf;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.fimg-p {
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 11px;
+}
+
 .footer-inner {
     width: 100%;
-    height: 241px;
+    height: auto;
     overflow: hidden;
     float: left;
-    border-left: 3px solid orangered;
     text-align: center;
 }
 
@@ -677,6 +703,10 @@ body {
     background-color: rgba(0, 0, 0, 1);
     border-radius: 50%;
     z-index: -99;
+}
+
+.plus {
+    display: none !important;
 }
 
 .button-container .button:nth-child(1) {
@@ -1242,6 +1272,7 @@ textarea {
 
 .temp {
     color: white;
+    margin-bottom: 15px
 }
 
 .tempsss {
@@ -1254,6 +1285,8 @@ textarea {
     border-bottom: 1px solid white;
     padding-bottom: 5px;
     margin-bottom: 2px;
+    font-size: 24px;
+    padding-left: 50px;
 }
 
 .temp p,
@@ -1477,7 +1510,7 @@ textarea {
         padding-top: 4px;
     }
     .nav-inner {
-        width: 303px;
+        width: 280px;
         /* margin: 0px 0 0 0px; */
         height: auto;
         float: left;
@@ -1527,10 +1560,11 @@ textarea {
         border: none;
         text-align: left;
         font-size: 12px;
-        margin-left: 20px
+        margin-left: 20px;
     }
     .nav-bar ul li ul li a {
         font-size: 14px;
+        line-height: 15px;
     }
     .li {
         font-size: 20px !important;
@@ -1745,7 +1779,7 @@ textarea {
         margin-left: 67px;
     }
     .basket-in {
-        width: 321px;
+        width: 300px;
     }
     .button-basket {
         width: 58%;
@@ -1882,5 +1916,10 @@ textarea {
     }
     .tempalt h2 {
         font-size: 10px;
+    }
+    .plus {
+        display: block !important;
+        margin-right: 6px !important;
+        float: left !important;
     }
 }

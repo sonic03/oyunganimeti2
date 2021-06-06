@@ -53,19 +53,44 @@
 <div class="footer" style="float:left;">
     <div class="footer-content">
         <div class="col-12">
-            <div class="col-3" style="float:left;">
+            <div class="col-4" style="float:left;">
                 <div class="footer-inner" style="border-left:none;">
                     <h1>Neden Oyunganimeti ?</h1>
-                    <ul>
+                    <div class="col-12" style="float:left">
+                        <p class="footer-text">
+                            Online oyunlar hakkında oyunculara rehberlik eden Oyun Ganimeti, en uygun fiyat , güvenli ve  hızlı teslimat garantisini sunar. Oyun sektöründe uygun fiyat , hızlı teslimat  ve güvenilirliğimizi ön planda tutarak Oyun Ganimeti olarak müşterilerimize sorunsuz hizmet verme konusunu misyon haline getirdik.
+                        <p>
+                    </div>
+                    <div class="col-4" style="float:left">
+                        <div class="footer-img">
+                            <img src="{% static 'img/ssl_2.png' %}" >
+                            <p class="fimg-p">256 BIT SSL SECURE</p>
+                        </div>
+                    
+                    </div>
+                    <div class="col-4" style="float:left">
+                        <div class="footer-img">
+                            <img src="{% static 'img/3dsecurity.png' %}" >
+                            <p class="fimg-p">3D SECURE ÖDEME SİSTEMİ</p>
+                        </div>
+                    </div>
+                    <div class="col-4" style="float:left">
+                        <div class="footer-img">
+                            <img src="{% static 'img/fast-delivery-1.png' %}" >
+                            <p class="fimg-p">HIZLI TESLİMAT</p>
+                        </div>
+                    
+                    </div>
+                    {% comment %} <ul>
                         <li class="hli"><img src="{% static 'img/ssl.png' %}" > SSL Security </li>
                         <li class="hli"><img src="{% static 'img/secure-shield.png' %}" > 3D Security </li>
                         <li class="hli"><img src="{% static 'img/fast-delivery.png' %}" > Hızlı Teslimat </li>
                         
-                    </ul>
+                    </ul> {% endcomment %}
                 </div>
             </div>
 
-            <div class="col-3" style="float:left;">
+            <div class="col-4" style="float:left;">
                 <div class="footer-inner">
                     <h1>Oyun Ganimeti</h1>
                     <ul>
@@ -73,13 +98,6 @@
                         <li><a href="{% url 'gizlilik' %}">Gizlilik Politikası</a></li>
                         <li><a href="{% url 'contact' %}">İletişim</a></li>
                         <li><a href="{% url 'kullanici-sozlesmesi' %}">Kullanıcı Sözleşmesi</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-3" style="float:left;">
-                <div class="footer-inner">
-                    <h1>Yardım Merkezi</h1>
-                    <ul>
                         <li><a href="{% url 'mesafelisatissozlesmesi' %}">Mesafeli Satış Sözleşmesi</a></li>
                         <li><a href="{% url 'kvkk' %}">KVKK Aydınlatma Metni</a></li>
                         <li><a href="{% url 'iade' %}">Garanti Ve İade Koşulları</a></li>
@@ -87,16 +105,24 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-3" style="float:left;">
+            
+            <div class="col-4" style="float:left;">
                 <div class="footer-inner">
                     <h1>Destek ve İletişim</h1>
                     <ul>
-                        <li><a href="tel:+905324499678" ><i class="fa fa-whatsapp" style="color:orangered;font-size:13px;margin-right:5px;"></i>05324499678</a></li>
-                        <li><a href="mailto:info@oyunganimeti.com"><i class="fa fa-paper-plane" style="color:orangered;font-size:13px;margin-right:5px;"></i>info@oyunganimeti.com</a></li>
-                        <li><a href="https://www.facebook.com/oyun.ganimeti.7/"><i class="fa fa-facebook" style="color:orangered;font-size:13px;margin-right:5px;"></i>Facebook</a></li>
-                        <li><a href="https://www.instagram.com/oyunganimetii/?hl=tr"><i class="fa fa-instagram" style="color:orangered;font-size:13px;margin-right:5px;"></i>Instagram</a></li>
+                        <li><a href="tel:+905324499678" ><i class="fa fa-whatsapp" style="color:#e9ebeb;font-size:13px;margin-right:5px;"></i>05324499678</a></li>
+                        <li><a href="mailto:info@oyunganimeti.com"><i class="fa fa-paper-plane" style="color:#e9ebeb;font-size:13px;margin-right:5px;"></i>info@oyunganimeti.com</a></li>
+                        
+                    </ul>
+                    <h1>Bizi Takip Edin</h1>
+                    <ul>
+                        <li><a href="https://www.facebook.com/oyun.ganimeti.7/"><i class="fa fa-facebook" style="color:#e9ebeb;font-size:13px;margin-right:5px;"></i>Facebook</a></li>
+                        <li><a href="https://www.instagram.com/oyunganimetii/?hl=tr"><i class="fa fa-instagram" style="color:#e9ebeb;font-size:13px;margin-right:5px;"></i>Instagram</a></li>
                     </ul>
                 </div>
+            </div>
+            <div class="col-12" style="float:left;">
+                <img src="{% static 'img/card-min-1.png' %}" style="margin:5% 42%;">
             </div>
         </div>
     </div>
