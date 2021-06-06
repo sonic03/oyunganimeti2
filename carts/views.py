@@ -222,9 +222,10 @@ def callback(request):
     # BURADA YAPILMASI GEREKENLER
     # 1) Siparişin durumunu post['merchant_oid'] değerini kullanarak veri tabanınızdan sorgulayın.
     # 2) Eğer sipariş zaten daha önceden onaylandıysa veya iptal edildiyse "OK" yaparak sonlandırın.
-    print(post['merchant_oid'])
-    print('*********')
-
+    order_status=Order.objects.filter(order_id=str(post['merchant_oid'])).first().status
+    if order_status == 'paid':
+        return HttpResponse(str('OK'))
+    
     if post['status'] == 'success':  # Ödeme Onaylandı
         """
         BURADA YAPILMASI GEREKENLER
