@@ -131,12 +131,13 @@ def registersite(request):
         #if result['success']:
         email = form.cleaned_data.get('email')
         password = form.cleaned_data.get('password')
+        phone = form.cleaned_data.get('phone')
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forwarded_for:
             ip = x_forwarded_for.split(',')[0]
         else:
             ip = request.META.get('REMOTE_ADDR')
-        user = MyUser(email=email)
+        user = MyUser(email=email,phone=phone)
         user.set_password(password)
         user.save()
         login(request, user)

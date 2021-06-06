@@ -30,7 +30,9 @@ class UserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser):
+
     email = models.EmailField(max_length=255, verbose_name='Email', unique=True)
+    phone = models.CharField(max_length=11,verbose_name="Telefon Numarası",default='05555555555')
     active = models.BooleanField(default=True, verbose_name='Aktif')  # siteye girebilir
     staff = models.BooleanField(default=False, verbose_name='Site Elemanı')
     admin = models.BooleanField(default=False, verbose_name='Admin')
@@ -69,3 +71,6 @@ class MyUser(AbstractBaseUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(MyUser,null=True,on_delete=models.SET_NULL)
+
+
+

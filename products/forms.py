@@ -65,6 +65,7 @@ class LoginSiteForm(forms.Form):
 
 class RegisterSiteForm(forms.Form):
     email = forms.EmailField(required=True,max_length=255,widget=forms.EmailInput(attrs={'placeholder':'Email'}))
+    phone = forms.CharField(required=True,max_length=11,widget=forms.NumberInput(attrs={'placeholder':'Telefon Numarası'}))
     password = forms.CharField(required=True,widget=forms.PasswordInput(attrs={'placeholder':'Parola'}))
     repassword = forms.CharField(required=True,widget=forms.PasswordInput(attrs={'placeholder':'Parolayı Tekrar Yazın'}))
     is_accept = forms.BooleanField(required=True,label="Kabul ediyorum")
@@ -74,15 +75,21 @@ class RegisterSiteForm(forms.Form):
         repassword = self.cleaned_data.get('repassword')
         email = self.cleaned_data.get('email')
         is_accept =  self.cleaned_data.get("is_accept")
+        phone= self.cleaned_data.get('phone')
         if password and repassword and password != repassword:
             raise forms.ValidationError("Şifreler uyuşmuyor. Tekrar deneyiniz.")
         if not "@" in email:
             raise forms.ValidationError("Eposta formatı halatı")
+        if not phone:
+            raise forms.ValidationError("Bu alan doldurulması zorunludur.")
+        if phone and len(phone)!=11:
+            raise forms.ValidationError("Telefon numaranızın başına '0' ekleyip 11 hane olarak giriniz.")
         if MyUser.objects.filter(email=email).exists():
             raise forms.ValidationError("Bu kullanıcı sitemizde kayıtlıdır.")
         if not is_accept:
             raise forms.ValidationError("Üyelik sözleşmesini kabul etmeden üye olamazsınız")
         return self.cleaned_data
+        
 
 
 class ContantForm(forms.Form):
