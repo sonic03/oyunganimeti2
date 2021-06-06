@@ -43,5 +43,6 @@ urlpatterns = [
     path('showorders/<str:order_id>',views.show_order_detail,name='showordersdetail'),
     path('showorders/update/<str:order_id>/<int:product_id>/<int:pincode_id>',views.update_order_detail,name='updateordersdetail'),
     path('showorders/add/<str:order_id>/<int:product_id>/',views.add_order_detail,name='addordersdetail'),
+    
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -8,6 +8,7 @@
       <div class="col-lg-12">
         <div class="cart-success">
         <h1> Siparişiniz alınmıştır.</h1>
+        <p>Sipariş Kodunuz : {{order_id}}</p>
         <p>Teslimatın tamamlanması için; <br>
         bir ödeme yöntemi seçiniz.</p>
         {% comment %} <p>Teslimatın tamamlanması için; <br>
@@ -31,7 +32,8 @@
         Ödeme onayından sonra kodunuz ortalama 10 dakika içinde teslim edilecektir.<br>
         Bakiye gönderiminde açıklama kısmına e posta adresini ve sipariş kodunuzu yazızınız.</p>
         </div>
-        </div>
+        
+    </div>
 </div>
 
  
@@ -42,7 +44,7 @@
 {% block js %}
 <script>
   
-  document.getElementById("kredi").addEventListener("click", function() { window.location.href = "{% url 'carts:cc-payment' %}" });
+  document.getElementById("kredi").addEventListener("click", function() { window.location.href = "{% url 'carts:cc-payment'  %}" });
 </script>
   
 
