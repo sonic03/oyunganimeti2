@@ -246,7 +246,7 @@ def callback(request):
         print(request)
 
     # Bildirimin alındığını PayTR sistemine bildir.
-    return HttpResponse(str('OK'))
+    return str('OK')
 
 def paytr(request):
 
