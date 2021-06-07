@@ -200,7 +200,7 @@ def ccpayment(request):
 def callback(request):
 
     if request.method != 'POST':
-        return HttpResponse(str(''))
+        return HttpResponse(str('OK'))
 
     post = request.POST
 
