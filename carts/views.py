@@ -200,53 +200,54 @@ def ccpayment(request):
 def callback(request):
 
     if request.method != 'POST':
+        return HttpResponse(str(''))
+    else:
+
+        post = request.POST
+
+        # API Entegrasyon Bilgileri - Mağaza paneline giriş yaparak BİLGİ sayfasından alabilirsiniz.
+        merchant_key = b'eNPyHwKtT7CNZwb2'
+        merchant_salt = 'zasJCnqC6ZfgwXra'
+
+        # Bu kısımda herhangi bir değişiklik yapmanıza gerek yoktur.
+        # POST değerleri ile hash oluştur.
+        hash_str = post['merchant_oid'] + merchant_salt + post['status'] + post['total_amount']
+        hash = base64.b64encode(hmac.new(merchant_key, hash_str.encode(), hashlib.sha256).digest())
+
+        # Oluşturulan hash'i, paytr'dan gelen post içindeki hash ile karşılaştır
+        # (isteğin paytr'dan geldiğine ve değişmediğine emin olmak için)
+        # Bu işlemi yapmazsanız maddi zarara uğramanız olasıdır.
+        if hash != post['hash']:
+            return HttpResponse(str('PAYTR notification failed: bad hash'))
+
+        # BURADA YAPILMASI GEREKENLER
+        # 1) Siparişin durumunu post['merchant_oid'] değerini kullanarak veri tabanınızdan sorgulayın.
+        # 2) Eğer sipariş zaten daha önceden onaylandıysa veya iptal edildiyse "OK" yaparak sonlandırın.
+        order_status=Order.objects.filter(order_id=str(post['merchant_oid'])).first().status
+        if order_status == 'paid':
+            return HttpResponse(str('OK'))
+        
+        if post['status'] == 'success':  # Ödeme Onaylandı
+            """
+            BURADA YAPILMASI GEREKENLER
+            1) Siparişi onaylayın.
+            2) Eğer müşterinize mesaj / SMS / e-posta gibi bilgilendirme yapacaksanız bu aşamada yapmalısınız.
+            3) 1. ADIM'da gönderilen payment_amount sipariş tutarı taksitli alışveriş yapılması durumunda değişebilir. 
+            Güncel tutarı post['total_amount'] değerinden alarak muhasebe işlemlerinizde kullanabilirsiniz.
+            """
+            print(request)
+        else:  # Ödemeye Onay Verilmedi
+            """
+            BURADA YAPILMASI GEREKENLER
+            1) Siparişi iptal edin.
+            2) Eğer ödemenin onaylanmama sebebini kayıt edecekseniz aşağıdaki değerleri kullanabilirsiniz.
+            post['failed_reason_code'] - başarısız hata kodu
+            post['failed_reason_msg'] - başarısız hata mesajı
+            """
+            print(request)
+
+        # Bildirimin alındığını PayTR sistemine bildir.
         return HttpResponse(str('OK'))
-
-    post = request.POST
-
-    # API Entegrasyon Bilgileri - Mağaza paneline giriş yaparak BİLGİ sayfasından alabilirsiniz.
-    merchant_key = b'eNPyHwKtT7CNZwb2'
-    merchant_salt = 'zasJCnqC6ZfgwXra'
-
-    # Bu kısımda herhangi bir değişiklik yapmanıza gerek yoktur.
-    # POST değerleri ile hash oluştur.
-    hash_str = post['merchant_oid'] + merchant_salt + post['status'] + post['total_amount']
-    hash = base64.b64encode(hmac.new(merchant_key, hash_str.encode(), hashlib.sha256).digest())
-
-    # Oluşturulan hash'i, paytr'dan gelen post içindeki hash ile karşılaştır
-    # (isteğin paytr'dan geldiğine ve değişmediğine emin olmak için)
-    # Bu işlemi yapmazsanız maddi zarara uğramanız olasıdır.
-    if hash != post['hash']:
-        return HttpResponse(str('PAYTR notification failed: bad hash'))
-
-    # BURADA YAPILMASI GEREKENLER
-    # 1) Siparişin durumunu post['merchant_oid'] değerini kullanarak veri tabanınızdan sorgulayın.
-    # 2) Eğer sipariş zaten daha önceden onaylandıysa veya iptal edildiyse "OK" yaparak sonlandırın.
-    order_status=Order.objects.filter(order_id=str(post['merchant_oid'])).first().status
-    if order_status == 'paid':
-        return HttpResponse(str('OK'))
-    
-    if post['status'] == 'success':  # Ödeme Onaylandı
-        """
-        BURADA YAPILMASI GEREKENLER
-        1) Siparişi onaylayın.
-        2) Eğer müşterinize mesaj / SMS / e-posta gibi bilgilendirme yapacaksanız bu aşamada yapmalısınız.
-        3) 1. ADIM'da gönderilen payment_amount sipariş tutarı taksitli alışveriş yapılması durumunda değişebilir. 
-        Güncel tutarı post['total_amount'] değerinden alarak muhasebe işlemlerinizde kullanabilirsiniz.
-        """
-        print(request)
-    else:  # Ödemeye Onay Verilmedi
-        """
-        BURADA YAPILMASI GEREKENLER
-        1) Siparişi iptal edin.
-        2) Eğer ödemenin onaylanmama sebebini kayıt edecekseniz aşağıdaki değerleri kullanabilirsiniz.
-        post['failed_reason_code'] - başarısız hata kodu
-        post['failed_reason_msg'] - başarısız hata mesajı
-        """
-        print(request)
-
-    # Bildirimin alındığını PayTR sistemine bildir.
-    return str('OK')
 
 def paytr(request):
 
