@@ -128,7 +128,7 @@ def ccpayment(request):
         list_p=[str(p.name),str(p.discount_price),1]
         all_pros.append(list_p)
     merchant_id = '238265'
-    merchant_key = b'eNPyHwKtT7CNZwb2'
+    merchant_key = b'6NnX3CCQjo73Mdk4'
     merchant_salt = b'zasJCnqC6ZfgwXra'
     email = request.user.email
     payment_amount = str(int(order.order_total*100))
@@ -206,13 +206,14 @@ def callback(request):
         post = request.POST
 
         # API Entegrasyon Bilgileri - Mağaza paneline giriş yaparak BİLGİ sayfasından alabilirsiniz.
-        merchant_key = b'eNPyHwKtT7CNZwb2'
+        merchant_key = b'6NnX3CCQjo73Mdk4'
         merchant_salt = 'zasJCnqC6ZfgwXra'
 
         # Bu kısımda herhangi bir değişiklik yapmanıza gerek yoktur.
         # POST değerleri ile hash oluştur.
-        hash_str = post['merchant_oid'] + merchant_salt + post['status'] + post['total_amount']
+        hash_str = str(post['merchant_oid']) + str(merchant_salt) + str(post['status']) + str(post['total_amount'])
         hash = base64.b64encode(hmac.new(merchant_key, hash_str.encode(), hashlib.sha256).digest())
+        
 
         # Oluşturulan hash'i, paytr'dan gelen post içindeki hash ile karşılaştır
         # (isteğin paytr'dan geldiğine ve değişmediğine emin olmak için)
