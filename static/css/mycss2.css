@@ -1051,6 +1051,10 @@ a:focus {
     margin: 0 auto;
 }
 
+.mstr {
+    margin: 5% 42%;
+}
+
 @media screen and (min-width: 53em) {
     .message {
         display: none;
@@ -1593,7 +1597,7 @@ textarea {
         margin-top: 0 !important;
     }
     .footer {
-        height: 146px;
+        height: auto;
     }
     .footer-content {
         height: auto;
@@ -1601,7 +1605,7 @@ textarea {
         padding: 3px;
     }
     .footer-inner {
-        height: 124px;
+        height: auto;
         border-left: 1px solid orangered;
     }
     .footer-inner h1 {
@@ -1921,5 +1925,8 @@ textarea {
         display: block !important;
         margin-right: 6px !important;
         float: left !important;
+    }
+    .mstr {
+        margin: 5% 28%;
     }
 }
