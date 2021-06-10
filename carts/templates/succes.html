@@ -22,9 +22,7 @@
         <div class="col-md-6 col-12" style="float:left;padding: 16px;">
           <button id="havale" class="add-basket-btn pay" onclick="showh()">Havale ile Öde</button>
         </div>
-        <div class="col-md-6 col-12" style="float:left;padding: 16px;">
-          <button id="kredi" class="add-basket-btn pay">Kredi Kartı İle Öde</button>
-        </div>
+        
       </div>
       <div class="cart-success" id="showh" style="display:none;">
         <p>Teslimatın tamamlanması için; <br>
@@ -42,10 +40,7 @@
 {% endblock body %}
 
 {% block js %}
-<script>
-  
-  document.getElementById("kredi").addEventListener("click", function() { window.location.href = "{% url 'carts:cc-payment'  %}" });
-</script>
+
   
 
 {% endblock js %}
