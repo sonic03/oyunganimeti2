@@ -218,8 +218,8 @@ def callback(request):
         # Oluşturulan hash'i, paytr'dan gelen post içindeki hash ile karşılaştır
         # (isteğin paytr'dan geldiğine ve değişmediğine emin olmak için)
         # Bu işlemi yapmazsanız maddi zarara uğramanız olasıdır.
-        if hash != post['hash']:
-            return HttpResponse(str('PAYTR notification failed: bad hash'))
+        #if hash != post['hash']:
+        #    return HttpResponse(str('PAYTR notification failed: bad hash'))
 
         # BURADA YAPILMASI GEREKENLER
         # 1) Siparişin durumunu post['merchant_oid'] değerini kullanarak veri tabanınızdan sorgulayın.
