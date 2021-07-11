@@ -1,15 +1,110 @@
 {% extends 'main.html' %}
 {% load static %}
-
+{% block title %}Param POS Ödeme Sayfası{% endblock title %}
+{% block css %}
+  form{   
+    border: 3px solid #450d87;
+    border-radius: 16px;
+    padding: 21px;
+    height: 100%;
+    width: 50%;
+    margin: 0 auto;}
+    
+.contact-items {
+    width: 100%;
+    height: 44px;
+    border: 1px solid #450d87 !important;
+    background: none !important;
+    text-align: center;
+    transform: skew(0deg)!important;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #450d87 !important;
+}
+.bg-param{
+  background:#450d87 !important;
+  border:none;
+}
+.btw{
+  line-height: 37px;
+    font-size: 39px;
+    margin: 0 28%;
+}
+#fkkno,#fskyil,#fcvc,#fkkno,#fgsm{
+  font-size:10px;
+  font-weight:600;
+  color:red;
+  margin-top: -14px;
+}
+@media only screen and (max-width: 600px){
+  form{
+    width:82%;
+  }
+  .btw{
+    display:none;
+  }
+}
+  
+{% endblock %}
 {% block body %}
 <div class="container container-top">
-    <div class="row">
-
+    <div class="row" style="background: #f1f1f1;padding: 30px 0px;">
+        <div class="col-12">
+        <img src="{% static 'img/param_logo-1.png' %}" alt="" style="width: 20%;margin: 0px 40%;">
+          <h1 style="text-align:center;">Kredi Kartı Ödemesi</h1>
+          <h4 style="text-align:center;">Ödeme Tutarı: {{total}} ₺</h4>
+          
+        </div>
         <div class="col-12">
         {{order_id}}
-            
+        <form method="post" id="ccform">
+        {% csrf_token %}
+          <div class="form-group">
+            <div class="col-md-12" style="float:left">
+              {{form.isim}}
+            </div>
+            <div class="col-md-12" style="float:left">
+              {{form.kkno}}
+              <p id="fkkno"></p>
+            </div>
+            <div class="col-md-2" style="float:left">
+              <select name="skay" class="contact-items" placeholder="Ay" maxlength="2" required="" id="id_skay" style="padding-left: 25px;">
+                <option>01</option>
+                <option>02</option>
+                <option>03</option>
+                <option>04</option>
+                <option>05</option>
+                <option>06</option>
+                <option>07</option>
+                <option>08</option>
+                <option>09</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+              </select>
+            </div>
+            <div class="col-md-1" style="float:left">
+              <span class="btw">/</span>
+            </div>
+            <div class="col-md-2" style="float:left">
+              {{form.skyil}}
+              <p id="fskyil"></p>
+            </div>
+            <div class="col-md-2" style="float:right">
+              {{form.cvc}}
+              <p id="fcvc"></p>
+            </div>
+            <div class="col-md-12" style="float:left">
+              {{form.gsm}}
+              <p id="fgsm"></p>
+            </div>
+          </div>
+          <button type="button" id="payBtn" class="btn btn-primary bg-param" style="float:left;width:100%;padding:5px;margin-bottom: 16px;">Ödeme Yap</button>
+          <img src="{% static 'img/os_kartlar_x2.svg' %}" alt="">
+        </form>
+          
         </div>
-        <iframe src="https://www.paytr.com/odeme/guvenli/{{token}}" id="paytriframe" frameborder="0" scrolling="no" style="width: 100%;"></iframe>
+        
 
         
       </div>
@@ -20,8 +115,30 @@
 {% endblock body %}
 
 {% block js %}
+  <script>
+    var paybtn = document.getElementById("payBtn")
+    paybtn.addEventListener("click",function(e){
+    e.PreventDefault;
+    if(document.getElementById('id_kkno').value.length != 16){
+      document.getElementById("fkkno").innerHTML = "Kart numaranızı 16 hane olarak yazınız";
+    }
+    else if(document.getElementById('id_cvc').value.length != 3){
+      document.getElementById("fcvc").innerHTML = "CVC 3 haneli olmalıdır";
+    }
+    else if(document.getElementById('id_skyil').value.length != 4){
+      document.getElementById("fskyil").innerHTML = "4 haneli olarak başına 20 ekleyerek yazınız";
+    }
+    else if(document.getElementById('id_gsm').value.length != 11){
+      document.getElementById("fgsm").innerHTML = "11 haneli telefon numaranızı yazınız";
+    }
+    else{
+      document.getElementById('payBtn').disabled='true';
+      paybtn.style.cursor="no-drop";
+      document.getElementById('ccform').submit();
 
-  <script src="https://www.paytr.com/js/iframeResizer.min.js"></script>
-  <script>iFrameResize({},'#paytriframe');</script>
+    }
+  });
+  </script>
+  
 
 {% endblock js %}
