@@ -251,6 +251,13 @@ def ccpayment(request):
                 order.save()
                 return render(request,"cart-success.html")
             else:
+                subject = 'hata'
+                message = """
+                    {}
+                """.format(response2.text)
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = ["mrkayacik@yahoo.com"]
+                send_mail( subject, message, email_from, recipient_list )
                 return render(request,"cart-fail.html")
 
    
