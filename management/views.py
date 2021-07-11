@@ -231,28 +231,25 @@ def update_order_detail(request,order_id,product_id,pincode_id):
     #ss=Cart.objects.filter(id=cart_id).prefetch_related('pin_code').prefetch_related('products').first().pin_code.get(id=pincode_id).pin_code
     pin=get_object_or_404(PinCode,id=pincode_id)
 
-    print(pin)
+    
     form=PinDeliveryForm(request.POST or None,instance=pin) 
     if form.is_valid():
         epin=form.cleaned_data.get('pin_code')
-        print("1.adım çalıştı")
+        
         newEpin=Cart.objects.filter(id=cart_id,products__id=product_id).prefetch_related('pin_code').first()
-        print("2.adım çalıştı")
-        print(epin)
-        print(type(epin))
+        
         pinobj=PinCode(id=pincode_id,pin_code=epin,product_id=product_id)
-        print(pinobj)
+        
         pinobj.save()
-        print(pinobj)
+        
         newEpin.pin_code.add(pinobj)
         
-        print("3.adım çalıştı")
+        
         #newEpin.pin_code.save()
-        print("4.adım çalıştı")
+        
         newEpin.cart_id=cart_id
         newEpin.save()
        
-        print(epin)
         
         return redirect("management:showordersdetail" ,order_id=order_id)
         

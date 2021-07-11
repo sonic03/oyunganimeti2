@@ -1,6 +1,16 @@
 {% extends 'main.html' %}
 {% load static %}
-
+{% block css %}
+#kredikarti{
+  line-height: 66px;
+  padding: 2% 43%;
+}
+@media only screen and (max-width: 600px){
+  #kredikarti{
+  padding: 3% 38% !important;
+}
+}
+{% endblock %}
 {% block body %}
 <div class="container container-top">
     <div class="row">
@@ -11,19 +21,20 @@
         <p>Sipariş Kodunuz : {{order_id}}</p>
         <p>Teslimatın tamamlanması için; <br>
         bir ödeme yöntemi seçiniz.</p>
-        {% comment %} <p>Teslimatın tamamlanması için; <br>
-        TR77 0006 2001 5960 0006 2989 74 <br> iban numarasına ödemenizi yapınız. <br>
-        Ödeme onayından sonra kodunuz ortalama 10 dakika içinde teslim edilecektir.<br>
-        Bakiye gönderiminde açıklama kısmına e posta adresini ve sipariş kodunuzu yazızınız.</p> {% endcomment %}
+        
         </div>
         
       </div>
-      <div class="col-12">
+      <div class="col-12" style="float:left;">
         <div class="col-md-6 col-12" style="float:left;padding: 16px;">
           <button id="havale" class="add-basket-btn pay" onclick="showh()">Havale ile Öde</button>
         </div>
+        <div class="col-md-6 col-12" style="float:left;padding: 16px;">
+          <a href="{% url 'carts:cc-payment' %}" id="kredikarti" class="add-basket-btn pay" style="width:100%;">Kart ile Öde</a>
+        </div>
         
       </div>
+      
       <div class="cart-success" id="showh" style="display:none;">
         <p>Teslimatın tamamlanması için; <br>
         TR77 0006 2001 5960 0006 2989 74 <br> iban numarasına ödemenizi yapınız. <br>

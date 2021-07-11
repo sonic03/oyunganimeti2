@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block body %}
+<div class="container container-top">
+    <div class="row">
+      
+      <div class="col-lg-12">
+        <div class="cart-success">
+        <h1> Siparişiniz alınmıştır.</h1>
+        <p>Sipariş Kodunuz : {{order_id}}</p>
+        <p>Ödemeniz kontrol edilip kodunuz en kısa sürede gönderilecektir.</p>
+        <p>Alışverişlerim sayfasına yönlendiriliyorsunuz</p>
+     
+        </div>
+        
+      </div>
+        
+    </div>
+</div>
+
+ 
+        
+
+{% endblock body %}
+
+{% block js %}
+
+   <script>
+    setTimeout(function(){   
+        window.location.assign("{% url 'user_orders' %}");
+        //3 saniye sonra yönlenecek
+        }, 3000);
+  </script>
+
+{% endblock js %}
