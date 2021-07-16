@@ -16,14 +16,13 @@ from billing.models import BillingProfile
 from management.models import MyUser
 from django.db.models import Q
 from django.shortcuts import render, HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.csrf import csrf_protect
+
 import base64
 import hmac
 import hashlib
 import requests
 from decimal import *
-from django.views.decorators.csrf import ensure_csrf_cookie
+
 
 User = settings.AUTH_USER_MODEL
 
@@ -120,7 +119,9 @@ def check_out_done(request):
 
     return render(request,'succes.html',{'order_id':order_id})
 
-@csrf_protect
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
 def ccpayment(request):
     form=KKForm(request.POST or None)
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -135,18 +136,18 @@ def ccpayment(request):
     for p in products:
         list_p=[str(p.name),str(p.discount_price),1]
         all_pros.append(list_p)
-    #guid="0c13d406-873b-403b-9c09-a5766840d98c" test için
-    #cli_code="10738" test için
-    #username="Test" test için
-    #pwd="Test" test için
+    #guid="0c13d406-873b-403b-9c09-a5766840d98c" #test için
+    #cli_code="10738" #test için
+    #username="Test" #test için
+    #pwd="Test" #test için
     guid="9F57F696-BD09-4B9F-8031-7476D02AED59"
     cli_code="37663"
     username="TP10068607"
     pwd="9F49402E0AB72B44"
     total = str(Decimal(order.order_total)).replace(".",",")
     siparis_ID = order.order_id
-    ok_url = 'http://localhost:8000/profile/orders/'
-    fail_url = 'http://localhost:8000/'
+    ok_url = 'https://oyunganimeti.com/card/successpay/'
+    fail_url = 'https://oyunganimeti.com/card/failpay/'
     
     if request.method=="POST":
         if form.is_valid:
@@ -157,18 +158,9 @@ def ccpayment(request):
             cvc=request.POST.get("cvc")
             gsm=request.POST.get("gsm")
             
-            print(isim)
-            print(kkno)
-            print(skay)
-            print(skyil)
-            print(cvc)
-            print(gsm)
-            print(total)
-
-            print(siparis_ID)
             hash_token=cli_code+guid+total+total+siparis_ID+fail_url+ok_url
-            print(hash_token)
-            adress="https://posws.param.com.tr/turkpos.ws/service_turkpos_prod.asmx?WSDL"
+            
+            adress="https://test-dmz.param.com.tr:4443/turkpos.ws/service_turkpos_test.asmx?WSDL"
             headers = {
                 'Content-type':'text/xml', 
                 'Accept':'text/xml'
@@ -184,8 +176,8 @@ def ccpayment(request):
             response=requests.post(adress,headers=headers,data=body)
 
             token=response.text[response.text.index("<SHA2B64Result>")+len("</SHA2B64Result>")-1:response.text.index("</SHA2B64Result>")]
-            print("token: " + token)
-            adress2="https://posws.param.com.tr/turkpos.ws/service_turkpos_prod.asmx?WSDL"
+            
+            adress2="https://test-dmz.param.com.tr:4443/turkpos.ws/service_turkpos_test.asmx?WSDL"
             body2="""<?xml version="1.0" encoding="utf-8"?>
             <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
             <soap:Body>
@@ -209,10 +201,10 @@ def ccpayment(request):
                 <Islem_Tutar>{}</Islem_Tutar>
                 <Toplam_Tutar>{}</Toplam_Tutar>
                 <Islem_Hash>{}</Islem_Hash>
-                <Islem_Guvenlik_Tip>NS</Islem_Guvenlik_Tip>
+                <Islem_Guvenlik_Tip>3D</Islem_Guvenlik_Tip>
                 <Islem_ID>{}</Islem_ID>
                 <IPAdr>{}</IPAdr>
-                <Ref_URL>https://dev.param.com.tr/tr</Ref_URL>
+                <Ref_URL>http://localhost:8000/card/cc-payment/</Ref_URL>
                 <Data1>string</Data1>
                 <Data2>string</Data2>
                 <Data3>string</Data3>
@@ -228,28 +220,23 @@ def ccpayment(request):
                                         total,total,token,siparis_ID,ip)
             
             response2=requests.post(adress2,headers=headers,data=body2.encode('utf-8'))
-            print(response2.text)
+           
             result=response2.text[response2.text.index("<Sonuc>")+len("<Sonuc>"):response2.text.index("</Sonuc>")]
             if int(result) == -207:
                 return HttpResponse('<h1>Sistem Hatası</h1>')
-            #result3d=response2.text[response2.text.index("<UCD_HTML>")+len("<UCD_HTML>"):response2.text.index("</UCD_HTML>")]
-            #result3d=result3d.replace("&lt;","<")
-            #result3d=result3d.replace("&gt;",">")
-            #result3d=result3d.replace('<input type="hidden" name="_charset_" value="UTF-8"/>','<input type="hidden" name="csrfmiddlewaretoken" value="'+request.META["CSRF_COOKIE"]+'"><input type="hidden" name="_charset_" value="UTF-8"/>')
-            
-            
-            #print(result3d)
-            
-            print(result)
-            
-            print(request.META["CSRF_COOKIE"])
+            result3d=response2.text[response2.text.index("<UCD_HTML>")+len("<UCD_HTML>"):response2.text.index("</UCD_HTML>")]
+            result3d=result3d.replace("&lt;","<")
+            result3d=result3d.replace("&gt;",">")
+           
+            #csrf=request.META["CSRF_COOKIE"]
+            #result3d=result3d.replace('<form id="webform0" name="red2ACSv1" method="POST" action="https://katmai2.asseco-see.com.tr/mdpayacs3/pareq" accept_charset="UTF-8">','<form id="webform0" name="red2ACSv1" method="POST" action="https://katmai2.asseco-see.com.tr/mdpayacs3/pareq" accept_charset="UTF-8"><input type="hidden" name="csrfmiddlewaretoken" value="'+request.META["CSRF_COOKIE"]+'">')
             
             if int(result) > 0:
-                #return HttpResponse(result3d,content_type="text/html")
-                order=Order.objects.filter(Q(order_id=order.order_id)).first()
-                order.status='Kart Ödemesi'
-                order.save()
-                return render(request,"cart-success.html")
+                return HttpResponse(result3d,content_type="text/html")
+                #order=Order.objects.filter(Q(order_id=order.order_id)).first()
+                #order.status='Kart Ödemesi'
+                #order.save()
+                #return render(request,"cart-success.html")
             else:
                 subject = 'hata'
                 message = """
@@ -267,6 +254,9 @@ def ccpayment(request):
 
 
     return render(request,"cc-payment.html",{'form':form,'total':order.order_total})
+
+
+
 
 
 
@@ -324,7 +314,20 @@ def callback(request):
         # Bildirimin alındığını PayTR sistemine bildir.
         return HttpResponse(str('OK'))
 
-def paytr(request):
+@csrf_exempt
+def successpay(request):   
+    if request.method=='POST':
+        order=Order.objects.filter(Q(order_id=request.POST.get('orderId'))).first()
+        order.status='Kart Ödemesi'
+        order.save()
+        
+        return render(request,'cart-success.html')
+    
+    order=Order.objects.filter(Q(billing_profile_id=request.user.id) & Q(status='paid')).order_by('-timestamp').first()
+    
+    return render(request,'cart-success.html')
 
-    return render(request,'paytr.html')
+def failpay(request):   
+    
+    return render(request,"cart-fail.html")
 
