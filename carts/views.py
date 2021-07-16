@@ -160,7 +160,7 @@ def ccpayment(request):
             
             hash_token=cli_code+guid+total+total+siparis_ID+fail_url+ok_url
             
-            adress="https://test-dmz.param.com.tr:4443/turkpos.ws/service_turkpos_test.asmx?WSDL"
+            adress="https://posws.param.com.tr/turkpos.ws/service_turkpos_prod.asmx?WSDL"
             headers = {
                 'Content-type':'text/xml', 
                 'Accept':'text/xml'
@@ -177,7 +177,7 @@ def ccpayment(request):
 
             token=response.text[response.text.index("<SHA2B64Result>")+len("</SHA2B64Result>")-1:response.text.index("</SHA2B64Result>")]
             
-            adress2="https://test-dmz.param.com.tr:4443/turkpos.ws/service_turkpos_test.asmx?WSDL"
+            adress2="https://posws.param.com.tr/turkpos.ws/service_turkpos_prod.asmx?WSDL"
             body2="""<?xml version="1.0" encoding="utf-8"?>
             <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
             <soap:Body>
