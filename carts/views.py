@@ -222,6 +222,13 @@ def ccpayment(request):
             response2=requests.post(adress2,headers=headers,data=body2.encode('utf-8'))
            
             result=response2.text[response2.text.index("<Sonuc>")+len("<Sonuc>"):response2.text.index("</Sonuc>")]
+            subject = 'hata'
+            message = """
+                {}
+            """.format(result)
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = ["mrkayacik@yahoo.com"]
+            send_mail( subject, message, email_from, recipient_list )
             if int(result) == -207:
                 return HttpResponse('<h1>Sistem Hatası</h1>')
             result3d=response2.text[response2.text.index("<UCD_HTML>")+len("<UCD_HTML>"):response2.text.index("</UCD_HTML>")]
