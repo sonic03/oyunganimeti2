@@ -231,14 +231,15 @@ def ccpayment(request):
             send_mail( subject, message, email_from, recipient_list )
             if int(result) == -207:
                 return HttpResponse('<h1>Sistem Hatası</h1>')
-            result3d=response2.text[response2.text.index("<UCD_HTML>")+len("<UCD_HTML>"):response2.text.index("</UCD_HTML>")]
-            result3d=result3d.replace("&lt;","<")
-            result3d=result3d.replace("&gt;",">")
+            
            
             #csrf=request.META["CSRF_COOKIE"]
             #result3d=result3d.replace('<form id="webform0" name="red2ACSv1" method="POST" action="https://katmai2.asseco-see.com.tr/mdpayacs3/pareq" accept_charset="UTF-8">','<form id="webform0" name="red2ACSv1" method="POST" action="https://katmai2.asseco-see.com.tr/mdpayacs3/pareq" accept_charset="UTF-8"><input type="hidden" name="csrfmiddlewaretoken" value="'+request.META["CSRF_COOKIE"]+'">')
             
             if int(result) > 0:
+                result3d=response2.text[response2.text.index("<UCD_HTML>")+len("<UCD_HTML>"):response2.text.index("</UCD_HTML>")]
+                result3d=result3d.replace("&lt;","<")
+                result3d=result3d.replace("&gt;",">")
                 return HttpResponse(result3d,content_type="text/html")
                 #order=Order.objects.filter(Q(order_id=order.order_id)).first()
                 #order.status='Kart Ödemesi'
