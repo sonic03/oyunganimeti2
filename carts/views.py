@@ -225,7 +225,7 @@ def ccpayment(request):
             subject = 'hata'
             message = """
                 {}
-            """.format(response2)
+            """.format(response2.text)
             email_from = settings.EMAIL_HOST_USER
             recipient_list = ["mrkayacik@yahoo.com"]
             send_mail( subject, message, email_from, recipient_list )
