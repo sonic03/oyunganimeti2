@@ -204,7 +204,7 @@ def ccpayment(request):
                 <Islem_Guvenlik_Tip>3D</Islem_Guvenlik_Tip>
                 <Islem_ID>{}</Islem_ID>
                 <IPAdr>{}</IPAdr>
-                <Ref_URL>http://localhost:8000/card/cc-payment/</Ref_URL>
+                <Ref_URL>https://oyunganimeti.com/card/cc-payment/</Ref_URL>
                 <Data1>string</Data1>
                 <Data2>string</Data2>
                 <Data3>string</Data3>
@@ -225,7 +225,7 @@ def ccpayment(request):
             subject = 'hata'
             message = """
                 {}
-            """.format(result)
+            """.format(response2)
             email_from = settings.EMAIL_HOST_USER
             recipient_list = ["mrkayacik@yahoo.com"]
             send_mail( subject, message, email_from, recipient_list )
