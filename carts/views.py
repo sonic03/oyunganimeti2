@@ -356,12 +356,15 @@ def successpay(request):
         order=Order.objects.filter(Q(order_id=request.POST.get('orderId'))).first()
         order.status='Kart Ödemesi'
         order.save()
-        
+        md=request.POST['md']
+        iguid=request.POST['islemGUID']
+        orderid=request.POST['orderId']
         adress="https://posws.param.com.tr/turkpos.ws/service_turkpos_prod.asmx?WSDL"
         headers = {
             'Content-type':'text/xml', 
             'Accept':'text/xml'
         }
+
         body="""<?xml version="1.0" encoding="utf-8"?>
             <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
             <soap:Body>
@@ -373,12 +376,11 @@ def successpay(request):
                 </G>
                 <GUID>9F57F696-BD09-4B9F-8031-7476D02AED59</GUID>
                 <UCD_MD>{}</UCD_MD>
-                <Islem_GUID>{}}</Islem_GUID>
+                <Islem_GUID>{}</Islem_GUID>
                 <Siparis_ID>{}</Siparis_ID>
                 </TP_WMD_Pay>
             </soap:Body>
-            </soap:Envelope>
-        """.format(request.POST['md'],request.POST['islemGUID'],request.POST['orderId'])
+            </soap:Envelope>""".format(md,iguid,orderid)
         response=requests.post(adress,headers=headers,data=body.encode('utf-8'))
         subject = 'post response'
         message = """
