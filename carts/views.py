@@ -222,7 +222,7 @@ def ccpayment(request):
             response2=requests.post(adress2,headers=headers,data=body2.encode('utf-8'))
            
             result=response2.text[response2.text.index("<Sonuc>")+len("<Sonuc>"):response2.text.index("</Sonuc>")]
-            subject = 'hata'
+            subject = 'hata11'
             message = """
                 {}
             """.format(response2.text)
@@ -240,11 +240,50 @@ def ccpayment(request):
                 result3d=response2.text[response2.text.index("<UCD_HTML>")+len("<UCD_HTML>"):response2.text.index("</UCD_HTML>")]
                 result3d=result3d.replace("&lt;","<")
                 result3d=result3d.replace("&gt;",">")
-                return HttpResponse(result3d,content_type="text/html")
-                #order=Order.objects.filter(Q(order_id=order.order_id)).first()
-                #order.status='Kart Ödemesi'
-                #order.save()
-                #return render(request,"cart-success.html")
+                ucmd=response2.text[response2.text.index("<UCD_MD>")+len("<UCD_MD>"):response2.text.index("</UCD_MD>")]
+                iguid=response2.text[response2.text.index("<Islem_GUID>")+len("<Islem_GUID>"):response2.text.index("</Islem_GUID>")]
+                bodyBank="""
+                    <?xml version="1.0" encoding="utf-8"?>
+                        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+                        <soap:Body>
+                            <TP_WMD_Pay xmlns="https://turkpos.com.tr/">
+                            <G>
+                                <CLIENT_CODE>{}</CLIENT_CODE>
+                                <CLIENT_USERNAME>{}</CLIENT_USERNAME>
+                                <CLIENT_PASSWORD>{}</CLIENT_PASSWORD>
+                            </G>
+                            <GUID>{}</GUID>
+                            <UCD_MD>{}</UCD_MD>
+                            <Islem_GUID>{}</Islem_GUID>
+                            <Siparis_ID>{}</Siparis_ID>
+                            </TP_WMD_Pay>
+                        </soap:Body>
+                        </soap:Envelope>
+                """.format(cli_code,username,pwd,guid,ucmd,iguid,siparis_ID)
+                response3=requests.post(adress2,headers=headers,data=bodyBank.encode('utf-8'))
+                subject = 'banka'
+                message = """
+                    {}
+                """.format(response3.text)
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = ["mrkayacik@yahoo.com"]
+                send_mail( subject, message, email_from, recipient_list )
+                bankresult=response3.text[response3.text.index("<Bank_Sonuc_Kod>")+len("<Bank_Sonuc_Kod>"):response3.text.index("</Bank_Sonuc_Kod>")]
+                if bankresult == "1":
+                    return HttpResponse(result3d,content_type="text/html")
+                    #order=Order.objects.filter(Q(order_id=order.order_id)).first()
+                    #order.status='Kart Ödemesi'
+                    #order.save()
+                    #return render(request,"cart-success.html")
+                else:
+                    subject = 'banka hatası'
+                message = """
+                    {}
+                """.format(response3.text)
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = ["mrkayacik@yahoo.com"]
+                send_mail( subject, message, email_from, recipient_list )
+
             else:
                 subject = 'hata'
                 message = """
