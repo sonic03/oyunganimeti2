@@ -356,10 +356,34 @@ def successpay(request):
         order=Order.objects.filter(Q(order_id=request.POST.get('orderId'))).first()
         order.status='Kart Ödemesi'
         order.save()
+        
+        adress="https://posws.param.com.tr/turkpos.ws/service_turkpos_prod.asmx?WSDL"
+        headers = {
+            'Content-type':'text/xml', 
+            'Accept':'text/xml'
+        }
+        body="""<?xml version="1.0" encoding="utf-8"?>
+            <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                <TP_WMD_Pay xmlns="https://turkpos.com.tr/">
+                <G>
+                    <CLIENT_CODE>37663</CLIENT_CODE>
+                    <CLIENT_USERNAME>TP10068607</CLIENT_USERNAME>
+                    <CLIENT_PASSWORD>9F49402E0AB72B44</CLIENT_PASSWORD>
+                </G>
+                <GUID>9F57F696-BD09-4B9F-8031-7476D02AED59</GUID>
+                <UCD_MD>{}</UCD_MD>
+                <Islem_GUID>{}}</Islem_GUID>
+                <Siparis_ID>{}</Siparis_ID>
+                </TP_WMD_Pay>
+            </soap:Body>
+            </soap:Envelope>
+        """.format(request.POST['md'],request.POST['islemGUID'],request.POST['orderId'])
+        response=requests.post(adress,headers=headers,data=body.encode('utf-8'))
         subject = 'post response'
         message = """
             {}
-        """.format(request.POST)
+        """.format(response.text)
         email_from = settings.EMAIL_HOST_USER
         recipient_list = ["mrkayacik@yahoo.com"]
         send_mail( subject, message, email_from, recipient_list )
