@@ -220,12 +220,41 @@ def ccpayment(request):
                                         total,total,token,siparis_ID,ip)
             
             response2=requests.post(adress2,headers=headers,data=body2.encode('utf-8'))
+            ucmd=response2.text[response2.text.index("<UCD_MD>")+len("<UCD_MD>"):response2.text.index("</UCD_MD>")]
+            iguid=response2.text[response2.text.index("<Islem_GUID>")+len("<Islem_GUID>"):response2.text.index("</Islem_GUID>")]
+            bodyBank="""<?xml version="1.0" encoding="utf-8"?>
+                   <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+                   <soap:Body>
+                       <TP_WMD_Pay xmlns="https://turkpos.com.tr/">
+                       <G>
+                           <CLIENT_CODE>{}</CLIENT_CODE>
+                           <CLIENT_USERNAME>{}</CLIENT_USERNAME>
+                           <CLIENT_PASSWORD>{}</CLIENT_PASSWORD>
+                       </G>
+                       <GUID>{}</GUID>
+                       <UCD_MD>{}</UCD_MD>
+                       <Islem_GUID>{}</Islem_GUID>
+                       <Siparis_ID>{}</Siparis_ID>
+                       </TP_WMD_Pay>
+                   </soap:Body>
+                   </soap:Envelope>""".format(cli_code,username,pwd,guid,ucmd,iguid,siparis_ID)
+            response3=requests.post(adress2,headers=headers,data=bodyBank.encode('utf-8'))
+            subject = 'banka'
+            message = """
+                {}
+            """.format(response3.text)
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = ["mrkayacik@yahoo.com"]
+            send_mail( subject, message, email_from, recipient_list )
+            bankresult=response3.text[response3.text.index("<Bank_Sonuc_Kod>")+len("<Bank_Sonuc_Kod>"):response3.text.index("</Bank_Sonuc_Kod>")]
+                
            
             result=response2.text[response2.text.index("<Sonuc>")+len("<Sonuc>"):response2.text.index("</Sonuc>")]
             subject = 'hata11'
             message = """
                 {}
-            """.format(response2.text)
+                banka sonuc: {}
+            """.format(response2.text,bankresult)
             email_from = settings.EMAIL_HOST_USER
             recipient_list = ["mrkayacik@yahoo.com"]
             send_mail( subject, message, email_from, recipient_list )
