@@ -246,7 +246,7 @@ def ccpayment(request):
             email_from = settings.EMAIL_HOST_USER
             recipient_list = ["mrkayacik@yahoo.com"]
             send_mail( subject, message, email_from, recipient_list )
-            bankresult=response3.text[response3.text.index("<Bank_Sonuc_Kod>")+len("<Bank_Sonuc_Kod>"):response3.text.index("</Bank_Sonuc_Kod>")]
+            bankresult=response3.text[response3.text.index("<Banka_Sonuc_Kod>")+len("<Banka_Sonuc_Kod>"):response3.text.index("</Banka_Sonuc_Kod>")]
                 
            
             result=response2.text[response2.text.index("<Sonuc>")+len("<Sonuc>"):response2.text.index("</Sonuc>")]
@@ -357,6 +357,13 @@ def successpay(request):
         order=Order.objects.filter(Q(order_id=request.POST.get('orderId'))).first()
         order.status='Kart Ödemesi'
         order.save()
+        subject = 'post response'
+        message = """
+            {}
+        """.format(request.POST)
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = ["mrkayacik@yahoo.com"]
+        send_mail( subject, message, email_from, recipient_list )
         
         return render(request,'cart-success.html')
     
