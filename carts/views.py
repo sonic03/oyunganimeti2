@@ -213,8 +213,7 @@ def ccpayment(request):
                 
                 </TP_WMD_UCD>
             </soap:Body>
-            </soap:Envelope>""".format(cli_code,username,
-                                        pwd,guid,isim,
+            </soap:Envelope>""".format(cli_code,username,pwd,guid,isim,
                                         kkno,skay,skyil,
                                         cvc,gsm,fail_url,ok_url,siparis_ID,
                                         total,total,token,siparis_ID,ip)
