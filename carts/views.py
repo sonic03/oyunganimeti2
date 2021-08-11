@@ -158,7 +158,7 @@ def ccpayment(request):
             cvc=request.POST.get("cvc")
             gsm=request.POST.get("gsm")
             
-            hash_token=cli_code+guid+total+total+siparis_ID+fail_url+ok_url
+            hash_token=cli_code+guid+"1"+total+total+siparis_ID+fail_url+ok_url
             
             adress="https://posws.param.com.tr/turkpos.ws/service_turkpos_prod.asmx?WSDL"
             headers = {
@@ -198,6 +198,7 @@ def ccpayment(request):
                 <Basarili_URL>{}</Basarili_URL>
                 <Siparis_ID>{}</Siparis_ID>
                 <Siparis_Aciklama>string</Siparis_Aciklama>
+                <Taksit>1</Taksit>
                 <Islem_Tutar>{}</Islem_Tutar>
                 <Toplam_Tutar>{}</Toplam_Tutar>
                 <Islem_Hash>{}</Islem_Hash>
