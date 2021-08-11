@@ -151,8 +151,8 @@ try {
     var login = document.getElementById("login");
     var register = document.getElementById("register");
 
-    login.addEventListener("click", function() { window.location.href = "{% url 'loginsite' %}"; });
-    register.addEventListener("click", function() { window.location.href = "{% url 'registersite' %}"; });
+    login.addEventListener("click", function() { window.location.href = "https://www.oyunganimeti.com/login/"; });
+    register.addEventListener("click", function() { window.location.href = "https://www.oyunganimeti.com/register/"; });
 } catch (error) {
 
 }
