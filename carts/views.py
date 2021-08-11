@@ -181,7 +181,7 @@ def ccpayment(request):
             body2="""<?xml version="1.0" encoding="utf-8"?>
             <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
             <soap:Body>
-                <TP_Islem_Odeme_OnProv_WMD xmlns="https://turkpos.com.tr/">
+                <TP_WMD_UCD xmlns="https://turkpos.com.tr/">
                 <G>
                     <CLIENT_CODE>{}</CLIENT_CODE>
                     <CLIENT_USERNAME>{}</CLIENT_USERNAME>
@@ -211,10 +211,9 @@ def ccpayment(request):
                 <Data4>string</Data4>
                 <Data5>string</Data5>
                 
-                </TP_Islem_Odeme_OnProv_WMD>
+                </TP_WMD_UCD>
             </soap:Body>
-            </soap:Envelope>""".format(cli_code,username,
-                                        pwd,guid,isim,
+            </soap:Envelope>""".format(cli_code,username,pwd,guid,isim,
                                         kkno,skay,skyil,
                                         cvc,gsm,fail_url,ok_url,siparis_ID,
                                         total,total,token,siparis_ID,ip)
